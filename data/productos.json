@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "nombre": "Paracetamol 500mg",
+    "categoria": "medicinas",
+    "descripcion": "Analgésico y antipirético para el alivio del dolor y fiebre.",
+    "precio": 5.50,
+    "rating": 4.8,
+    "imagen": "img/paracetamol.jpg",
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "nombre": "Ibuprofeno 400mg",
+    "categoria": "medicinas",
+    "descripcion": "Antiinflamatorio no esteroideo para dolor e inflamación.",
+    "precio": 6.00,
+    "rating": 4.8,
+    "imagen": "img/ibuprofeno.jpg",
+    "stock": 40
+  },
+  {
+    "id": 3,
+    "nombre": "Omeprazol 20mg",
+    "categoria": "medicinas",
+    "descripcion": "Inhibidor de la bomba de protones para acidez y reflujo.",
+    "precio": 8.50,
+    "rating": 4.7,
+    "imagen": "img/omeprazol.jpg",
+    "stock": 30
+  },
+  {
+    "id": 4,
+    "nombre": "Crema Hidratante",
+    "categoria": "cuidado-personal",
+    "descripcion": "Crema hidratante para piel seca y sensible.",
+    "precio": 12.00,
+    "rating": 4.9,
+    "imagen": "img/crema-hidratante.jpg",
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "nombre": "Vitamina C 1g",
+    "categoria": "vitaminas",
+    "descripcion": "Suplemento para reforzar el sistema inmunológico.",
+    "precio": 15.00,
+    "rating": 4.6,
+    "imagen": "img/vitamina-c.jpg",
+    "stock": 25
+  },
+  {
+    "id": 6,
+    "nombre": "Shampoo Anticaspa",
+    "categoria": "cuidado-personal",
+    "descripcion": "Shampoo para control de caspa y cuidado del cuero cabelludo.",
+    "precio": 18.00,
+    "rating": 4.5,
+    "imagen": "img/shampoo.jpg",
+    "stock": 15
+  },
+  {
+    "id": 7,
+    "nombre": "Multivitamínico Complejo B",
+    "categoria": "vitaminas",
+    "descripcion": "Complejo de vitaminas B para energía y bienestar general.",
+    "precio": 20.00,
+    "rating": 4.7,
+    "imagen": "img/multivitaminico.jpg",
+    "stock": 10
+  },
+  {
+    "id": 8,
+    "nombre": "Protector Solar SPF50",
+    "categoria": "cuidado-personal",
+    "descripcion": "Protección solar de amplio espectro para piel sensible.",
+    "precio": 25.00,
+    "rating": 4.9,
+    "imagen": "img/protector-solar.jpg",
+    "stock": 12
+  }
+]
