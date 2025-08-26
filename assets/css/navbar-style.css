@@ -1,6 +1,11 @@
 .navbar {
   background: linear-gradient(90deg, #fff6f7, #ffffff);
 }
+ul.navbar-nav {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .navbar-brand span {
   font-weight: bold;
   color: #bc1018;
