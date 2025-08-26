@@ -1,279 +1,277 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Farmacia María Rosa</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Iconos Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmacia María Rosa</title>
+    <link rel="stylesheet" href="./assets/css/footer-style.css" />
+    <link rel="stylesheet" href="./assets/css/navbar-style.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Iconos Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #333;
-    }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #ffffff;
+        color: #333;
+      }
+      /* Botones */
+      .btn-custom {
+        background: linear-gradient(135deg, #1a7d7c, #659592);
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px 22px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+      .btn-custom:hover {
+        background: linear-gradient(135deg, #bc1018, #e44a52);
+        transform: scale(1.05);
+      }
 
-    /* Navbar */
-    .navbar {
-      background: linear-gradient(90deg, #FFF6F7, #ffffff);
-    }
-    .navbar-brand span {
-      font-weight: bold;
-      color: #BC1018;
-      transition: color 0.3s ease;
-    }
-    .navbar-brand span:hover {
-      color: #1A7D7C;
-    }
-    .nav-link {
-      color: #444;
-      transition: color 0.3s ease;
-    }
-    .nav-link:hover {
-      color: #BC1018;
-    }
-    .nav-link.active {
-      font-weight: bold;
-      color: #1A7D7C !important;
-    }
-      .nav-btn {
-    background-color: #FFF6F7;   /* rojo corporativo */
-    color: #BC1018 !important;
-    border-radius: 8px;
-    padding: 8px 18px;
-    margin-left: 8px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-  .nav-btn:hover {
-    background-color: #1A7D7C;  /* cambia a verde en hover */
-    transform: translateY(-3px); /* efecto dinámico */
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
-  }
+      /* Hero */
+      .hero {
+        background: #fff6f7;
+        padding: 60px 0;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+        line-height: 1.3;
+      }
+      .hero img {
+        border: 5px solid #fff6f7;
+        transition: transform 0.4s ease;
+      }
+      .hero img:hover {
+        transform: scale(1.05);
+      }
 
-    /* Botones */
-    .btn-custom {
-      background: linear-gradient(135deg, #1A7D7C, #659592);
-      color: #fff;
-      border-radius: 10px;
-      padding: 10px 22px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-    .btn-custom:hover {
-      background: linear-gradient(135deg, #BC1018, #e44a52);
-      transform: scale(1.05);
-    }
+      /* Categorías */
+      section.py-5 {
+        background: linear-gradient(180deg, #ffffff, #f8fafa);
+      }
+      .card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .card-body i {
+        font-size: 2.2rem;
+        color: #1a7d7c;
+        transition: color 0.3s ease;
+      }
+      .card-body i:hover {
+        color: #bc1018;
+      }
 
-    /* Hero */
-    .hero {
-      background: #FFF6F7;
-      padding: 60px 0;
-    }
-    .hero h1 {
-      font-size: 2.5rem;
-      line-height: 1.3;
-    }
-    .hero img {
-      border: 5px solid #FFF6F7;
-      transition: transform 0.4s ease;
-    }
-    .hero img:hover {
-      transform: scale(1.05);
-    }
+      /* Badges personalizados */
+      .badge.bg-primary-custom {
+        background-color: #bc1018;
+      }
+      .badge.bg-success-custom {
+        background-color: #1a7d7c;
+      }
+      .badge.bg-accent {
+        background-color: #659592;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg shadow-sm sticky-top bg-white">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img
+            src="./assets/img/logo2.jpeg"
+            alt="Logo Farmacia"
+            width="45"
+            height="45"
+            class="me-2 rounded-circle"
+          />
+          <span class="fw-bold" style="color: #bc1018"
+            >Farmacia María Rosa</span
+          >
+        </a>
 
-    /* Categorías */
-    section.py-5 {
-      background: linear-gradient(180deg, #ffffff, #f8fafa);
-    }
-    .card {
-      border: none;
-      border-radius: 20px;
-      box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
-      transition: transform .3s ease, box-shadow .3s ease;
-    }
-    .card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
-    }
-    .card-body i {
-      font-size: 2.2rem;
-      color: #1A7D7C;
-      transition: color 0.3s ease;
-    }
-    .card-body i:hover {
-      color: #BC1018;
-    }
+        <!-- Botón de colapso en móvil -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-    /* Badges personalizados */
-    .badge.bg-primary-custom {
-      background-color: #BC1018;
-    }
-    .badge.bg-success-custom {
-      background-color: #1A7D7C;
-    }
-    .badge.bg-accent {
-      background-color: #659592;
-    }
-
-    /* Footer */
-    footer {
-      background: linear-gradient(90deg, #FFF6F7, #ffffff);
-      padding: 40px 0;
-    }
-    footer h5 {
-      color: #BC1018;
-    }
-    footer i {
-      color: #1A7D7C;
-    }
-    footer p {
-      margin: 0;
-      color: #555;
-    }
-    footer p:hover {
-      color: #BC1018;
-    }
-  </style>
-</head>
-<body>
-
-
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg shadow-sm sticky-top bg-white">
-  <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="img/logo2.jpeg" alt="Logo Farmacia" width="45" height="45" class="me-2 rounded-circle">
-      <span class="fw-bold" style="color:#BC1018;">Farmacia María Rosa</span>
-    </a>
-
-    <!-- Botón de colapso en móvil -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Menú -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto d-flex align-items-center gap-3">
-        <li class="nav-item">
-          <a class="nav-link nav-btn" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-btn" href="#">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-btn" href="#">Contacto</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- Texto -->
-      <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
-        <span class="badge bg-light text-danger mb-3">
-          <i class="bi bi-star-fill me-1" style="color:#BC1018;"></i> Tu farmacia de confianza
-        </span>
-        <h1 class="fw-bold">
-          Encuentra tus productos <br>
-          y <span style="color:#1A7D7C;">recógelos en tienda</span>
-        </h1>
-        <p class="text-muted">Reserva tus medicamentos y productos de salud online. Agenda tu hora de recogida y paga cómodamente en nuestra farmacia.</p>
-        <a href="#" class="btn btn-custom">Ver Productos</a>
-      </div>
-      <!-- Imagen -->
-      <div class="col-md-6">
-        <div class="position-relative">
-          <img src="img/farmacia.jpg" class="img-fluid rounded-4 shadow" alt="Farmacia">
-          <span class="badge bg-primary-custom position-absolute bottom-0 start-0 m-3">500+ Productos</span>
-          <span class="badge bg-success-custom position-absolute top-0 end-0 m-3">Disponible 24/7</span>
+        <!-- Menú -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto d-flex align-items-center gap-3">
+            <li class="nav-item">
+              <a class="nav-link nav-btn" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-btn" href="./pages/catalogo.html"
+                >Productos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-btn" href="#">Contacto</a>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </nav>
 
-<!-- CATEGORÍAS -->
-<section class="py-5">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-3" style="color:#1A7D7C;">Nuestras Categorías</h2>
-    <p class="text-muted mb-5">Encuentra exactamente lo que necesitas para tu salud y bienestar</p>
-    <div class="row g-4">
-
-      <!-- Categoría 1 -->
-      <div class="col-md-4">
-        <div class="card h-100 position-relative">
-          <!-- Logo en esquina -->
-          <img src="img/categoria-medicinas_icono.png" class="position-absolute top-0 end-0 m-2 rounded-circle shadow" width="50" height="50" alt="Logo categoría">
-          <img src="img/categoria-medicinas.jpg" alt="Medicinas" class="card-img-top">
-          <div class="card-body">
-            <i class="bi bi-capsule-pill mb-2"></i>
-            <h5 class="fw-bold">Medicinas</h5>
-            <p class="text-muted">Medicamentos recetados y de venta libre</p>
-            <a href="#" class="btn btn-custom">Explorar Categoría</a>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Texto -->
+          <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+            <span class="badge bg-light text-danger mb-3">
+              <i class="bi bi-star-fill me-1" style="color: #bc1018"></i> Tu
+              farmacia de confianza
+            </span>
+            <h1 class="fw-bold">
+              Encuentra tus productos <br />
+              y <span style="color: #1a7d7c">recógelos en tienda</span>
+            </h1>
+            <p class="text-muted">
+              Reserva tus medicamentos y productos de salud online. Agenda tu
+              hora de recogida y paga cómodamente en nuestra farmacia.
+            </p>
+            <a href="#" class="btn btn-custom">Ver Productos</a>
+          </div>
+          <!-- Imagen -->
+          <div class="col-md-6">
+            <div class="position-relative">
+              <img
+                src="./assets/img/farmacia.jpg"
+                class="img-fluid rounded-4 shadow"
+                alt="Farmacia"
+              />
+              <span
+                class="badge bg-primary-custom position-absolute bottom-0 start-0 m-3"
+                >500+ Productos</span
+              >
+              <span
+                class="badge bg-success-custom position-absolute top-0 end-0 m-3"
+                >Disponible 24/7</span
+              >
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Categoría 2 -->
-      <div class="col-md-4">
-        <div class="card h-100 position-relative">
-          <!-- Logo en esquina -->
-          <img src="img/categoria-cuidado_icono.png" class="position-absolute top-0 end-0 m-2 rounded-circle shadow" width="50" height="50" alt="Logo categoría">
-          <img src="img/categoria-cuidado.jpg" alt="Cuidado Personal" class="card-img-top">
-          <div class="card-body">
-            <i class="bi bi-heart-pulse mb-2"></i>
-            <h5 class="fw-bold">Cuidado Personal</h5>
-            <p class="text-muted">Productos para tu higiene y bienestar</p>
-            <a href="#" class="btn btn-custom">Explorar Categoría</a>
+    <!-- CATEGORÍAS -->
+    <section class="py-5">
+      <div class="container text-center">
+        <h2 class="fw-bold mb-3" style="color: #1a7d7c">Nuestras Categorías</h2>
+        <p class="text-muted mb-5">
+          Encuentra exactamente lo que necesitas para tu salud y bienestar
+        </p>
+        <div class="row g-4">
+          <!-- Categoría 1 -->
+          <div class="col-md-4">
+            <div class="card h-100 position-relative">
+              <!-- Logo en esquina -->
+              <img
+                src="./assets/img/categoria-medicinas_icono.png"
+                class="position-absolute top-0 end-0 m-2 rounded-circle shadow"
+                width="50"
+                height="50"
+                alt="Logo categoría"
+              />
+              <div class="card-body">
+                <i class="bi bi-capsule-pill mb-2"></i>
+                <h5 class="fw-bold">Medicinas</h5>
+                <p class="text-muted">
+                  Medicamentos recetados y de venta libre
+                </p>
+                <a href="#" class="btn btn-custom">Explorar Categoría</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoría 2 -->
+          <div class="col-md-4">
+            <div class="card h-100 position-relative">
+              <!-- Logo en esquina -->
+              <img
+                src="./assets/img/categoria-cuidado_icono.png"
+                class="position-absolute top-0 end-0 m-2 rounded-circle shadow"
+                width="50"
+                height="50"
+                alt="Logo categoría"
+              />
+              <div class="card-body">
+                <i class="bi bi-heart-pulse mb-2"></i>
+                <h5 class="fw-bold">Cuidado Personal</h5>
+                <p class="text-muted">Productos para tu higiene y bienestar</p>
+                <a href="#" class="btn btn-custom">Explorar Categoría</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoría 3 -->
+          <div class="col-md-4">
+            <div class="card h-100 position-relative">
+              <!-- Logo en esquina -->
+              <img
+                src="./assets/img/categoria-vitaminas_icono.png"
+                class="position-absolute top-0 end-0 m-2 rounded-circle shadow"
+                width="50"
+                height="50"
+                alt="Logo categoría"
+              />
+              <div class="card-body">
+                <i class="bi bi-stars mb-2"></i>
+                <h5 class="fw-bold">Vitaminas y Suplementos</h5>
+                <p class="text-muted">Complementos para una vida saludable</p>
+                <a href="#" class="btn btn-custom">Explorar Categoría</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Categoría 3 -->
-      <div class="col-md-4">
-        <div class="card h-100 position-relative">
-          <!-- Logo en esquina -->
-          <img src="img/categoria-vitaminas_icono.png" class="position-absolute top-0 end-0 m-2 rounded-circle shadow" width="50" height="50" alt="Logo categoría">
-          <img src="img/categoria-vitaminas.jpg" alt="Vitaminas y Suplementos" class="card-img-top">
-          <div class="card-body">
-            <i class="bi bi-stars mb-2"></i>
-            <h5 class="fw-bold">Vitaminas y Suplementos</h5>
-            <p class="text-muted">Complementos para una vida saludable</p>
-            <a href="#" class="btn btn-custom">Explorar Categoría</a>
-          </div>
+    <!-- FOOTER -->
+    <footer>
+      <div class="container text-center">
+        <h5 class="fw-bold">Farmacia María Rosa</h5>
+        <p class="text-muted">
+          Tu farmacia de confianza. Comprometidos con tu salud y bienestar desde
+          hace más de 20 años.
+        </p>
+        <div
+          class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-3"
+        >
+          <p><i class="bi bi-geo-alt-fill"></i> Av. Principal 123, Ciudad</p>
+          <p><i class="bi bi-telephone-fill"></i> +56 9 1234 5678</p>
+          <p><i class="bi bi-envelope-fill"></i> info@farmaciamariarosa.cl</p>
         </div>
+        <p class="text-muted mt-3">
+          &copy; 2024 Farmacia María Rosa. Todos los derechos reservados.
+        </p>
       </div>
+    </footer>
 
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container text-center">
-    <h5 class="fw-bold">Farmacia María Rosa</h5>
-    <p class="text-muted">Tu farmacia de confianza. Comprometidos con tu salud y bienestar desde hace más de 20 años.</p>
-    <div class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-3">
-      <p><i class="bi bi-geo-alt-fill"></i> Av. Principal 123, Ciudad</p>
-      <p><i class="bi bi-telephone-fill"></i> +56 9 1234 5678</p>
-      <p><i class="bi bi-envelope-fill"></i> info@farmaciamariarosa.cl</p>
-    </div>
-    <p class="text-muted mt-3">&copy; 2024 Farmacia María Rosa. Todos los derechos reservados.</p>
-  </div>
-</footer>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
-
-

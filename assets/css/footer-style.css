@@ -1,0 +1,18 @@
+/* Footer */
+    footer {
+      background: linear-gradient(90deg, #FFF6F7, #ffffff);
+      padding: 40px 0;
+    }
+    footer h5 {
+      color: #BC1018;
+    }
+    footer i {
+      color: #1A7D7C;
+    }
+    footer p {
+      margin: 0;
+      color: #555;
+    }
+    footer p:hover {
+      color: #BC1018;
+    }
