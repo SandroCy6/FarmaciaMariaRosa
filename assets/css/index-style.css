@@ -5,16 +5,17 @@ color: #333;
 }
 /* Botones */
 .btn-custom {
-background: linear-gradient(135deg, #1a7d7c, #659592);
-color: #fff;
-border-radius: 10px;
-padding: 10px 22px;
-font-weight: 500;
-transition: all 0.3s ease;
+  background: linear-gradient(135deg, #bc1018, #e44a52);
+  color: #fff;
+  border-radius: 12px;
+  padding: 14px 28px;  /* más grande */
+  font-size: 1.1rem;  /* aumenta la letra */
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 .btn-custom:hover {
-background: linear-gradient(135deg, #bc1018, #e44a52);
-transform: scale(1.05);
+  background: linear-gradient(135deg, #9a0d14, #bc1018);
+  transform: scale(1.08);
 }
 
 /* Hero */
