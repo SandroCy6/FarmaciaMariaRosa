@@ -28,17 +28,25 @@ ul.navbar-nav {
 
 /* Botones de la navbar */
 .nav-btn {
-  background-color: #bc1018;
-  color: #8b8b8b !important;
-  border-radius: 8px;
+  text-decoration: none;
+  border-radius: 9px;
+  padding: 12px 18px;
+  margin-left: 8px;
+  font-weight: 500;
+  transition: all ease 0.3s !important;
+}
+.nav-btn:hover {
+  background-color: #ff8ba6; /* rojo más oscuro en hover */
+
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+.nav-btn-activo{
+  text-decoration: none;
+  border-radius: 9px;
   padding: 8px 18px;
   margin-left: 8px;
   font-weight: 500;
-  transition: all 0.3s ease;
-}
-.nav-btn:hover {
-  background-color: #9a0d14; /* rojo más oscuro en hover */
-  transform: translateY(-3px);
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #ff8ba6 !important;
+  color: #cb234a !important;
 }
 

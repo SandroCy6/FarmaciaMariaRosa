@@ -18,6 +18,36 @@ color: #333;
   transform: scale(1.08);
 }
 
+.darkModeToggle{
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  margin-right: 16px;
+  width: 36px;
+  height: 36px;
+  transition: all ease 0.3s;
+}
+
+.darkModeToggle:hover {
+  background-color: #cb234a;
+  color:white ;
+}
+
+.shopCarButton{
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  margin-right: 16px;
+  width: 36px;
+  height: 36px;
+  transition: all ease 0.3s;
+}
+
+.shopCarButton:hover{
+  background-color: #cb234a;
+  color:white ;
+}
+
 /* Hero */
 .hero {
 background: #fff6f7;
