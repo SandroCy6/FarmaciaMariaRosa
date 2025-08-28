@@ -1,0 +1,25 @@
+.card {
+  border-radius: 15px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  object-fit: contain;
+  height: 180px;
+}
+.badge-categoria {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #28a745; 
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
