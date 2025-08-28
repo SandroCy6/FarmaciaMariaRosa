@@ -144,9 +144,39 @@
         </p>
       </div>
     </footer>
+    <!-- Modal Detalle de Producto -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="productModalLabel" class="modal-title">Detalles del Producto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-5 text-center">
+                <img id="modalImagen" src="" alt="" class="img-fluid rounded shadow-sm">
+              </div>
+              <div class="col-md-7">
+                <h4 id="modalNombre"></h4>
+                <p id="modalDescripcion" class="text-muted"></p>
+                <p><strong>Categoría:</strong> <span id="modalCategoria"></span></p>
+                <p><strong>Stock:</strong> <span id="modalStock"></span></p>
+                <p><strong>Precio:</strong> <span id="modalPrecio" class="text-success fw-bold"></span></p>
+                <p><strong>Rating:</strong> <span id="modalRating" class="text-warning"></span></p>
+                <button class="btn btn-danger mt-3">
+                  <i class="bi bi-cart-plus"></i> Agregar al carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/dark-mode.js"></script>
+    
   </body>
 </html>

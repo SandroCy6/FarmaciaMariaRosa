@@ -93,3 +93,6 @@ body.dark-mode section.py-5 {
 body.dark-mode .text-gray-800 {
   color: #e0e0e0 !important;
 }
+body.dark-mode .modal-content {
+  background: #1f1f1f;
+}

@@ -15,27 +15,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const productosPagina = productos.slice(start, end);
 
     productosPagina.forEach(producto => {
-      const col = document.createElement("div");
-      col.classList.add("col-md-4");
+    const col = document.createElement("div");
+    col.classList.add("col-md-4");
 
-      col.innerHTML = `
-        <div class="card shadow-sm h-100 position-relative">
-          <span class="badge-categoria">${producto.categoria}</span>
-          <img src="${producto.imagen}" class="card-img-top p-3" alt="${producto.nombre}">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">${producto.nombre}</h5>
-            <p class="card-text text-muted">${producto.descripcion}</p>
-            <p class="mb-1"><strong>Stock:</strong> ${producto.stock}</p>
-            <div class="mt-auto">
-              <p class="fw-bold text-success">S/ ${producto.precio.toFixed(2)}</p>
-              <small class="text-warning">⭐ ${producto.rating}</small>
-            </div>
+    col.innerHTML = `
+      <div class="card shadow-sm h-100 position-relative producto-card" style="cursor:pointer">
+        <span class="badge-categoria">${producto.categoria}</span>
+        <img src="${producto.imagen}" class="card-img-top p-3" alt="${producto.nombre}">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">${producto.nombre}</h5>
+          <p class="card-text text-muted">${producto.descripcion}</p>
+          <p class="mb-1"><strong>Stock:</strong> ${producto.stock}</p>
+          <div class="mt-auto">
+            <p class="fw-bold text-success">S/ ${producto.precio.toFixed(2)}</p>
+            <small class="text-warning">⭐ ${producto.rating}</small>
           </div>
         </div>
-      `;
+      </div>
+    `;
 
-      container.appendChild(col);
-    });
+    // Evento click → abrir modal con detalles
+    col.querySelector(".producto-card").addEventListener("click", () => {
+    document.getElementById("modalImagen").src = producto.imagen;
+    document.getElementById("modalImagen").alt = producto.nombre;
+    document.getElementById("modalNombre").textContent = producto.nombre;
+    document.getElementById("modalDescripcion").textContent = producto.descripcion;
+    document.getElementById("modalCategoria").textContent = producto.categoria;
+    document.getElementById("modalStock").textContent = producto.stock;
+    document.getElementById("modalPrecio").textContent = `S/ ${producto.precio.toFixed(2)}`;
+    document.getElementById("modalRating").textContent = `⭐ ${producto.rating}`;
+
+    // Mostrar modal con Bootstrap
+    const modal = new bootstrap.Modal(document.getElementById("productModal"));
+    modal.show();
+  });
+
+  container.appendChild(col);
+});
+
 
     renderPagination();
   }
