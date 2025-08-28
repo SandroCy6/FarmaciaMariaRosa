@@ -1,53 +1,192 @@
+/* Fondo de la navbar con gradiente animado */
 .navbar {
-  background: linear-gradient(90deg, #EC3237, #e6474c);
+    background: linear-gradient(90deg, #EC3237, #e6474c, #ff8ba6);
+    background-size: 200% 100%;
+    animation: gradientFlow 8s ease infinite;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 1rem 40px !important;
 }
-ul.navbar-nav {
-  margin-left: auto;
-  margin-right: auto;
+
+
+
+/* Estilo del logo */
+.navbar-brand {
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-2px);
+}
+
+.navbar-brand img.logo-animate {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-animate{
+  border-radius: 30%;
+}
+
+.navbar-brand img.logo-animate:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 15px rgba(236, 50, 55, 0.5);
 }
 
 .navbar-brand span {
-  font-weight: bold;
-  color: #ffffff;
-  transition: color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
+
 .navbar-brand span:hover {
-  color: #F9F9F9;
-}
-.nav-link {
-  color: #444;
-  transition: color 0.3s ease;
-}
-.nav-link:hover {
-  color: #ffffff;
-}
-.nav-link.active {
-  font-weight: bold;
-  color: #e4c1c2 !important;
+    color: #F9F9F9;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-/* Botones de la navbar */
+/* Estilo de los enlaces */
+.navbar-nav {
+    margin-left: auto;
+    margin-right: auto;
+    gap: 30px !important;
+}
+
+.nav-item {
+    position: relative;
+}
+
 .nav-btn {
-  color: #fff !important;
-  text-decoration: none;
-  border-radius: 9px;
-  padding: 12px 18px;
-  margin-left: 8px;
-  font-weight: 500;
-  transition: all ease 0.3s !important;
+    color: #ffffff !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 9px;
+    
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.3s ease !important;
+
 }
+
 .nav-btn:hover {
-  background-color: #ff8ba6; /* rojo más oscuro en hover */
-
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-}
-.nav-btn-activo{
-  text-decoration: none;
-  border-radius: 9px;
-  padding: 8px 18px;
-  margin-left: 8px;
-  font-weight: 500;
-  background-color: #ff8ba6 !important;
-  color: #cb234a !important;
+    background: #ff8ba6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
 }
 
+.nav-btn-activo {
+    background: #ffffff !important;
+    color: #cb234a !important;
+    font-weight: 600;
+    padding: 8px 20px !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Indicador de subrayado animado */
+.nav-btn .nav-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #cb234a;
+    transition: width 0.3s ease;
+}
+
+.nav-btn:hover .nav-underline,
+.nav-btn-activo .nav-underline {
+    width: 100%;
+}
+
+/* Botón toggler personalizado para móviles */
+.custom-toggler {
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.custom-toggler:hover {
+    background: #ff8ba6;
+    border-color: #cb234a;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.custom-toggler:hover .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23cb234a' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Animación del menú colapsado en móviles */
+.navbar-collapse {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar-collapse.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.navbar-collapse.collapsing {
+    transform: translateY(-10px);
+    opacity: 0.8;
+}
+
+/* Botones de modo oscuro y carrito */
+.btn-custom-nav {
+    background: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    padding: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-custom-nav:hover {
+    background: #cb234a;
+    border-color: #cb234a;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(203, 35, 74, 0.5);
+}
+
+.btn-custom-nav svg {
+    stroke: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.btn-custom-nav:hover svg {
+    transform: scale(1.2);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 991px) {
+    .navbar-nav {
+        background: #EC3237;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+    .nav-btn {
+        display: block;
+        text-align: center;
+        margin: 5px 0;
+    }
+    .nav-btn .nav-underline {
+        display: none;
+    }
+    .btn-custom-nav {
+        margin: 10px auto;
+    }
+}
