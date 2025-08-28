@@ -22,54 +22,48 @@
   </head>
   <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg shadow-sm sticky-top bg-white">
-      <div class="container">
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+    <div class="container">
         <!-- Logo -->
-        <a class="navbar-brand d-flex align-items-center" href="../index.html">
-          <img
-            src="../assets/img/logo2.jpeg"
-            alt="Logo Farmacia"
-            width="45"
-            height="45"
-            class="me-2 rounded-circle"
-          />
-          <span class="fw-bold" style="color: #ffffff"
-            >Farmacia María Rosa</span
-          >
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="../assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50" class="me-2 logo-animate" />
+            <span class="fw-bold">&nbsp;Farmacia María Rosa</span>
         </a>
 
         <!-- Botón de colapso en móvil -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Menú-->
+        <!-- Menú -->
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mx-auto d-flex align-items-center gap-3">
-            <li class="nav-item">
-              <a class="nav-link nav-btn" href="../index.html">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-btn-activo" href="#">Productos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-btn" href="#">Contacto</a>
-            </li>
-          </ul>
+            <ul class="navbar-nav mx-auto d-flex align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link nav-btn" href="../index.html">Inicio<span class="nav-underline"></span></a>
+                </li>
+                    <a class="nav-link nav-btn nav-btn-activo" href="./pages/catalogo.html">Productos<span class="nav-underline"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-btn" href="#">Contacto<span class="nav-underline"></span></a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-2">
+                <button id="darkModeToggle" class="btn btn-custom-nav ms-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 icon-animate" aria-hidden="true">
+                        <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path>
+                    </svg>
+                </button>
+                <button id="shopCar" class="btn btn-custom-nav">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart h-5 w-5 icon-animate" aria-hidden="true">
+                        <circle cx="8" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
-  
-        <li class="nav-item">
-        <button id="darkModeToggle" class="btn btn-outline-dark ms-3">
-          <img src="../assets/icons/dark-mode-svgrepo-com.svg" width="24" height="24" alt="Modo oscuro" />
-        </button>
-        </li>
-      </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- CONTENEDOR PRINCIPAL -->
     <main class="max-w-7xl mx-auto px-4 py-8">

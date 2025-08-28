@@ -190,3 +190,25 @@
         margin: 10px auto;
     }
 }
+
+/* MODO NEGRO */
+body.dark-mode .navbar {
+  background: linear-gradient(90deg, #1e1e1e, #121212) !important;
+}
+
+body.dark-mode .navbar-nav{
+    background-color: #121212   ;
+}
+
+body.dark-mode .nav-link.nav-btn.nav-btn-activo{
+    background-color: white !important;
+    color: black !important;
+}
+
+
+
+@media (max-width: 768px) {
+  a.nav-link {
+    width: 150px;
+  }
+}
