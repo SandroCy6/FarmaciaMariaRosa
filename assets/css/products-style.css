@@ -1,3 +1,11 @@
+.main-principal{
+  padding-top: 50px;
+}
+
+.titulo-container{
+  margin-bottom: 30px;
+}
+
 .card {
   border-radius: 15px;
   transition: transform 0.2s ease-in-out;
