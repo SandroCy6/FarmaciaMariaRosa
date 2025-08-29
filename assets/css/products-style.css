@@ -38,3 +38,36 @@
   font-size: 1.1rem;
   padding: 10px 22px;
 }
+/* Input de búsqueda */
+#searchInput {
+  border-radius: 30px;
+  padding: 12px 20px 12px 45px;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 500px;
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23999" viewBox="0 0 24 24"><path d="M10,2A8,8 0 0,1 18,10C18,11.85 17.35,13.55 16.24,14.89L21.31,19.95L19.9,21.36L14.83,16.3C13.5,17.41 11.85,18 10,18A8,8 0 0,1 2,10A8,8 0 0,1 10,2M10,4A6,6 0 0,0 4,10A6,6 0 0,0 10,16A6,6 0 0,0 16,10A6,6 0 0,0 10,4Z" /></svg>') no-repeat 15px center;
+  background-size: 20px;
+}
+
+#searchInput:focus {
+  border-color: #EC3237;
+  box-shadow: 0 0 8px rgba(236, 50, 55, 0.4);
+  outline: none;
+}
+
+#categoryFilter {
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 2px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+#categoryFilter:focus {
+  border-color: #ec3237;
+  box-shadow: 0 0 8px rgba(236, 50, 55, 0.4);
+}
