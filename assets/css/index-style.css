@@ -238,7 +238,11 @@ body {
             "cuidado"
             "vitaminas";
         grid-template-columns: 1fr;
+		gap: 0px;
     }
+	.category-card{
+		margin-bottom: 20px;
+	}
     .categories h2 {
         font-size: 1.8rem;
     }
