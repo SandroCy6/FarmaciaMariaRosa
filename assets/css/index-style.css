@@ -1,128 +1,266 @@
 body {
-font-family: "Segoe UI", sans-serif;
-background: #ffffff;
-color: #333;
-}
-/* Botones */
-.btn-custom {
-  background: linear-gradient(135deg, #EC3237, #D62F34);
-   color: #fff !important;  
-  border-radius: 12px;
-  padding: 14px 28px;  /* más grande */
-  font-size: 1.1rem;  /* aumenta la letra */
-  font-weight: 600;
-  transition: all 0.3s ease !important;
-}
-.btn-custom:hover {
-  background: linear-gradient(135deg, #9a0d14, #bc1018);
-  transform: scale(1.08);
+	font-family: "Segoe UI", sans-serif;
+	background: #ffffff;
+	color: #333;
 }
 
-.darkModeToggle{
-  color: #fff;
-  background-color: transparent;
-  border: none;
-  border-radius: 8px;
-  margin-right: 16px;
-  width: 36px;
-  height: 36px;
-  transition: all ease 0.3s;
+/* Botones */
+.btn-custom {
+	background: linear-gradient(135deg, #EC3237, #D62F34);
+	color: #fff !important;
+	border-radius: 12px;
+	padding: 14px 28px;
+	/* más grande */
+	font-size: 1.1rem;
+	/* aumenta la letra */
+	font-weight: 600;
+	transition: all 0.3s ease !important;
+}
+
+.btn-custom:hover {
+	background: linear-gradient(135deg, #9a0d14, #bc1018);
+	transform: scale(1.08);
+}
+
+.darkModeToggle {
+	color: #fff;
+	background-color: transparent;
+	border: none;
+	border-radius: 8px;
+	margin-right: 16px;
+	width: 36px;
+	height: 36px;
+	transition: all ease 0.3s;
 }
 
 .darkModeToggle:hover {
-  background-color: #cb234a;
-  color:white ;
+	background-color: #cb234a;
+	color: white;
 }
 
-.shopCarButton{
-  color: #fff;
-  background-color: transparent;
-  border: none;
-  border-radius: 8px;
-  margin-right: 16px;
-  width: 36px;
-  height: 36px;
-  transition: all ease 0.3s;
+.shopCarButton {
+	color: #fff;
+	background-color: transparent;
+	border: none;
+	border-radius: 8px;
+	margin-right: 16px;
+	width: 36px;
+	height: 36px;
+	transition: all ease 0.3s;
 }
 
-.shopCarButton:hover{
-  background-color: #cb234a;
-  color:white ;
+.shopCarButton:hover {
+	background-color: #cb234a;
+	color: white;
 }
 
 /* Hero */
 .hero {
-background: #F9F9F9;
-padding: 60px 0;
+	background: white;
+	padding: 60px 0;
 }
+
 .hero h1 {
-font-size: 2.5rem;
-line-height: 1.3;
+	font-size: 2.5rem;
+	line-height: 1.3;
 }
+
 .hero img {
-border: 5px solid #EC3237;
-transition: transform 0.4s ease;
+	border: 5px solid #EC3237;
+	transition: transform 0.4s ease;
 }
+
 .hero img:hover {
-transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 /* Categorías */
-section.py-5 {
-background: linear-gradient(180deg, #ffffff, #f8fafa);
+.categories {
+    background: #F9F9F9;
+    padding: 60px 0;
 }
+
+/* Título y párrafo */
+.categories h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #e74348;
+    text-align: center;
+}
+
+.categories p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #1f2937;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Grid */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Tarjetas */
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
 .card {
-border: none;
-border-radius: 20px;
-box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
-.card:hover {
-transform: translateY(-10px) scale(1.03);
-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+
+.card-body {
+    padding: 1.5rem;
+    text-align: center;
 }
+
 .card-body i {
-font-size: 2.2rem;
-color: #1a7d7c;
-transition: color 0.3s ease;
+    font-size: 2.5rem;
+    color: #e74348;
+    transition: transform 0.3s ease;
 }
+
 .card-body i:hover {
-color: #bc1018;
+    transform: scale(1.1);
 }
-.categoria-img {   
-  height: 210px;     
-  object-fit: cover; 
-  border-radius: 12px; 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  object-fit: cover;     
-  border-bottom: 3px solid #1A7D7C; 
+
+.card-body h5 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0.5rem 0;
+}
+
+.card-body p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+}
+
+.category-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    border-bottom: 3px solid #e74348;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-img {
+    transform: scale(1.05);
+}
+
+
+.btn-custom {
+    background: #e74348;
+    color: #ffffff !important;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-custom:hover {
+    background: #b91c1c;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(185, 28, 28, 0.3);
+}
+
+
+.animate-fade-in {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeIn 0.6s ease forwards;
+    animation-delay: var(--animation-delay, 0s);
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 991px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+    .categories h2 {
+        font-size: 1.8rem;
+    }
+    .categories p {
+        font-size: 1rem;
+    }
+    .category-img {
+        height: 180px;
+    }
+    .card-body h5 {
+        font-size: 1.3rem;
+    }
+    .card-body p {
+        font-size: 0.9rem;
+    }
+    .btn-custom {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
 }
 
 /* Sección contacto */
 .contacto-hero {
-  position: relative;
-  height: 400px;
-  background: url('../img/contacto-back.jpg') no-repeat center center/cover; 
+	position: relative;
+	height: 400px;
+	background: url('../img/banner.webp') no-repeat center center/cover;
 }
+
 .contacto-hero .overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .contacto-hero .content {
-  position: relative;
-  z-index: 2;
+	position: relative;
+	z-index: 2;
 }
 
 /* Badges personalizados */
 .badge.bg-primary-custom {
-background-color: #bc1018;
+	background-color: #e74348;
 }
+
 .badge.bg-success-custom {
-background-color: #1a7d7c;
+	background-color: #1a7d7c;
 }
+
 .badge.bg-accent {
-background-color: #659592;
+	background-color: #659592;
 }

@@ -34,7 +34,7 @@
 
 .navbar-brand span {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #ffffff;
     letter-spacing: 1px;
@@ -115,6 +115,11 @@
 .custom-toggler:hover {
     background: #ff8ba6;
     border-color: #cb234a;
+
+}
+
+.custom-toggler:focus{
+    box-shadow: none !important;
 }
 
 .custom-toggler .navbar-toggler-icon {
@@ -124,6 +129,7 @@
 .custom-toggler:hover .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23cb234a' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
+
 
 /* Animación del menú colapsado en móviles */
 .navbar-collapse {
@@ -142,15 +148,16 @@
 
 /* Botones de modo oscuro y carrito */
 .btn-custom-nav {
+    display: flex !important;
+    justify-content: center;
+    width: 50px ;
     background: transparent;
     border: 2px solid #ffffff;
     border-radius: 50%;
     padding: 8px;
     transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
+    
+    
     height: 40px;
 }
 
@@ -191,7 +198,7 @@
     }
 }
 
-/* MODO NEGRO */
+/* MODO OSCURO */
 body.dark-mode .navbar {
   background: linear-gradient(90deg, #1e1e1e, #121212) !important;
 }
@@ -205,6 +212,13 @@ body.dark-mode .nav-link.nav-btn.nav-btn-activo{
     color: black !important;
 }
 
+body.dark-mode .navbar-toggler{
+    transition: all ease 0.3;
+}
+
+body.dark-mode .navbar-toggler:hover{
+    background: white;
+}
 
 
 @media (max-width: 768px) {
