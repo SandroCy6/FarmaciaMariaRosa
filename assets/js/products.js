@@ -4,10 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let productos = [];
   let currentPage = 1;
-  const itemsPerPage = 6; // 🔹 Cambia este número según quieras
+  const itemsPerPage = 6;
   const searchInput = document.getElementById("searchInput");
   const categoryFilter = document.getElementById("categoryFilter");
   let productosFiltrados = [];
+  const maxVisiblePages = 5; // Máximo de botones de página visibles
 
   // Renderizar productos según página
   function renderProducts() {
@@ -17,16 +18,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = start + itemsPerPage;
     const pagina = productosFiltrados.slice(start, end);
 
+    if (pagina.length === 0) {
+      container.innerHTML = `
+        <div class="col-12 text-center py-5">
+          <i class="bi bi-search display-1 text-muted"></i>
+          <h3 class="mt-3">No se encontraron productos</h3>
+          <p class="text-muted">Intenta con otros términos de búsqueda o categorías</p>
+        </div>
+      `;
+      pagination.innerHTML = "";
+      return;
+    }
+
     pagina.forEach((producto) => {
       const col = document.createElement("div");
-      col.classList.add("col-md-4");
+      col.classList.add("col-md-4", "mb-4");
 
       col.innerHTML = `
       <div class="card shadow-sm h-100 position-relative producto-card" style="cursor:pointer">
         <span class="badge-categoria">${producto.categoria}</span>
-        <img src="${producto.imagen}" class="card-img-top p-3" alt="${
-        producto.nombre
-      }">
+        <img src="${producto.imagen}" class="card-img-top p-3" alt="${producto.nombre}">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">${producto.nombre}</h5>
           <p class="card-text text-muted">${producto.descripcion}</p>
@@ -39,27 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-      // Evento click → abrir modal con detalles
       col.querySelector(".producto-card").addEventListener("click", () => {
         document.getElementById("modalImagen").src = producto.imagen;
         document.getElementById("modalImagen").alt = producto.nombre;
         document.getElementById("modalNombre").textContent = producto.nombre;
-        document.getElementById("modalDescripcion").textContent =
-          producto.descripcion;
-        document.getElementById("modalCategoria").textContent =
-          producto.categoria;
+        document.getElementById("modalDescripcion").textContent = producto.descripcion;
+        document.getElementById("modalCategoria").textContent = producto.categoria;
         document.getElementById("modalStock").textContent = producto.stock;
-        document.getElementById(
-          "modalPrecio"
-        ).textContent = `S/ ${producto.precio.toFixed(2)}`;
-        document.getElementById(
-          "modalRating"
-        ).textContent = `⭐ ${producto.rating}`;
+        document.getElementById("modalPrecio").textContent = `S/ ${producto.precio.toFixed(2)}`;
+        document.getElementById("modalRating").textContent = `⭐ ${producto.rating}`;
 
-        // Mostrar modal con Bootstrap
-        const modal = new bootstrap.Modal(
-          document.getElementById("productModal")
-        );
+        const modal = new bootstrap.Modal(document.getElementById("productModal"));
         modal.show();
       });
 
@@ -75,73 +76,99 @@ document.addEventListener("DOMContentLoaded", () => {
     const categoria = categoryFilter.value;
 
     productosFiltrados = productos.filter((p) => {
-      const matchSearch =
-        p.nombre.toLowerCase().includes(search) ||
-        p.descripcion.toLowerCase().includes(search);
+      const matchSearch = p.nombre.toLowerCase().includes(search) || p.descripcion.toLowerCase().includes(search);
       const matchCategoria = categoria === "all" || p.categoria === categoria;
       return matchSearch && matchCategoria;
     });
 
     currentPage = 1;
     renderProducts();
-    document.getElementById(
-      "resultCount"
-    ).textContent = `${productosFiltrados.length} resultados`;
+    document.getElementById("resultCount").textContent = `${productosFiltrados.length} resultados`;
   }
 
   searchInput.addEventListener("input", aplicarFiltros);
   categoryFilter.addEventListener("change", aplicarFiltros);
 
-  // Crear botones de paginación
+  // Crear botones de paginación mejorada
   function renderPagination() {
     pagination.innerHTML = "";
-    // 🔹 usar productosFiltrados para paginación, no productos
     const totalPages = Math.ceil(productosFiltrados.length / itemsPerPage);
+    
+    if (totalPages <= 1) return; // No mostrar paginación si hay una sola página
+
+    // Calcular el rango de páginas a mostrar
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    // Ajustar si estamos cerca del final
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    // Botón "Primera página"
+    if (startPage > 1) {
+      const firstBtn = createPaginationButton("««", 1, "btn-outline-danger", "Primera página");
+      pagination.appendChild(firstBtn);
+    }
 
     // Botón "Anterior"
-    const prevBtn = document.createElement("button");
-    prevBtn.textContent = "« Anterior";
-    prevBtn.classList.add("btn", "btn-outline-danger", "me-2");
+    const prevBtn = createPaginationButton("« Anterior", currentPage - 1, "btn-outline-danger", "Página anterior");
     prevBtn.disabled = currentPage === 1;
-    prevBtn.addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderProducts();
-      }
-    });
     pagination.appendChild(prevBtn);
 
-    // Botones de páginas
-    for (let i = 1; i <= totalPages; i++) {
-      const pageBtn = document.createElement("button");
-      pageBtn.textContent = i;
-      pageBtn.classList.add(
-        "btn",
-        "btn-sm",
-        i === currentPage ? "btn-danger" : "btn-outline-secondary",
-        "mx-1"
-      );
-
-      pageBtn.addEventListener("click", () => {
-        currentPage = i;
-        renderProducts();
-      });
-
+    // Botones de páginas numeradas
+    for (let i = startPage; i <= endPage; i++) {
+      const pageBtn = createPaginationButton(i, i, i === currentPage ? "btn-danger" : "btn-outline-secondary", `Ir a página ${i}`);
       pagination.appendChild(pageBtn);
     }
 
+    // Puntos suspensivos si hay más páginas después
+    if (endPage < totalPages) {
+      const ellipsis = document.createElement("span");
+      ellipsis.classList.add("mx-2", "align-middle");
+      ellipsis.textContent = "...";
+      pagination.appendChild(ellipsis);
+      
+      // Botón para última página
+      const lastBtn = createPaginationButton(totalPages, totalPages, "btn-outline-secondary", `Ir a la última página (${totalPages})`);
+      pagination.appendChild(lastBtn);
+    }
+
     // Botón "Siguiente"
-    const nextBtn = document.createElement("button");
-    nextBtn.textContent = "Siguiente »";
-    nextBtn.classList.add("btn", "btn-outline-danger", "ms-2");
+    const nextBtn = createPaginationButton("Siguiente »", currentPage + 1, "btn-outline-danger", "Página siguiente");
     nextBtn.disabled = currentPage === totalPages;
-    nextBtn.addEventListener("click", () => {
-      if (currentPage < totalPages) {
-        currentPage++;
+    pagination.appendChild(nextBtn);
+
+    // Botón "Última página"
+    if (endPage < totalPages) {
+      const lastBtn = createPaginationButton("»»", totalPages, "btn-outline-danger", "Última página");
+      pagination.appendChild(lastBtn);
+    }
+
+    // Información de página actual
+    const pageInfo = document.createElement("span");
+    pageInfo.classList.add("align-self-center", "ms-3", "d-none", "d-md-block", "text-muted");
+    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    pagination.appendChild(pageInfo);
+  }
+
+  // Función auxiliar para crear botones de paginación
+  function createPaginationButton(text, page, style, title) {
+    const button = document.createElement("button");
+    button.textContent = text;
+    button.classList.add("btn", "btn-sm", style, "mx-1");
+    button.title = title;
+    
+    button.addEventListener("click", () => {
+      if (page >= 1 && page <= Math.ceil(productosFiltrados.length / itemsPerPage)) {
+        currentPage = page;
         renderProducts();
+        // Scroll suave hacia arriba
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
-    pagination.appendChild(nextBtn);
+    
+    return button;
   }
 
   // Cargar productos desde JSON
@@ -149,12 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((res) => res.json())
     .then((data) => {
       productos = data;
-      productosFiltrados = productos; // iniciar con todos
+      productosFiltrados = productos;
       renderProducts();
 
       const categorias = [...new Set(productos.map((p) => p.categoria))];
-      categoryFilter.innerHTML =
-        '<option value="all" selected>Todos</option>' +
+      categoryFilter.innerHTML = '<option value="all" selected>Todos</option>' +
         categorias.map((c) => `<option value="${c}">${c}</option>`).join("");
     })
     .catch((error) => console.error("Error cargando JSON:", error));

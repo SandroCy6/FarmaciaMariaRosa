@@ -83,3 +83,66 @@
   border-color: #ec3237;
   box-shadow: 0 0 8px rgba(236, 50, 55, 0.4);
 }
+
+
+/* MEJORAS PARA EL RESPONSIVE */
+/* Mejoras de paginación responsive */
+#pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+#pagination .btn {
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* En móviles, ocultar texto en botones de navegación */
+@media (max-width: 576px) {
+  #pagination .btn {
+    padding: 0.375rem;
+    font-size: 0.875rem;
+  }
+  
+  #pagination .btn:not(.btn-sm) {
+    min-width: auto;
+  }
+  
+  /* Acortar texto en botones de navegación */
+  #pagination .btn:contains("Anterior"),
+  #pagination .btn:contains("Siguiente") {
+    display: none;
+  }
+  
+  #pagination .btn:contains("««")::after {
+    content: "Primera";
+  }
+  
+  #pagination .btn:contains("»»")::after {
+    content: "Última";
+  }
+}
+
+/* Estado hover para botones */
+#pagination .btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Mejorar visibilidad del estado activo */
+#pagination .btn-danger {
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.5);
+}
+
+/* Puntos suspensivos */
+#pagination .mx-2 {
+  line-height: 40px;
+}
