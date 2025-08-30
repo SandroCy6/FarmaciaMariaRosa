@@ -17,6 +17,25 @@ body {
 	transition: all 0.3s ease !important;
 }
 
+.catalogo-button, .contacto-button { 
+    background-color: #e74247;
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.catalogo-button:hover, .contacto-button:hover {
+    background-color: #d13338;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
 .btn-custom:hover {
 	background: linear-gradient(135deg, #9a0d14, #bc1018);
 	transform: scale(1.08);
@@ -290,10 +309,6 @@ body {
 	background-color: #e74348;
 }
 
-.badge.bg-success-custom {
-	background-color: #1a7d7c;
-}
-
-.badge.bg-accent {
-	background-color: #659592;
+body.dark-mode .category{
+    color: white;
 }
