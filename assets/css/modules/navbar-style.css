@@ -51,6 +51,7 @@
     margin-left: auto;
     margin-right: auto;
     gap: 30px !important;
+    background-color: transparent !important;
 }
 
 .nav-item {

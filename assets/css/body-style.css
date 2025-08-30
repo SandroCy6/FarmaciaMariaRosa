@@ -74,15 +74,7 @@ body.dark-mode .card p {
   color: #aaa !important;
 }
 
-body.dark-mode footer {
-  background: linear-gradient(90deg, #1e1e1e, #121212);
-}
-body.dark-mode footer h5 {
-  color: #fff;
-}
-body.dark-mode footer p {
-  color: #bbb !important;
-}
+
 body.dark-mode .text-muted,
 body.dark-mode .text-gray-600 {
   color: #aaa !important;

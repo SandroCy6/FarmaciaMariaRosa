@@ -1,0 +1,38 @@
+/* Footer */
+footer {
+  background: linear-gradient(90deg, #E93237, #e6474c);
+  padding: 40px 0;
+}
+
+footer h5 {
+  color: #ffffff;
+}
+
+footer i {
+  color: #ffffff;
+}
+
+footer p {
+  margin: 0;
+  color: #ffffff;
+}
+
+footer-p {
+  margin: 0;
+  color: #ffffff !important;
+}
+
+footer p:hover {
+  color: #F9F9F9;
+}
+
+/* DARK MODE */
+body.dark-mode footer {
+  background: linear-gradient(90deg, #1e1e1e, #121212);
+}
+body.dark-mode footer h5 {
+  color: #fff;
+}
+body.dark-mode footer p {
+  color: #bbb !important;
+}
