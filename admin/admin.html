@@ -1,126 +1,299 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - Farmacia Maria Rosa</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: #f7fafc;
-            margin: 0;
-            color: #222;
-        }
-        header {
-            background: #2e7d32;
-            color: #fff;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 2rem;
-            font-weight: 500;
-            transition: text-decoration 0.2s;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        main {
-            max-width: 900px;
-            margin: 2rem auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(46, 125, 50, 0.08);
-            padding: 2rem;
-        }
-        h2 {
-            color: #2e7d32;
-            margin-top: 0;
-        }
-        .admin-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .card {
-            background: #f1f8e9;
-            border: 1px solid #c8e6c9;
-            border-radius: 6px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: box-shadow 0.2s;
-        }
-        .card:hover {
-            box-shadow: 0 4px 16px rgba(46, 125, 50, 0.12);
-        }
-        .card h3 {
-            margin: 0 0 1rem 0;
-            color: #388e3c;
-        }
-        .card button {
-            background: #388e3c;
-            color: #fff;
-            border: none;
-            padding: 0.7rem 1.2rem;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .card button:hover {
-            background: #2e7d32;
-        }
-        @media (max-width: 600px) {
-            main {
-                padding: 1rem;
-            }
-            .admin-actions {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - Farmacia María Rosa</title>
+  <link rel="stylesheet" href="../assets/css/modules/footer-style.css" />
+  <link rel="stylesheet" href="../assets/css/modules/navbar-style.css" />
+  <link rel="stylesheet" href="../assets/css/body-style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body { background: #f7fafc; }
+    .table td, .table th { vertical-align: middle; }
+    .form-control, .form-select { margin-bottom: 0.5rem; }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Farmacia Maria Rosa - Administración</h1>
-        <nav>
-            <a href="../index.html">Inicio</a>
-            <a href="../productos.html">Productos</a>
-            <a href="../ventas.html">Ventas</a>
-            <a href="#">Cerrar sesión</a>
-        </nav>
-    </header>
-    <main>
-        <h2>Panel de Administración</h2>
-        <div class="admin-actions">
-            <div class="card">
-                <h3>Gestionar Productos</h3>
-                <button onclick="location.href='../productos.html'">Ir a Productos</button>
-            </div>
-            <div class="card">
-                <h3>Ver Ventas</h3>
-                <button onclick="location.href='../ventas.html'">Ir a Ventas</button>
-            </div>
-            <div class="card">
-                <h3>Usuarios</h3>
-                <button onclick="alert('Funcionalidad próximamente disponible')">Administrar Usuarios</button>
-            </div>
-            <div class="card">
-                <h3>Reportes</h3>
-                <button onclick="alert('Funcionalidad próximamente disponible')">Ver Reportes</button>
-            </div>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50" class="me-2 logo-animate" />
+        <span class="fw-bold">&nbsp;Farmacia María Rosa</span>
+      </a>
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto d-flex align-items-center">
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="../index.html">Inicio<span class="nav-underline"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="../pages/productos.html">Productos<span class="nav-underline"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="../pages/contacto.html">Contacto<span class="nav-underline"></span></a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+          <button id="darkModeToggle" class="btn btn-custom-nav">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-moon h-5 w-5 icon-animate" aria-hidden="true">
+							<path
+								d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401">
+							</path>
+						</svg>
+					</button>
+					<button id="shopCar" class="btn btn-custom-nav">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-shopping-cart h-5 w-5 icon-animate" aria-hidden="true">
+							<circle cx="8" cy="21" r="1"></circle>
+							<circle cx="19" cy="21" r="1"></circle>
+							<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+							</path>
+						</svg>
+					</button>
+          <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <i class="bi bi-person-circle"></i>
+          </button>
         </div>
-    </main>
+      </div>
+    </div>
+  </nav>
+  <main class="container py-4">
+    <h2 class="mb-4">Gestión de Productos</h2>
+    <div class="mb-3">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Agregar Producto</button>
+      <button id="logoutBtn" class="btn btn-danger ms-2">Cerrar sesión</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle" id="productsTable">
+        <thead class="table-success">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Imagen</th>
+            <th>Rating</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Productos aquí -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal para agregar/editar producto -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form class="modal-content" id="productForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Agregar/Editar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="productId">
+          <input type="text" id="productName" class="form-control" placeholder="Nombre" required>
+          <input type="text" id="productCategory" class="form-control" placeholder="Categoría" required>
+          <textarea id="productDescription" class="form-control" placeholder="Descripción" required></textarea>
+          <input type="number" id="productPrice" class="form-control" placeholder="Precio" step="0.01" required>
+          <input type="number" id="productStock" class="form-control" placeholder="Stock" required>
+          <input type="text" id="productImage" class="form-control" placeholder="URL Imagen" required>
+          <input type="number" id="productRating" class="form-control" placeholder="Rating" step="0.1" min="0" max="5" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login/Register Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión / Registrarse</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#loginTabPane"
+                type="button" role="tab">Login</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#registerTabPane"
+                type="button" role="tab">Registro</button>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <!-- Login Form -->
+            <div class="tab-pane fade show active" id="loginTabPane" role="tabpanel">
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="loginEmail" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <div id="loginError" class="text-danger" style="display:none;">Usuario o contraseña incorrectos.</div>
+                <button type="submit" class="btn btn-custom w-100 mt-2">Ingresar</button>
+              </form>
+            </div>
+            <!-- Register Form -->
+            <div class="tab-pane fade" id="registerTabPane" role="tabpanel">
+              <form id="registerForm">
+                <div class="mb-3">
+                  <label for="registerEmail" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="registerEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label for="registerPassword" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="registerPassword" required>
+                </div>
+                <div class="mb-3">
+                  <label for="registerPassword2" class="form-label">Confirmar contraseña</label>
+                  <input type="password" class="form-control" id="registerPassword2" required>
+                </div>
+                <div id="registerError" class="text-danger" style="display:none;"></div>
+                <div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso! Ahora puedes iniciar sesión.</div>
+                <button type="submit" class="btn btn-custom w-100 mt-2">Registrarse</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/dark-mode.js"></script>
+  <script src="../assets/js/login.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
+      if (!user || user.role !== "admin") {
+        window.location.href = "../index.html";
+        return;
+      }
+      document.getElementById("logoutBtn").onclick = function () {
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "../index.html";
+      };
+    });
+
+    // Productos en localStorage para edición (demo)
+    let products = [];
+    const productsTable = document.querySelector("#productsTable tbody");
+    const productForm = document.getElementById("productForm");
+    const productModal = new bootstrap.Modal(document.getElementById("productModal"));
+
+    function loadProducts() {
+      if (localStorage.getItem("adminProducts")) {
+        products = JSON.parse(localStorage.getItem("adminProducts"));
+        renderTable();
+      } else {
+        fetch("../data/products.json")
+          .then(res => res.json())
+          .then(data => {
+            products = data;
+            localStorage.setItem("adminProducts", JSON.stringify(products));
+            renderTable();
+          });
+      }
+    }
+
+    function renderTable() {
+      productsTable.innerHTML = "";
+      products.forEach((p, idx) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${p.id}</td>
+          <td>${p.nombre}</td>
+          <td>${p.categoria}</td>
+          <td>${p.descripcion}</td>
+          <td>S/ ${parseFloat(p.precio).toFixed(2)}</td>
+          <td>${p.stock}</td>
+          <td><img src="${p.imagen}" alt="" width="50"></td>
+          <td>${p.rating}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" onclick="editProduct(${idx})">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteProduct(${idx})">Eliminar</button>
+          </td>
+        `;
+        productsTable.appendChild(tr);
+      });
+    }
+
+    window.editProduct = function(idx) {
+      const p = products[idx];
+      document.getElementById("productId").value = p.id;
+      document.getElementById("productName").value = p.nombre;
+      document.getElementById("productCategory").value = p.categoria;
+      document.getElementById("productDescription").value = p.descripcion;
+      document.getElementById("productPrice").value = p.precio;
+      document.getElementById("productStock").value = p.stock;
+      document.getElementById("productImage").value = p.imagen;
+      document.getElementById("productRating").value = p.rating;
+      productModal.show();
+    };
+
+    window.deleteProduct = function(idx) {
+      if (confirm("¿Eliminar este producto?")) {
+        products.splice(idx, 1);
+        localStorage.setItem("adminProducts", JSON.stringify(products));
+        renderTable();
+      }
+    };
+
+    productForm.onsubmit = function(e) {
+      e.preventDefault();
+      const id = document.getElementById("productId").value;
+      const nombre = document.getElementById("productName").value;
+      const categoria = document.getElementById("productCategory").value;
+      const descripcion = document.getElementById("productDescription").value;
+      const precio = parseFloat(document.getElementById("productPrice").value);
+      const stock = parseInt(document.getElementById("productStock").value);
+      const imagen = document.getElementById("productImage").value;
+      const rating = parseFloat(document.getElementById("productRating").value);
+
+      if (id) {
+        const idx = products.findIndex(p => p.id == id);
+        if (idx !== -1) {
+          products[idx] = { id: Number(id), nombre, categoria, descripcion, precio, stock, imagen, rating };
+        }
+      } else {
+        const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+        products.push({ id: newId, nombre, categoria, descripcion, precio, stock, imagen, rating });
+      }
+      localStorage.setItem("adminProducts", JSON.stringify(products));
+      productModal.hide();
+      renderTable();
+      productForm.reset();
+      document.getElementById("productId").value = "";
+    };
+
+    document.getElementById("productModal").addEventListener("show.bs.modal", function () {
+      productForm.reset();
+      document.getElementById("productId").value = "";
+    });
+
+    loadProducts();
+  </script>
 </body>
 </html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Perfil - Farmacia María Rosa</title>
+  <link rel="stylesheet" href="../assets/css/modules/footer-style.css" />
+  <link rel="stylesheet" href="../assets/css/modules/navbar-style.css" />
+  <link rel="stylesheet" href="../assets/css/body-style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50" class="me-2 logo-animate" />
+        <span class="fw-bold">&nbsp;Farmacia María Rosa</span>
+      </a>
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto d-flex align-items-center">
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="../index.html">Inicio<span class="nav-underline"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="productos.html">Productos<span class="nav-underline"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="contacto.html">Contacto<span class="nav-underline"></span></a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+          <button id="darkModeToggle" class="btn btn-custom-nav">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-moon h-5 w-5 icon-animate" aria-hidden="true">
+                <path
+                    d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401">
+                </path>
+            </svg>
+        </button>
+        <button id="shopCar" class="btn btn-custom-nav">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-shopping-cart h-5 w-5 icon-animate" aria-hidden="true">
+                <circle cx="8" cy="21" r="1"></circle>
+                <circle cx="19" cy="21" r="1"></circle>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+                </path>
+            </svg>
+        </button>
+          <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <i class="bi bi-person-circle"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body text-center">
+            <i class="bi bi-person-circle display-1 mb-3"></i>
+            <h3 id="userEmail"></h3>
+            <p class="text-muted">Bienvenido a tu perfil.</p>
+            <button id="logoutBtn" class="btn btn-danger mt-3">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Login/Register Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión / Registrarse</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#loginTabPane"
+                type="button" role="tab">Login</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#registerTabPane"
+                type="button" role="tab">Registro</button>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <!-- Login Form -->
+            <div class="tab-pane fade show active" id="loginTabPane" role="tabpanel">
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="loginEmail" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <div id="loginError" class="text-danger" style="display:none;">Usuario o contraseña incorrectos.</div>
+                <button type="submit" class="btn btn-custom w-100 mt-2">Ingresar</button>
+              </form>
+            </div>
+            <!-- Register Form -->
+            <div class="tab-pane fade" id="registerTabPane" role="tabpanel">
+              <form id="registerForm">
+                <div class="mb-3">
+                  <label for="registerEmail" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="registerEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label for="registerPassword" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="registerPassword" required>
+                </div>
+                <div class="mb-3">
+                  <label for="registerPassword2" class="form-label">Confirmar contraseña</label>
+                  <input type="password" class="form-control" id="registerPassword2" required>
+                </div>
+                <div id="registerError" class="text-danger" style="display:none;"></div>
+                <div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso! Ahora puedes iniciar sesión.</div>
+                <button type="submit" class="btn btn-custom w-100 mt-2">Registrarse</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/dark-mode.js"></script>
+  <script src="../assets/js/login.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
+      if (!user) {
+        window.location.href = "../index.html";
+        return;
+      }
+      document.getElementById("userEmail").textContent = user.email;
+      document.getElementById("logoutBtn").addEventListener("click", function () {
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "../index.html";
+      });
+    });
+  </script>
+</body>
+</html>
