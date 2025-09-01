@@ -47,7 +47,8 @@
 								class="nav-underline"></span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link nav-btn" href="./pages/contacto.html">Contacto<span class="nav-underline"></span></a>
+						<a class="nav-link nav-btn" href="./pages/contacto.html">Contacto<span
+								class="nav-underline"></span></a>
 					</li>
 				</ul>
 				<div class="d-flex align-items-center gap-2">
@@ -70,8 +71,16 @@
 							</path>
 						</svg>
 					</button>
-					<button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
-						<i class="bi bi-person-circle"></i>
+					<button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal"
+						data-bs-target="#loginModal">
+						<svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+							stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-circle-user-round-icon lucide-circle-user-round">
+							<path d="M18 20a6 6 0 0 0-12 0"></path>
+							<circle cx="12" cy="10" r="4"></circle>
+							<circle cx="12" cy="12" r="10"></circle>
+						</svg>
 					</button>
 				</div>
 			</div>
@@ -79,8 +88,7 @@
 	</nav>
 
 	<!-- CARRUSEL -->
-	<div class="carrusel-container"
-		>
+	<div class="carrusel-container">
 		<div id="carruselFarmacia" class="carousel slide shadow rounded-4 overflow-hidden" data-bs-ride="carousel">
 			<!-- Indicadores -->
 			<div class="carousel-indicators">
@@ -121,7 +129,7 @@
 
 	<!-- HERO -->
 	<section class="hero position-relative overflow-hidden">
-		
+
 		<div class="container">
 			<div class="row align-items-center">
 				<!-- Texto -->
@@ -138,8 +146,8 @@
 						Reserva tus medicamentos y productos de salud online. Agenda tu hora de recogida y paga
 						cómodamente en nuestra farmacia.
 					</p>
-					<a href="./pages/catalogo.html" class="catalogo-button"
-						style="--animation-delay: 0.8s;">Ver Productos</a>
+					<a href="./pages/catalogo.html" class="catalogo-button" style="--animation-delay: 0.8s;">Ver
+						Productos</a>
 				</div>
 				<!-- Imagen -->
 				<div class="col-md-6">
@@ -232,9 +240,9 @@
 	<footer>
 		<div class="container text-center">
 			<img style="margin-bottom: 10px;" src="./assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50"
-					class="me-2 logo-animate" />
+				class="me-2 logo-animate" />
 			<h5 class="fw-bold" style="margin-bottom: 20px;">Farmacia María Rosa</h5>
-			
+
 			<p class="">
 				Tu farmacia de confianza. Comprometidos con tu salud y bienestar desde
 				hace más de 30 años.
@@ -249,7 +257,7 @@
 			</p>
 		</div>
 	</footer>
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -260,12 +268,12 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#loginTabPane"
-								type="button" role="tab">Login</button>
+							<button class="nav-link active" id="login-tab" data-bs-toggle="tab"
+								data-bs-target="#loginTabPane" type="button" role="tab">Login</button>
 						</li>
 						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#registerTabPane"
-								type="button" role="tab">Registro</button>
+							<button class="nav-link" id="register-tab" data-bs-toggle="tab"
+								data-bs-target="#registerTabPane" type="button" role="tab">Registro</button>
 						</li>
 					</ul>
 					<div class="tab-content">
@@ -301,7 +309,8 @@
 									<input type="password" class="form-control" id="registerPassword2" required>
 								</div>
 								<div id="registerError" class="text-danger" style="display:none;"></div>
-								<div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso! Ahora
+								<div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso!
+									Ahora
 									puedes iniciar sesión.</div>
 								<button type="submit" class="btn btn-custom w-100 mt-2">Registrarse</button>
 							</form>
