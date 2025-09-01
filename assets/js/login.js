@@ -45,9 +45,22 @@ document.addEventListener("DOMContentLoaded", function () {
       if (user) {
         loginError.style.display = "none";
         setLoggedInUser(user);
-        alert("¡Bienvenido, " + email + "!");
         const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
         modal.hide();
+        if (user.role === "admin") {
+          // Detect if current page is inside /pages or /admin
+          const isInPages = window.location.pathname.includes("/pages/");
+          const isInAdmin = window.location.pathname.includes("/admin/");
+          if (isInPages || isInAdmin) {
+            window.location.href = "../admin/admin.html";
+          } else {
+            window.location.href = "./admin/admin.html";
+          }
+        } else {
+          alert("¡Bienvenido, " + email + "!");
+          // Optionally redirect normal users to their profile page
+          // window.location.href = ...;
+        }
       } else {
         loginError.style.display = "block";
       }
