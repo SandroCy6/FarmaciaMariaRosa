@@ -1,12 +1,12 @@
-.main-principal{
+.main-principal {
   padding-top: 50px;
 }
 
-.titulo-container{
+.titulo-container {
   margin-bottom: 30px;
 }
 
-.filtros{
+.filtros {
   width: 70%;
 }
 
@@ -23,18 +23,20 @@
   object-fit: contain;
   height: 180px;
 }
+
 .badge-categoria {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: #28a745; 
+  background-color: #28a745;
   color: #fff;
   padding: 5px 12px;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
 /* Título con gradiente */
 .titulo-gradiente {
   font-size: 2.2rem;
@@ -50,6 +52,7 @@
   font-size: 1.1rem;
   padding: 10px 22px;
 }
+
 /* Input de búsqueda */
 #searchInput {
   border-radius: 30px;
@@ -75,7 +78,7 @@
   font-size: 0.95rem;
   font-weight: 500;
   border: 2px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
@@ -111,29 +114,33 @@
     padding: 0.375rem;
     font-size: 0.875rem;
   }
-  
+
   #pagination .btn:not(.btn-sm) {
     min-width: auto;
   }
-  
+
   /* Acortar texto en botones de navegación */
   #pagination .btn:contains("Anterior"),
   #pagination .btn:contains("Siguiente") {
     display: none;
   }
-  
+
   #pagination .btn:contains("««")::after {
     content: "Primera";
   }
-  
+
   #pagination .btn:contains("»»")::after {
     content: "Última";
   }
 }
 
 /* Estado hover para botones */
+#pagination .btn {
+  transition: all ease 0.3s;
+}
+
 #pagination .btn:hover:not(:disabled) {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -145,4 +152,48 @@
 /* Puntos suspensivos */
 #pagination .mx-2 {
   line-height: 40px;
+}
+
+/* Grid de productos responsive */
+#products-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+/* Tablet: 2 columnas */
+@media (min-width: 768px) {
+  #products-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 3 columnas */
+@media (min-width: 992px) {
+  #products-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Ajustes para las cards en grid */
+#products-container .col-md-4 {
+  width: 100%;
+  margin-bottom: 0; /* El gap del grid ya maneja el espaciado */
+}
+
+/* Asegurar que las cards ocupen todo el espacio disponible */
+#products-container .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#products-container .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#products-container .mt-auto {
+  margin-top: auto;
 }
