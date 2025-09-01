@@ -83,7 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentPage = 1;
     renderProducts();
-    document.getElementById("resultCount").textContent = `${productosFiltrados.length} resultados`;
+
+    const resultCount = document.getElementById("resultCount");
+    if (searchInput.value.trim() !== "") {
+      resultCount.textContent = `${productosFiltrados.length} resultados`;
+      resultCount.style.display = "inline-block";
+    } else {
+      resultCount.style.display = "none";
+    }
   }
 
   searchInput.addEventListener("input", aplicarFiltros);
@@ -171,17 +178,31 @@ document.addEventListener("DOMContentLoaded", () => {
     return button;
   }
 
-  // Cargar productos desde JSON
-  fetch("../data/products.json")
-    .then((res) => res.json())
-    .then((data) => {
-      productos = data;
+  // Cargar productos desde localStorage si existen, si no desde JSON
+  function cargarProductos() {
+    if (localStorage.getItem("adminProducts")) {
+      productos = JSON.parse(localStorage.getItem("adminProducts"));
       productosFiltrados = productos;
       renderProducts();
 
       const categorias = [...new Set(productos.map((p) => p.categoria))];
       categoryFilter.innerHTML = '<option value="all" selected>Todos</option>' +
         categorias.map((c) => `<option value="${c}">${c}</option>`).join("");
-    })
-    .catch((error) => console.error("Error cargando JSON:", error));
+    } else {
+      fetch("../data/products.json")
+        .then((res) => res.json())
+        .then((data) => {
+          productos = data;
+          productosFiltrados = productos;
+          renderProducts();
+
+          const categorias = [...new Set(productos.map((p) => p.categoria))];
+          categoryFilter.innerHTML = '<option value="all" selected>Todos</option>' +
+            categorias.map((c) => `<option value="${c}">${c}</option>`).join("");
+        })
+        .catch((error) => console.error("Error cargando JSON:", error));
+    }
+  }
+
+  cargarProductos();
 });

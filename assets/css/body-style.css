@@ -88,3 +88,7 @@ body.dark-mode .text-gray-800 {
 body.dark-mode .modal-content {
   background: #1f1f1f;
 }
+body.dark-mode .btn.btn-custom {
+  background: #333 !important;
+  color: #f5f5f5 !important;
+}

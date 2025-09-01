@@ -177,7 +177,10 @@
 .btn-custom-nav:hover svg {
     transform: scale(1.2);
 }
-
+.btn.btn-custom  {
+    background: #e74348 !important;
+    color: #181818 !important;
+}
 /* Ajustes responsivos */
 @media (max-width: 991px) {
     .navbar-nav {
