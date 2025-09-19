@@ -16,7 +16,8 @@ public class rutas {
         String email = datos.get("email");
         String telefono = datos.get("telefono");
         String mensaje = datos.get("mensaje");
+        String dni = datos.get("dni");
 
-        return "Formulario recibido. Nombre: " + nombre + ", Email: " + email + ", Telefono: "+telefono +", Mensaje: " + mensaje;
+        return "Formulario recibido. Nombre: " + nombre + ", Email: " + email + ", Telefono: "+telefono +", Mensaje: " + mensaje+ ", DNI: "+ dni;
     }
 }
