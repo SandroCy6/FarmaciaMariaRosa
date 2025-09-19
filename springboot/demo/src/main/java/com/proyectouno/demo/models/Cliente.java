@@ -1,5 +1,8 @@
 package com.proyectouno.demo.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +23,11 @@ public class Cliente {
 
     @Column(length = 100, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MensajeContacto> mensajesContacto = new ArrayList<>();
+
+    
 
     // Getters y Setters
     public Long getId() {
@@ -51,5 +59,11 @@ public class Cliente {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    public List<MensajeContacto> getMensajesContacto() {
+        return mensajesContacto;
+    }
+    public void setMensajesContacto(List<MensajeContacto> mensajesContacto) {
+        this.mensajesContacto = mensajesContacto;
     }
 }
