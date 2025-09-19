@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Farmacia María Rosa</title>
+	<link rel="stylesheet" href="./assets/css/modules/footer-style.css" />
+	<link rel="stylesheet" href="./assets/css/modules/navbar-style.css" />
+	<link rel="stylesheet" href="./assets/css/index-style.css" />
+	<link rel="stylesheet" href="./assets/css/body-style.css" />
+	<link rel="stylesheet" href="./assets/css/modules/whatsapp-style.css" />
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Iconos Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+</head>
+
+<body>
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+		<div class="container">
+			<!-- Logo -->
+			<a class="navbar-brand d-flex align-items-center" href="#">
+				<img src="./assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50"
+					class="me-2 logo-animate" />
+				<span class="fw-bold">&nbsp;Farmacia María Rosa</span>
+			</a>
+
+			<!-- Botón de colapso en móvil -->
+			<button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Menú -->
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav mx-auto d-flex align-items-center">
+					<li class="nav-item">
+						<a class="nav-link nav-btn nav-btn-activo" href="index.html">Inicio<span
+								class="nav-underline"></span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link nav-btn" href="./pages/productos.html">Productos<span
+								class="nav-underline"></span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link nav-btn" href="./pages/contacto.html">Contacto<span
+								class="nav-underline"></span></a>
+					</li>
+				</ul>
+				<div class="d-flex align-items-center gap-2">
+					<button id="darkModeToggle" class="btn btn-custom-nav">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-moon h-5 w-5 icon-animate" aria-hidden="true">
+							<path
+								d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401">
+							</path>
+						</svg>
+					</button>
+					<button id="shopCar" class="btn btn-custom-nav">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-shopping-cart h-5 w-5 icon-animate" aria-hidden="true">
+							<circle cx="8" cy="21" r="1"></circle>
+							<circle cx="19" cy="21" r="1"></circle>
+							<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+							</path>
+						</svg>
+					</button>
+					<button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal"
+						data-bs-target="#loginModal">
+						<svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+							stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-circle-user-round-icon lucide-circle-user-round">
+							<path d="M18 20a6 6 0 0 0-12 0"></path>
+							<circle cx="12" cy="10" r="4"></circle>
+							<circle cx="12" cy="12" r="10"></circle>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<!-- CARRUSEL -->
+	<div class="carrusel-container">
+	<div id="carruselFarmacia" class="carousel slide shadow rounded-4 overflow-hidden" data-bs-ride="carousel">
+		<!-- Indicadores -->
+		<div class="carousel-indicators">
+		<button type="button" data-bs-target="#carruselFarmacia" data-bs-slide-to="0" class="active"></button>
+		<button type="button" data-bs-target="#carruselFarmacia" data-bs-slide-to="1"></button>
+		</div>
+
+		<!-- Imágenes -->
+		<div class="carousel-inner">
+		<!-- Imagen 1 -->
+		<div class="carousel-item active">
+			<a href="./pages/productos.html">
+			<img src="./assets/img/carrusel1.jpg" class="carrusel-img d-block w-100" alt="carrusel1"
+				style="object-fit:cover;">
+			</a>
+		</div>
+		<!-- Imagen 2 -->
+		<div class="carousel-item">
+			<a href="./pages/productos.html">
+			<img src="./assets/img/carrusel2.jpg" class="carrusel-img d-block w-100" alt="carrusel2"
+				style="object-fit:cover;">
+			</a>
+		</div>
+		</div>
+
+			<!-- Controles -->
+			<button class="carousel-control-prev" type="button" data-bs-target="#carruselFarmacia" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carruselFarmacia" data-bs-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</button>
+		</div>
+	</div>
+
+
+	<!-- HERO -->
+	<section class="hero position-relative overflow-hidden">
+
+		<div class="container">
+			<div class="row align-items-center">
+				<!-- Texto -->
+				<div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+					<span class="badge bg-primary-custom text-white mb-4 animate-slide-in"
+						style="--animation-delay: 0.2s;">
+						<i class="bi bi-star-fill me-1"></i> Tu farmacia de confianza
+					</span>
+					<h1 class="fw-bold animate-slide-in" style="--animation-delay: 0.4s;">
+						Encuentra tus productos <br />
+						y <span class="hero-highlight">recógelos en tienda</span>
+					</h1>
+					<p class="text-muted mb-4 animate-slide-in" style="--animation-delay: 0.6s;">
+						Reserva tus medicamentos y productos de salud online. Agenda tu hora de recogida y paga
+						cómodamente en nuestra farmacia.
+					</p>
+					<a href="./pages/catalogo.html" class="catalogo-button" style="--animation-delay: 0.8s;">Ver
+						Productos</a>
+				</div>
+				<!-- Imagen -->
+				<div class="col-md-6">
+					<div class="position-relative animate-image-in">
+						<img src="./assets/img/farmacia.jpg" class="img-fluid rounded-4 shadow hero-image"
+							alt="Farmacia" />
+						<span class="badge bg-primary-custom position-absolute bottom-0 start-0 m-3 animate-badge"
+							style="--animation-delay: 1s;">500+ Productos</span>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CATEGORÍAS -->
+	<section class="categories py-5">
+		<div class="container text-center">
+			<h2 class="fw-bold mb-3 animate-fade-in">Nuestras Categorías</h2>
+			<p class="text-muted mb-5 animate-fade-in" style="--animation-delay: 0.2s;">
+				Encuentra exactamente lo que necesitas para tu salud y bienestar
+			</p>
+			<div class="categories-grid">
+				<!-- Categoría 1 -->
+				<div class="category-card medicina">
+					<div class="card h-100 position-relative">
+
+						<img src="./assets/img/medicinas.jpg" class="card-img-top category-img" alt="Medicinas"
+							aria-label="Categoría Medicinas" />
+						<div class="card-body">
+							<i class="bi bi-capsule-pill mb-3" aria-hidden="true"></i>
+							<h5 class="category fw-bold">Medicinas</h5>
+							<p class="text-muted">
+								Medicamentos recetados y de venta libre
+							</p>
+							<a href="#" class="btn btn-custom" aria-label="Explorar categoría Medicinas">Explorar
+								Categoría</a>
+						</div>
+					</div>
+				</div>
+				<!-- Categoría 2 -->
+				<div class="category-card cuidado">
+					<div class="card h-100 position-relative">
+						<img src="./assets/img/cuidado-personal.png" class="card-img-top category-img"
+							alt="Cuidado Personal" aria-label="Categoría Cuidado Personal" />
+						<div class="card-body">
+							<i class="bi bi-heart-pulse mb-3" aria-hidden="true"></i>
+							<h5 class="category fw-bold">Cuidado Personal</h5>
+							<p class="text-muted">Productos para tu higiene y bienestar</p>
+							<a href="#" class="btn btn-custom" aria-label="Explorar categoría Cuidado Personal">Explorar
+								Categoría</a>
+						</div>
+					</div>
+				</div>
+				<!-- Categoría 3 -->
+				<div class="category-card vitaminas">
+					<div class="card h-100 position-relative">
+						<img src="./assets/img/vitaminas-suplementos.jpg" class="card-img-top category-img"
+							alt="Vitaminas y Suplementos" aria-label="Categoría Vitaminas y Suplementos" />
+						<div class="card-body">
+							<i class="bi bi-stars mb-3" aria-hidden="true"></i>
+							<h5 class="category fw-bold">Vitaminas y Suplementos</h5>
+							<p class="text-muted">Complementos para una vida saludable</p>
+							<a href="#" class="btn btn-custom"
+								aria-label="Explorar categoría Vitaminas y Suplementos">Explorar Categoría</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- SECCIÓN CONTACTO -->
+	<section class="contacto-hero d-flex align-items-center justify-content-center text-center">
+		<div class="overlay"></div>
+		<div class="content">
+			<h1 class="display-3 fw-bold text-white">¡Contáctanos!</h1>
+			<p class="lead text-white">Llena el formulario y estaremos aquí para ayudarte en todo momento</p>
+			<a href="#" class="contacto-button">¡Contactanos aqui!</a>
+		</div>
+	</section>
+
+	<!-- BOTÓN WHATSAPP FLOTANTE -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<a href="#" class="float" target="_blank">
+		<i class="fa fa-whatsapp my-float"></i>
+	</a>
+
+	<!-- FOOTER -->
+	<footer>
+		<div class="container text-center">
+			<img style="margin-bottom: 10px;" src="./assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50"
+				class="me-2 logo-animate" />
+			<h5 class="fw-bold" style="margin-bottom: 20px;">Farmacia María Rosa</h5>
+
+			<p class="">
+				Tu farmacia de confianza. Comprometidos con tu salud y bienestar desde
+				hace más de 30 años.
+			</p>
+			<div class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-3">
+				<p><i class="bi bi-geo-alt-fill"></i> Av. Huacachina Frente Hospital Regional, Ciudad ICA</p>
+				<p><i class="bi bi-telephone-fill"></i> +51 922 684 873</p>
+				<p><i class="bi bi-envelope-fill"></i> info@farmaciamariarosa.cl</p>
+			</div>
+			<p class="mt-3">
+				&copy; 2025 Farmacia María Rosa. Todos los derechos reservados.
+			</p>
+		</div>
+	</footer>
+	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="loginModalLabel">Iniciar Sesión / Registrarse</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="login-tab" data-bs-toggle="tab"
+								data-bs-target="#loginTabPane" type="button" role="tab">Login</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="register-tab" data-bs-toggle="tab"
+								data-bs-target="#registerTabPane" type="button" role="tab">Registro</button>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<!-- Login Form -->
+						<div class="tab-pane fade show active" id="loginTabPane" role="tabpanel">
+							<form id="loginForm">
+								<div class="mb-3">
+									<label for="loginEmail" class="form-label">Correo electrónico</label>
+									<input type="email" class="form-control" id="loginEmail" required>
+								</div>
+								<div class="mb-3">
+									<label for="loginPassword" class="form-label">Contraseña</label>
+									<input type="password" class="form-control" id="loginPassword" required>
+								</div>
+								<div id="loginError" class="text-danger" style="display:none;">Usuario o contraseña
+									incorrectos.</div>
+								<button type="submit" class="btn btn-custom w-100 mt-2">Ingresar</button>
+							</form>
+						</div>
+						<!-- Register Form -->
+						<div class="tab-pane fade" id="registerTabPane" role="tabpanel">
+							<form id="registerForm">
+								<div class="mb-3">
+									<label for="registerEmail" class="form-label">Correo electrónico</label>
+									<input type="email" class="form-control" id="registerEmail" required>
+								</div>
+								<div class="mb-3">
+									<label for="registerPassword" class="form-label">Contraseña</label>
+									<input type="password" class="form-control" id="registerPassword" required>
+								</div>
+								<div class="mb-3">
+									<label for="registerPassword2" class="form-label">Confirmar contraseña</label>
+									<input type="password" class="form-control" id="registerPassword2" required>
+								</div>
+								<div id="registerError" class="text-danger" style="display:none;"></div>
+								<div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso!
+									Ahora
+									puedes iniciar sesión.</div>
+								<button type="submit" class="btn btn-custom w-100 mt-2">Registrarse</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/dark-mode.js"></script>
+	<script src="assets/js/index-products.js"></script>
+	<script src="assets/js/login.js"></script>
+</body>
+
+</html>
