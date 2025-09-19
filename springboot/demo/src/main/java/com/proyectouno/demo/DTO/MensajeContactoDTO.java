@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 public class MensajeContactoDTO {
     private Long id;
-    private String nombreCompleto;
-    private String correoElectronico;
+    private String nombre;
+    private String email;
     private String dni;
     private String telefono;
     private String mensaje;
@@ -21,17 +21,17 @@ public class MensajeContactoDTO {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getNombreCompleto() {
-        return nombreCompleto;
+    public String getnombre() {
+        return nombre;
     }
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+    public void setnombre(String nombre) {
+        this.nombre = nombre;
     }
-    public String getCorreoElectronico() {
-        return correoElectronico;
+    public String getemail() {
+        return email;
     }
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+    public void setemail(String email) {
+        this.email = email;
     }
     public String getDni() {
         return dni;

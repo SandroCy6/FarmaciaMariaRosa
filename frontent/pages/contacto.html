@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="../assets/css/modules/whatsapp-style.css" />
     <link rel="stylesheet" href="../assets/css/modules/body-style.css" />
 
-    
-    
+
+
 
     <link rel="stylesheet" href="../assets/css/contacto-styles.css" />
     <!-- Bootstrap CSS -->
@@ -19,7 +19,7 @@
     <!-- Iconos Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        
+
     </style>
 </head>
 
@@ -77,16 +77,16 @@
                         </svg>
                     </button>
                     <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal"
-						data-bs-target="#loginModal">
-						<svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-							viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-							stroke-linecap="round" stroke-linejoin="round"
-							class="lucide lucide-circle-user-round-icon lucide-circle-user-round">
-							<path d="M18 20a6 6 0 0 0-12 0"></path>
-							<circle cx="12" cy="10" r="4"></circle>
-							<circle cx="12" cy="12" r="10"></circle>
-						</svg>
-					</button>
+                        data-bs-target="#loginModal">
+                        <svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-circle-user-round-icon lucide-circle-user-round">
+                            <path d="M18 20a6 6 0 0 0-12 0"></path>
+                            <circle cx="12" cy="10" r="4"></circle>
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -167,7 +167,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono" placeholder="Ingresa tu teléfono" required>
+                                <input type="tel" class="form-control" id="telefono" placeholder="Ingresa tu teléfono"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <label for="mensaje" class="form-label">Mensaje</label>
@@ -220,13 +221,19 @@
                 </div>
             </div>
         </div>
+        <!-- Loader Overlay -->
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+            <p style="margin-top:15px;color:#b50011;font-size:18px;font-weight:bold;">Enviando tu mensaje...</p>
+        </div>
     </main>
 
+
     <!-- BOTÓN WHATSAPP FLOTANTE -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<a href="#" class="float" target="_blank">
-		<i class="fa fa-whatsapp my-float"></i>
-	</a>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <a href="#" class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+    </a>
 
     <!-- FOOTER -->
     <footer>
@@ -249,68 +256,69 @@
             </p>
         </div>
     </footer>
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="loginModalLabel">Iniciar Sesión / Registrarse</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-				</div>
-				<div class="modal-body">
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
-						<li class="nav-item" role="presentation">
-							<button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#loginTabPane"
-								type="button" role="tab">Login</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#registerTabPane"
-								type="button" role="tab">Registro</button>
-						</li>
-					</ul>
-					<div class="tab-content">
-						<!-- Login Form -->
-						<div class="tab-pane fade show active" id="loginTabPane" role="tabpanel">
-							<form id="loginForm">
-								<div class="mb-3">
-									<label for="loginEmail" class="form-label">Correo electrónico</label>
-									<input type="email" class="form-control" id="loginEmail" required>
-								</div>
-								<div class="mb-3">
-									<label for="loginPassword" class="form-label">Contraseña</label>
-									<input type="password" class="form-control" id="loginPassword" required>
-								</div>
-								<div id="loginError" class="text-danger" style="display:none;">Usuario o contraseña
-									incorrectos.</div>
-								<button type="submit" class="btn btn-custom w-100 mt-2">Ingresar</button>
-							</form>
-						</div>
-						<!-- Register Form -->
-						<div class="tab-pane fade" id="registerTabPane" role="tabpanel">
-							<form id="registerForm">
-								<div class="mb-3">
-									<label for="registerEmail" class="form-label">Correo electrónico</label>
-									<input type="email" class="form-control" id="registerEmail" required>
-								</div>
-								<div class="mb-3">
-									<label for="registerPassword" class="form-label">Contraseña</label>
-									<input type="password" class="form-control" id="registerPassword" required>
-								</div>
-								<div class="mb-3">
-									<label for="registerPassword2" class="form-label">Confirmar contraseña</label>
-									<input type="password" class="form-control" id="registerPassword2" required>
-								</div>
-								<div id="registerError" class="text-danger" style="display:none;"></div>
-								<div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso! Ahora
-									puedes iniciar sesión.</div>
-								<button type="submit" class="btn btn-custom w-100 mt-2">Registrarse</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión / Registrarse</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab"
+                                data-bs-target="#loginTabPane" type="button" role="tab">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab"
+                                data-bs-target="#registerTabPane" type="button" role="tab">Registro</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- Login Form -->
+                        <div class="tab-pane fade show active" id="loginTabPane" role="tabpanel">
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="loginEmail" class="form-label">Correo electrónico</label>
+                                    <input type="email" class="form-control" id="loginEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                </div>
+                                <div id="loginError" class="text-danger" style="display:none;">Usuario o contraseña
+                                    incorrectos.</div>
+                                <button type="submit" class="btn btn-custom w-100 mt-2">Ingresar</button>
+                            </form>
+                        </div>
+                        <!-- Register Form -->
+                        <div class="tab-pane fade" id="registerTabPane" role="tabpanel">
+                            <form id="registerForm">
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">Correo electrónico</label>
+                                    <input type="email" class="form-control" id="registerEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" id="registerPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword2" class="form-label">Confirmar contraseña</label>
+                                    <input type="password" class="form-control" id="registerPassword2" required>
+                                </div>
+                                <div id="registerError" class="text-danger" style="display:none;"></div>
+                                <div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso!
+                                    Ahora
+                                    puedes iniciar sesión.</div>
+                                <button type="submit" class="btn btn-custom w-100 mt-2">Registrarse</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/dark-mode.js"></script>
@@ -329,7 +337,10 @@
             };
 
             try {
-                const resp = await fetch("http://localhost:8080/api/contacto", {
+                // Mostrar overlay de carga
+                document.getElementById('loading-overlay').style.display = 'flex';
+
+                const resp = await fetch("http://localhost:8081/api/contacto", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(datos)
@@ -337,12 +348,15 @@
 
                 const resultado = await resp.text();
                 console.log("Respuesta del servidor:", resultado);
+                // Mostrar overlay de carga
+                document.getElementById('loading-overlay').style.display = 'none';
 
             } catch (error) {
                 console.error("Error al enviar el formulario:", error);
+                document.getElementById('loading-overlay').style.display = 'none';
             }
         });
-        
+
     </script>
 </body>
 
