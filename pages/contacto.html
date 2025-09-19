@@ -151,8 +151,8 @@
                         <h2 class="mb-4">Envíanos un mensaje</h2>
                         <form id="contactForm">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nombre completo</label>
-                                <input type="text" class="form-control" id="name" placeholder="Ingresa tu nombre"
+                                <label for="nombre" class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre"
                                     required>
                             </div>
                             <div class="mb-3">
@@ -161,12 +161,12 @@
                                     required>
                             </div>
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Teléfono (opcional)</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Ingresa tu teléfono">
+                                <label for="telefono" class="form-label">Teléfono (opcional)</label>
+                                <input type="tel" class="form-control" id="telefono" placeholder="Ingresa tu teléfono">
                             </div>
                             <div class="mb-3">
-                                <label for="message" class="form-label">Mensaje</label>
-                                <textarea class="form-control" id="message" rows="5"
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" rows="5"
                                     placeholder="Escribe tu mensaje aquí..." required></textarea>
                             </div>
                             <button type="submit" class="btn-submit">Enviar mensaje</button>
@@ -312,13 +312,31 @@
     <script src="../assets/js/login.js"></script>
     <script>
         // Validación simple del formulario
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // Simulación de envío exitoso
-            alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
-            this.reset();
+            const datos = {
+                nombre: e.target.nombre.value,
+                email: e.target.email.value,
+                telefono: e.target.telefono.value,
+                mensaje: e.target.mensaje.value
+            };
+
+            try {
+                const resp = await fetch("http://localhost:8080/api/contacto", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos)
+                });
+
+                const resultado = await resp.text();
+                console.log("Respuesta del servidor:", resultado);
+
+            } catch (error) {
+                console.error("Error al enviar el formulario:", error);
+            }
         });
+        
     </script>
 </body>
 
