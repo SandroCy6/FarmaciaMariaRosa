@@ -80,7 +80,10 @@
     <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Agregar Producto</button>
       <button id="logoutBtn" class="btn btn-danger ms-2">Cerrar sesión</button>
-      <input type="text" id="adminSearchInput" class="form-control ms-auto" style="max-width: 300px;" placeholder="Buscar producto...">
+      <select id="adminCategoryFilter" class="form-select" style="max-width: 200px;">
+        <option value="all">Todas las categorías</option>
+      </select>
+      <input type="text" id="adminSearchInput" class="form-control" style="max-width: 300px;" placeholder="Buscar producto...">
     </div>
     <div class="table-responsive">
       <table class="table table-bordered table-hover align-middle" id="productsTable">
@@ -212,22 +215,44 @@
       const productForm = document.getElementById("productForm");
       const productModal = new bootstrap.Modal(document.getElementById("productModal"));
       const searchInput = document.getElementById("adminSearchInput");
+      const categoryFilter = document.getElementById("adminCategoryFilter");
 
       function loadProducts() {
         if (localStorage.getItem("adminProducts")) {
           products = JSON.parse(localStorage.getItem("adminProducts"));
-          filteredProducts = products;
-          renderTable();
+          updateCategoryOptions();
+          aplicarFiltros();
         } else {
           fetch("../data/products.json")
             .then(res => res.json())
             .then(data => {
               products = data;
-              filteredProducts = products;
               localStorage.setItem("adminProducts", JSON.stringify(products));
-              renderTable();
+              updateCategoryOptions();
+              aplicarFiltros();
             });
         }
+      }
+
+      function updateCategoryOptions() {
+        const categorias = [...new Set(products.map(p => p.categoria))];
+        categoryFilter.innerHTML = '<option value="all">Todas las categorías</option>' +
+          categorias.map(c => `<option value="${c}">${c}</option>`).join("");
+      }
+
+      function aplicarFiltros() {
+        const search = searchInput.value.trim().toLowerCase();
+        const categoria = categoryFilter.value;
+        filteredProducts = products.filter(p => {
+          const matchCategoria = categoria === "all" || p.categoria === categoria;
+          const matchSearch =
+            search === "" ||
+            p.nombre.toLowerCase().includes(search) ||
+            p.categoria.toLowerCase().includes(search) ||
+            p.descripcion.toLowerCase().includes(search);
+          return matchCategoria && matchSearch;
+        });
+        renderTable();
       }
 
       function renderTable() {
@@ -258,20 +283,9 @@
         });
       }
 
-      // Búsqueda en tiempo real
-      searchInput.addEventListener("input", function () {
-        const search = searchInput.value.trim().toLowerCase();
-        if (search === "") {
-          filteredProducts = products;
-        } else {
-          filteredProducts = products.filter(p =>
-            p.nombre.toLowerCase().includes(search) ||
-            p.categoria.toLowerCase().includes(search) ||
-            p.descripcion.toLowerCase().includes(search)
-          );
-        }
-        renderTable();
-      });
+      // Búsqueda y filtro en tiempo real
+      searchInput.addEventListener("input", aplicarFiltros);
+      categoryFilter.addEventListener("change", aplicarFiltros);
 
       window.editProduct = function(idx) {
         const p = products[idx];
@@ -290,18 +304,8 @@
         if (confirm("¿Eliminar este producto?")) {
           products.splice(idx, 1);
           localStorage.setItem("adminProducts", JSON.stringify(products));
-          // Actualizar búsqueda si hay filtro activo
-          const search = searchInput.value.trim().toLowerCase();
-          if (search === "") {
-            filteredProducts = products;
-          } else {
-            filteredProducts = products.filter(p =>
-              p.nombre.toLowerCase().includes(search) ||
-              p.categoria.toLowerCase().includes(search) ||
-              p.descripcion.toLowerCase().includes(search)
-            );
-          }
-          renderTable();
+          updateCategoryOptions();
+          aplicarFiltros();
         }
       };
 
@@ -326,19 +330,9 @@
           products.push({ id: newId, nombre, categoria, descripcion, precio, stock, imagen, rating });
         }
         localStorage.setItem("adminProducts", JSON.stringify(products));
-        // Actualizar búsqueda si hay filtro activo
-        const search = searchInput.value.trim().toLowerCase();
-        if (search === "") {
-          filteredProducts = products;
-        } else {
-          filteredProducts = products.filter(p =>
-            p.nombre.toLowerCase().includes(search) ||
-            p.categoria.toLowerCase().includes(search) ||
-            p.descripcion.toLowerCase().includes(search)
-          );
-        }
+        updateCategoryOptions();
+        aplicarFiltros();
         productModal.hide();
-        renderTable();
         productForm.reset();
         document.getElementById("productId").value = "";
       };
