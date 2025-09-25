@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../assets/css/modules/footer-style.css" />
   <link rel="stylesheet" href="../assets/css/modules/navbar-style.css" />
   <link rel="stylesheet" href="../assets/css/body-style.css" />
+  <link rel="stylesheet" href="../assets/css/admin-style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
@@ -83,10 +84,11 @@
       <select id="adminCategoryFilter" class="form-select" style="max-width: 200px;">
         <option value="all">Todas las categorías</option>
       </select>
+      <input type="text" id="adminIdSearchInput" class="form-control" style="max-width: 120px;" placeholder="Buscar por ID...">
       <input type="text" id="adminSearchInput" class="form-control" style="max-width: 300px;" placeholder="Buscar producto...">
     </div>
     <div class="table-responsive">
-      <table class="table table-bordered table-hover align-middle" id="productsTable">
+  <table class="table table-bordered table-hover align-middle table-admin" id="productsTable">
         <thead class="table-success">
           <tr>
             <th>ID</th>
@@ -97,6 +99,7 @@
             <th>Stock</th>
             <th>Imagen</th>
             <th>Rating</th>
+            <th>Caducidad</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -124,6 +127,7 @@
           <input type="number" id="productStock" class="form-control" placeholder="Stock" required>
           <input type="text" id="productImage" class="form-control" placeholder="URL Imagen" required>
           <input type="number" id="productRating" class="form-control" placeholder="Rating" step="0.1" min="0" max="5" required>
+          <input type="text" id="productFechaCaducidad" class="form-control" placeholder="Fecha de caducidad (ej: 1 de mayo del 2026)">
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Guardar</button>
@@ -214,7 +218,8 @@
       const productsTable = document.querySelector("#productsTable tbody");
       const productForm = document.getElementById("productForm");
       const productModal = new bootstrap.Modal(document.getElementById("productModal"));
-      const searchInput = document.getElementById("adminSearchInput");
+  const searchInput = document.getElementById("adminSearchInput");
+  const idSearchInput = document.getElementById("adminIdSearchInput");
       const categoryFilter = document.getElementById("adminCategoryFilter");
 
       function loadProducts() {
@@ -242,15 +247,17 @@
 
       function aplicarFiltros() {
         const search = searchInput.value.trim().toLowerCase();
+        const idSearch = idSearchInput.value.trim();
         const categoria = categoryFilter.value;
         filteredProducts = products.filter(p => {
           const matchCategoria = categoria === "all" || p.categoria === categoria;
+          const matchId = idSearch === "" || String(p.id).includes(idSearch);
           const matchSearch =
             search === "" ||
             p.nombre.toLowerCase().includes(search) ||
             p.categoria.toLowerCase().includes(search) ||
             p.descripcion.toLowerCase().includes(search);
-          return matchCategoria && matchSearch;
+          return matchCategoria && matchId && matchSearch;
         });
         renderTable();
       }
@@ -274,6 +281,7 @@
             <td>${p.stock}</td>
             <td><img src="${p.imagen}" alt="" width="50"></td>
             <td>${p.rating}</td>
+            <td>${p.fecha_caducidad ? p.fecha_caducidad : '-'}</td>
             <td>
               <button class="btn btn-sm btn-warning me-1" onclick="editProduct(${products.indexOf(p)})">Editar</button>
               <button class="btn btn-sm btn-danger" onclick="deleteProduct(${products.indexOf(p)})">Eliminar</button>
@@ -284,20 +292,22 @@
       }
 
       // Búsqueda y filtro en tiempo real
-      searchInput.addEventListener("input", aplicarFiltros);
-      categoryFilter.addEventListener("change", aplicarFiltros);
+  searchInput.addEventListener("input", aplicarFiltros);
+  idSearchInput.addEventListener("input", aplicarFiltros);
+  categoryFilter.addEventListener("change", aplicarFiltros);
 
       window.editProduct = function(idx) {
         const p = products[idx];
-        document.getElementById("productId").value = p.id;
-        document.getElementById("productName").value = p.nombre;
-        document.getElementById("productCategory").value = p.categoria;
-        document.getElementById("productDescription").value = p.descripcion;
-        document.getElementById("productPrice").value = p.precio;
-        document.getElementById("productStock").value = p.stock;
-        document.getElementById("productImage").value = p.imagen;
-        document.getElementById("productRating").value = p.rating;
-        productModal.show();
+  document.getElementById("productId").value = p.id;
+  document.getElementById("productName").value = p.nombre;
+  document.getElementById("productCategory").value = p.categoria;
+  document.getElementById("productDescription").value = p.descripcion;
+  document.getElementById("productPrice").value = p.precio;
+  document.getElementById("productStock").value = p.stock;
+  document.getElementById("productImage").value = p.imagen;
+  document.getElementById("productRating").value = p.rating;
+  document.getElementById("productFechaCaducidad").value = p.fecha_caducidad || "";
+  productModal.show();
       };
 
       window.deleteProduct = function(idx) {
@@ -319,15 +329,16 @@
         const stock = parseInt(document.getElementById("productStock").value);
         const imagen = document.getElementById("productImage").value;
         const rating = parseFloat(document.getElementById("productRating").value);
+        const fecha_caducidad = document.getElementById("productFechaCaducidad").value;
 
         if (id) {
           const idx = products.findIndex(p => p.id == id);
           if (idx !== -1) {
-            products[idx] = { id: Number(id), nombre, categoria, descripcion, precio, stock, imagen, rating };
+            products[idx] = { id: Number(id), nombre, categoria, descripcion, precio, stock, imagen, rating, fecha_caducidad };
           }
         } else {
           const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
-          products.push({ id: newId, nombre, categoria, descripcion, precio, stock, imagen, rating });
+          products.push({ id: newId, nombre, categoria, descripcion, precio, stock, imagen, rating, fecha_caducidad });
         }
         localStorage.setItem("adminProducts", JSON.stringify(products));
         updateCategoryOptions();
@@ -338,8 +349,9 @@
       };
 
       document.getElementById("productModal").addEventListener("show.bs.modal", function () {
-        productForm.reset();
-        document.getElementById("productId").value = "";
+  productForm.reset();
+  document.getElementById("productId").value = "";
+  document.getElementById("productFechaCaducidad").value = "";
       });
 
       loadProducts();

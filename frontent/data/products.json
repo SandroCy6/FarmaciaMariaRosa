@@ -7,7 +7,8 @@
     "precio": 5.50,
     "rating": 4.8,
     "imagen": "../assets/img/paracetamol.jpg",
-    "stock": 50
+    "stock": 50,
+    "fecha_caducidad": "1 de mayo del 2026"
   },
   {
     "id": 2,
@@ -17,7 +18,8 @@
     "precio": 6.00,
     "rating": 4.8,
     "imagen": "../assets/img/ibuprofeno.jpg",
-    "stock": 40
+    "stock": 40,
+    "fecha_caducidad": "15 de junio del 2026"
   },
   {
     "id": 3,
@@ -27,7 +29,8 @@
     "precio": 8.50,
     "rating": 4.7,
     "imagen": "../assets/img/omeprazol.jpg",
-    "stock": 30
+    "stock": 30,
+    "fecha_caducidad": "10 de enero del 2027"
   },
   {
     "id": 4,
@@ -37,7 +40,8 @@
     "precio": 12.00,
     "rating": 4.9,
     "imagen": "../assets/img/crema-hidratante.jpg",
-    "stock": 20
+    "stock": 20,
+    "fecha_caducidad": "20 de marzo del 2027"
   },
   {
     "id": 5,
@@ -47,7 +51,8 @@
     "precio": 15.00,
     "rating": 4.6,
     "imagen": "../assets/img/vitamina-c.png",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "30 de agosto del 2027"
   },
   {
     "id": 6,
@@ -57,7 +62,8 @@
     "precio": 18.00,
     "rating": 4.5,
     "imagen": "../assets/img/shampoo.jpg",
-    "stock": 15
+    "stock": 15,
+    "fecha_caducidad": "1 de diciembre del 2027"
   },
   {
     "id": 7,
@@ -67,7 +73,8 @@
     "precio": 20.00,
     "rating": 4.7,
     "imagen": "../assets/img/multivitaminico.jpg",
-    "stock": 10
+    "stock": 10,
+    "fecha_caducidad": "15 de noviembre del 2026"
   },
   {
     "id": 8,
@@ -77,7 +84,8 @@
     "precio": 25.00,
     "rating": 4.9,
     "imagen": "../assets/img/protector-solar.jpg",
-    "stock": 12
+    "stock": 12,
+    "fecha_caducidad": "1 de septiembre del 2026"
   },
   {
     "id": 9,
@@ -87,7 +95,8 @@
     "precio": 10.00,
     "rating": 4.6,
     "imagen": "../assets/img/amoxicilina.jpg",
-    "stock": 35
+    "stock": 35,
+    "fecha_caducidad": "10 de octubre del 2026"
   },
   {
     "id": 10,
@@ -97,7 +106,8 @@
     "precio": 4.50,
     "rating": 4.5,
     "imagen": "../assets/img/aspirina.png",
-    "stock": 45
+    "stock": 45,
+    "fecha_caducidad": "28 de febrero del 2027"
   },
   {
     "id": 11,
@@ -107,7 +117,8 @@
     "precio": 12.00,
     "rating": 4.8,
     "imagen": "../assets/img/salonpas.png",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "10 de abril del 2027"
   },
   {
     "id": 12,
@@ -117,7 +128,8 @@
     "precio": 14.00,
     "rating": 4.7,
     "imagen": "../assets/img/vick-tos.jpg",
-    "stock": 30
+    "stock": 30,
+    "fecha_caducidad": "5 de diciembre del 2026"
   },
   {
     "id": 13,
@@ -127,7 +139,8 @@
     "precio": 8.00,
     "rating": 4.6,
     "imagen": "../assets/img/ibuprofeno-600.jpg",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "20 de julio del 2026"
   },
   {
     "id": 14,
@@ -137,7 +150,8 @@
     "precio": 18.00,
     "rating": 4.8,
     "imagen": "../assets/img/canesten.jpg",
-    "stock": 20
+    "stock": 20,
+    "fecha_caducidad": "18 de junio del 2027"
   },
   {
     "id": 15,
@@ -147,7 +161,8 @@
     "precio": 15.00,
     "rating": 4.7,
     "imagen": "../assets/img/vitamina-d3.jpg",
-    "stock": 30
+    "stock": 30,
+    "fecha_caducidad": "30 de septiembre del 2027"
   },
   {
     "id": 16,
@@ -157,7 +172,8 @@
     "precio": 60.00,
     "rating": 4.8,
     "imagen": "../assets/img/centrum-50.jpg",
-    "stock": 15
+    "stock": 15,
+    "fecha_caducidad": "10 de noviembre del 2027"
   },
   {
     "id": 17,
@@ -167,7 +183,8 @@
     "precio": 35.00,
     "rating": 4.9,
     "imagen": "../assets/img/protector-nivea.webp",
-    "stock": 20
+    "stock": 20,
+    "fecha_caducidad": "15 de agosto del 2026"
   },
   {
     "id": 18,
@@ -177,7 +194,8 @@
     "precio": 18.00,
     "rating": 4.7,
     "imagen": "../assets/img/head-shoulders.png",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "1 de abril del 2027"
   },
   {
     "id": 19,
@@ -187,7 +205,8 @@
     "precio": 12.00,
     "rating": 4.8,
     "imagen": "../assets/img/purell.jpg",
-    "stock": 40
+    "stock": 40,
+    "fecha_caducidad": "15 de mayo del 2027"
   },
   {
     "id": 20,
@@ -197,7 +216,8 @@
     "precio": 22.00,
     "rating": 4.7,
     "imagen": "../assets/img/nivea-soft.webp",
-    "stock": 20
+    "stock": 20,
+    "fecha_caducidad": "10 de octubre del 2027"
   },
   {
     "id": 21,
@@ -207,7 +227,8 @@
     "precio": 12.50,
     "rating": 4.9,
     "imagen": "../assets/img/toallitas-baby.webp",
-    "stock": 30
+    "stock": 30,
+    "fecha_caducidad": "1 de julio del 2027"
   },
   {
     "id": 22,
@@ -217,7 +238,8 @@
     "precio": 85.00,
     "rating": 4.8,
     "imagen": "../assets/img/panales-huggies.webp",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "31 de diciembre del 2027"
   },
   {
     "id": 23,
@@ -227,7 +249,8 @@
     "precio": 35.00,
     "rating": 4.7,
     "imagen": "../assets/img/nan1.jpg",
-    "stock": 20
+    "stock": 20,
+    "fecha_caducidad": "30 de noviembre del 2026"
   },
   {
     "id": 24,
@@ -237,7 +260,8 @@
     "precio": 18.00,
     "rating": 4.7,
     "imagen": "../assets/img/listerine.jpg",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "15 de marzo del 2027"
   },
   {
     "id": 25,
@@ -247,7 +271,8 @@
     "precio": 6.50,
     "rating": 4.8,
     "imagen": "../assets/img/colgate-total.jpg",
-    "stock": 50
+    "stock": 50,
+    "fecha_caducidad": "1 de septiembre del 2027"
   },
   {
     "id": 26,
@@ -257,7 +282,8 @@
     "precio": 30.00,
     "rating": 4.9,
     "imagen": "../assets/img/durex.jpg",
-    "stock": 30
+    "stock": 30,
+    "fecha_caducidad": "1 de enero del 2028"
   },
   {
     "id": 27,
@@ -267,7 +293,8 @@
     "precio": 20.00,
     "rating": 4.7,
     "imagen": "../assets/img/ky-jelly.jpg",
-    "stock": 20
+    "stock": 20,
+    "fecha_caducidad": "1 de mayo del 2027"
   },
   {
     "id": 28,
@@ -277,7 +304,8 @@
     "precio": 18.00,
     "rating": 4.8,
     "imagen": "../assets/img/vitamina-c30.jpg",
-    "stock": 35
+    "stock": 35,
+    "fecha_caducidad": "1 de agosto del 2027"
   },
   {
     "id": 29,
@@ -287,7 +315,8 @@
     "precio": 22.00,
     "rating": 4.7,
     "imagen": "../assets/img/complex-b.jpg",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "1 de octubre del 2027"
   },
   {
     "id": 30,
@@ -297,7 +326,8 @@
     "precio": 14.00,
     "rating": 4.6,
     "imagen": "../assets/img/ambroxol.jpg",
-    "stock": 30
+    "stock": 30,
+    "fecha_caducidad": "15 de septiembre del 2026"
   },
   {
     "id": 31,
@@ -307,7 +337,8 @@
     "precio": 20.00,
     "rating": 4.9,
     "imagen": "../assets/img/bepanthol.jpg",
-    "stock": 25
+    "stock": 25,
+    "fecha_caducidad": "1 de junio del 2027"
   },
   {
     "id": 32,
@@ -317,7 +348,8 @@
     "precio": 10.00,
     "rating": 4.8,
     "imagen": "../assets/img/solucion-salina.jpg",
-    "stock": 40
+    "stock": 40,
+    "fecha_caducidad": "1 de febrero del 2027"
   },
   {
     "id": 33,
@@ -327,7 +359,8 @@
     "precio": 12.00,
     "rating": 4.7,
     "imagen": "../assets/img/alcohol-70.jpg",
-    "stock": 50
+  "stock": 50,
+  "fecha_caducidad": "1 de enero del 2028"
   },
   {
     "id": 34,
@@ -337,7 +370,8 @@
     "precio": 55.00,
     "rating": 4.9,
     "imagen": "../assets/img/termometro.jpg",
-    "stock": 15
+    "stock": 15,
+    "fecha_caducidad": "1 de enero del 2029"
   },
   {
     "id": 35,
@@ -347,7 +381,8 @@
     "precio": 25.00,
     "rating": 4.8,
     "imagen": "../assets/img/guantes-nitrilo.jpg",
-    "stock": 40
+    "stock": 40,
+    "fecha_caducidad": "1 de junio del 2028"
   },
   {
     "id": 36,
@@ -357,7 +392,8 @@
     "precio": 8.00,
     "rating": 4.7,
     "imagen": "../assets/img/vaselina.jpg",
-    "stock": 35
+  "stock": 35,
+  "fecha_caducidad": "1 de enero del 2028"
   },
   {
     "id": 37,
@@ -367,7 +403,8 @@
     "precio": 15.00,
     "rating": 4.8,
     "imagen": "../assets/img/spray-nasal.jpg",
-    "stock": 30
+    "stock": 30,
+    "fecha_caducidad": "1 de marzo del 2027"
   },
   {
     "id": 38,
@@ -377,6 +414,7 @@
     "precio": 8.50,
     "rating": 4.9,
     "imagen": "../assets/img/protector-labial.jpg",
-    "stock": 40
+  "stock": 40,
+  "fecha_caducidad": "1 de enero del 2028"
   }
 ]
