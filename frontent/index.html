@@ -162,6 +162,23 @@
 	</section>
 
 	<!-- PRODUCTOS DESTACADOS -->
+	<!-- Productos Destacados Carousel -->
+	<section class="py-5">
+		<div class="container">
+			<h2 class="fw-bold mb-4 text-center">Productos Destacados</h2>
+			<div id="featuredProductsCarousel" class="carousel slide shadow rounded-4 overflow-hidden" data-bs-ride="carousel">
+				<div class="carousel-inner" id="featuredProductsInner">
+					<!-- JS will inject items here -->
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon"></span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="next">
+					<span class="carousel-control-next-icon"></span>
+				</button>
+			</div>
+		</div>
+	</section>
 
 	<!-- CATEGORÍAS -->
 	<section class="categories py-5">
@@ -324,6 +341,59 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/js/dark-mode.js"></script>
 	<script src="assets/js/login.js"></script>
+	<script>
+  // Load products from JSON or localStorage (adminProducts)
+  async function getProducts() {
+    if (localStorage.getItem("adminProducts")) {
+      return JSON.parse(localStorage.getItem("adminProducts"));
+    } else {
+      const res = await fetch("./data/products.json");
+      return await res.json();
+    }
+  }
+
+  function pickBestRated(products, count = 4) {
+    // Sort by rating descending, then pick random from top 8
+    const sorted = products.slice().sort((a, b) => b.rating - a.rating);
+    const top = sorted.slice(0, 8);
+    // Shuffle top products
+    for (let i = top.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [top[i], top[j]] = [top[j], top[i]];
+    }
+    return top.slice(0, count);
+  }
+
+  function renderFeaturedCarousel(products) {
+    const inner = document.getElementById("featuredProductsInner");
+    inner.innerHTML = "";
+    products.forEach((p, idx) => {
+      inner.innerHTML += `
+        <div class="carousel-item${idx === 0 ? " active" : ""}">
+          <div class="row align-items-center">
+            <div class="col-md-5 text-center">
+              <img src="${p.imagen}" alt="${p.nombre}" class="img-fluid rounded shadow" style="max-height:250px;">
+            </div>
+            <div class="col-md-7">
+              <h4>${p.nombre}</h4>
+              <p class="text-muted">${p.descripcion}</p>
+              <p><strong>Categoría:</strong> ${p.categoria}</p>
+              <p><strong>Precio:</strong> <span class="text-success fw-bold">S/ ${parseFloat(p.precio).toFixed(2)}</span></p>
+              <p><strong>Rating:</strong> <span class="text-warning">${"★".repeat(Math.round(p.rating))}</span> (${p.rating})</p>
+              <a href="./pages/productos.html" class="btn btn-custom mt-2">Ver más</a>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    const products = await getProducts();
+    const featured = pickBestRated(products, 4);
+    renderFeaturedCarousel(featured);
+  });
+</script>
 </body>
 
 </html>
