@@ -10,20 +10,35 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    /**
+     * Relación N:1 con Cliente.
+     * Cada pedido pertenece a un cliente.
+     */
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
+    /**
+     * Fecha en la que se creó el pedido.
+     * Se inicializa automáticamente al momento de persistir.
+     */
     private LocalDateTime fecha = LocalDateTime.now();
 
+    /**
+     * Estado del pedido.
+     * Puede tomar valores como: PENDIENTE, PAGADO, ENTREGADO o CANCELADO.
+     */
     @Column(length = 20, nullable = false)
-    private String estado; // PENDIENTE, PAGADO, ENTREGADO, CANCELADO
+    private String estado;
 
+    /**
+     * Relación 1:N con DetallePedido.
+     * Un pedido puede tener varios productos asociados (sus detalles).
+     */
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallePedido> detalles;
 
-    // Getters y Setters
+    // ================== MÉTODOS GETTER Y SETTER ==================
     public Long getId() {
         return id;
     }
