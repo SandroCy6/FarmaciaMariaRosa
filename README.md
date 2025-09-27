@@ -76,7 +76,7 @@ Started DemoApplication in X seconds
 ```
 
 ### 4️⃣ Frontend
-- Abrir el archivo index.html en la carpeta frontend en tu navegador.
+- Abrir el archivo [index.html](frontent/index.html) en la carpeta frontend en tu navegador.
 - (Puedes usar Live Server de VSCode para mayor comodidad).
 
 ---
