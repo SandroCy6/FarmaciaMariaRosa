@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- Versión del modelo de proyecto de Maven -->
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Hereda configuración base de Spring Boot -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> <!-- Busca el parent en el repositorio central -->
 	</parent>
+
+	<!-- Información general del proyecto -->
 	<groupId>com.proyectouno</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
+
+	<!-- Configuración adicional del proyecto (sin uso en este caso) -->
 	<url/>
 	<licenses>
 		<license/>
@@ -26,55 +33,65 @@
 		<tag/>
 		<url/>
 	</scm>
+
+	<!-- Propiedades globales del proyecto -->
 	<properties>
+	<!-- Versión de Java usada -->
 		<java.version>21</java.version>
 	</properties>
+
+	<!-- Dependencias principales -->
 	<dependencies>
-		<!-- Starter web para crear aplicaciones web y REST -->
+
+        <!-- Starter Web: incluye Spring MVC, Tomcat embebido y JSON -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+        <!-- Motor de plantillas Thymeleaf (para vistas HTML) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<!-- Spring Boot JPA -->
+        <!-- Starter JPA: integración con Hibernate para persistencia -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- PostgreSQL driver -->
+        <!-- Driver de PostgreSQL para conexión a la BD -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Para pruebas -->
+        <!-- Dependencias para pruebas (JUnit, AssertJ, etc.) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Starter básico de Spring Boot (útil, pero aquí está repetido) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
+	    <!-- ⚠️ Repetida: spring-boot-starter-test aparece dos veces -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
+    <!-- Configuración de compilación y empaquetado -->
 	<build>
 		<plugins>
+		<!-- Plugin de Spring Boot: permite empaquetar el proyecto como JAR ejecutable -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
