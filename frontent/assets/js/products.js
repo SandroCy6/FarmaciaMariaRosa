@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = start + itemsPerPage;
     const pagina = productosFiltrados.slice(start, end);
 
+    // Mostrar mensaje si no hay resultados
     if (pagina.length === 0) {
       container.innerHTML = `
         <div class="col-12 text-center py-5">
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pagination.innerHTML = "";
       return;
     }
-
+    // Crear cards de productos
     pagina.forEach((producto) => {
       const col = document.createElement("div");
       col.classList.add("col-md-4", "mb-4");
@@ -49,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     `;
-
+      // Abrir modal con detalles al hacer clic
       col.querySelector(".producto-card").addEventListener("click", () => {
         document.getElementById("modalImagen").src = producto.imagen;
         document.getElementById("modalImagen").alt = producto.nombre;
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPagination();
   }
 
-  // 🔹 función de filtros
+  // 🔹 Aplica búsqueda y filtros por categoría
   function aplicarFiltros() {
     const search = searchInput.value.toLowerCase();
     const categoria = categoryFilter.value;
@@ -84,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentPage = 1;
     renderProducts();
 
+    // Mostrar cantidad de resultados
     const resultCount = document.getElementById("resultCount");
     if (searchInput.value.trim() !== "") {
       resultCount.textContent = `${productosFiltrados.length} resultados`;
@@ -96,18 +98,17 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("input", aplicarFiltros);
   categoryFilter.addEventListener("change", aplicarFiltros);
 
-  // Crear botones de paginación mejorada
+  // 🔹 Renderiza los botones de paginación
   function renderPagination() {
     pagination.innerHTML = "";
     const totalPages = Math.ceil(productosFiltrados.length / itemsPerPage);
     
     if (totalPages <= 1) return; // No mostrar paginación si hay una sola página
 
-    // Calcular el rango de páginas a mostrar
+    // Calcular rango de páginas visibles
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
     
-    // Ajustar si estamos cerca del final
     if (endPage - startPage + 1 < maxVisiblePages) {
       startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
@@ -178,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return button;
   }
 
-  // Cargar productos desde localStorage si existen, si no desde JSON
+  // 🔹 Carga productos desde localStorage (admin) o JSON
   function cargarProductos() {
     if (localStorage.getItem("adminProducts")) {
       productos = JSON.parse(localStorage.getItem("adminProducts"));

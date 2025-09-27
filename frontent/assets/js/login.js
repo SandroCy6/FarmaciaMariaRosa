@@ -1,27 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // User store (demo only)
+  // ===== Manejo de usuarios en localStorage =====
   function getUsers() {
+        // Obtiene usuarios registrados (excepto admin, que está hardcodeado)
     return JSON.parse(localStorage.getItem("users") || "[]");
   }
   function saveUser(email, password) {
+        // Guarda un nuevo usuario en localStorage
     const users = getUsers();
     users.push({ email, password, role: "user" });
     localStorage.setItem("users", JSON.stringify(users));
   }
   function findUser(email, password) {
+        // Si es el admin, se valida con credenciales fijas
     if (email === "admin@farmacia.com" && password === "123456") {
       return { email, role: "admin" };
     }
+        // Sino, busca en los usuarios guardados
     return getUsers().find(u => u.email === email && u.password === password);
   }
   function userExists(email) {
+        // Verifica si el email ya existe (incluyendo admin)
     return (
       email === "admin@farmacia.com" ||
       getUsers().some(u => u.email === email)
     );
   }
 
-  // Save logged-in user
+  // ===== Manejo de sesión =====
   function setLoggedInUser(user) {
     localStorage.setItem("loggedInUser", JSON.stringify(user));
   }
@@ -32,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.removeItem("loggedInUser");
   }
 
-  // Login
+  // ===== Login =====
   const loginForm = document.getElementById("loginForm");
   const loginError = document.getElementById("loginError");
   if (loginForm) {
@@ -43,12 +48,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const user = findUser(email, password);
       if (user) {
+                // Usuario válido → guardar sesión y redirigir
         loginError.style.display = "none";
         setLoggedInUser(user);
         const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
         modal.hide();
         if (user.role === "admin") {
-          // Detect if current page is inside /pages or /admin
+          // Redirigir al panel de admin (ajustando según ruta actual)
           const isInPages = window.location.pathname.includes("/pages/");
           const isInAdmin = window.location.pathname.includes("/admin/");
           if (isInPages || isInAdmin) {
@@ -58,16 +64,16 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         } else {
           alert("¡Bienvenido, " + email + "!");
-          // Optionally redirect normal users to their profile page
-          // window.location.href = ...;
+                    // Aquí se podría redirigir a perfil de usuario
         }
       } else {
+                // Usuario no encontrado → mostrar error
         loginError.style.display = "block";
       }
     });
   }
 
-  // Register
+  // ===== Registro =====
   const registerForm = document.getElementById("registerForm");
   const registerError = document.getElementById("registerError");
   const registerSuccess = document.getElementById("registerSuccess");
@@ -81,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       registerError.style.display = "none";
       registerSuccess.style.display = "none";
 
+            // Validaciones: contraseñas coinciden y email único
       if (password !== password2) {
         registerError.textContent = "Las contraseñas no coinciden.";
         registerError.style.display = "block";
@@ -91,20 +98,21 @@ document.addEventListener("DOMContentLoaded", function () {
         registerError.style.display = "block";
         return;
       }
+            // Guardar nuevo usuario
       saveUser(email, password);
       registerSuccess.style.display = "block";
       registerForm.reset();
     });
   }
 
-  // Profile button behavior
+  // ===== Botón de login/perfil =====
   const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {
     loginBtn.addEventListener("click", function (e) {
       const user = getLoggedInUser();
       if (user) {
+                // Si ya está logueado, redirigir según rol
         e.preventDefault();
-        // Detect if current page is inside /pages or /admin
         const isInPages = window.location.pathname.includes("/pages/");
         const isInAdmin = window.location.pathname.includes("/admin/");
         if (user.role === "admin") {
@@ -123,10 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
       } else {
-        // Show login modal (default behavior)
-        // If not using data-bs-toggle, open manually:
-        // const modal = new bootstrap.Modal(document.getElementById('loginModal'));
-        // modal.show();
+        // Si no hay usuario logueado, se abrirá el modal de login
+        // (funciona con data-bs-toggle o se puede abrir manualmente con JS)
       }
     });
   }
