@@ -1,19 +1,23 @@
 package com.proyectouno.demo.DTO;
 
 import java.util.List;
-
+/**
+ * DTO para transferir información detallada de un cliente.
+ * Incluye datos básicos del cliente y relaciones con pedidos y mensajes de contacto.
+ * Se utiliza para enviar datos al frontend sin exponer la entidad completa de la base de datos.
+ */
 public class ClienteDetalleDTO {
-    private Long id;
-    private String nombreCompleto;
-    private String correoElectronico;
-    private String dni;
-    private String telefono;
+    private Long id;                    // ID del cliente
+    private String nombreCompleto;      // Nombre completo del cliente
+    private String correoElectronico;   // Correo electrónico
+    private String dni;                 // Documento de identidad
+    private String telefono;            // Teléfono de contacto
 
     // Relación con pedidos (detallados)
-    private List<PedidoDetalleDTO> pedidos;
+    private List<PedidoDetalleDTO> pedidos; // Lista de pedidos del cliente
 
     // Relación con mensajes de contacto
-    private List<MensajeContactoDTO> mensajesContacto;
+    private List<MensajeContactoDTO> mensajesContacto; // Lista de mensajes de contacto asociados
 
     // Getters y setters
     public Long getId() {
