@@ -283,6 +283,16 @@ body {
     }
 }
 
+/* Título con gradiente */
+.titulo-gradiente {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #EC3237, #bc1018);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Sección contacto */
 .contacto-hero {
 	position: relative;

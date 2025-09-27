@@ -76,39 +76,122 @@
       </div>
     </div>
   </nav>
-  <main class="container py-4">
-    <h2 class="mb-4">Gestión de Productos</h2>
-    <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Agregar Producto</button>
-      <button id="logoutBtn" class="btn btn-danger ms-2">Cerrar sesión</button>
-      <select id="adminCategoryFilter" class="form-select" style="max-width: 200px;">
-        <option value="all">Todas las categorías</option>
-      </select>
-      <input type="text" id="adminIdSearchInput" class="form-control" style="max-width: 120px;" placeholder="Buscar por ID...">
-      <input type="text" id="adminSearchInput" class="form-control" style="max-width: 300px;" placeholder="Buscar producto...">
+
+  <div class="container-fluid py-4">
+    <!-- Botón para mostrar/ocultar sidebar en móvil -->
+    <button class="btn btn-outline-danger d-lg-none mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebarNavMobile" aria-controls="adminSidebarNavMobile" aria-label="Menú administración">
+      <i class="bi bi-list"></i> Menú administración
+    </button>
+    <div class="admin-sidebar-layout">
+      <!-- Sidebar -->
+      <nav class="sidebar me-3 d-none d-lg-block" id="adminSidebarNav">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column nav-pills gap-2" id="adminSidebarTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active w-100 text-start" id="tab-productos" data-bs-toggle="pill" data-bs-target="#panel-productos" type="button" role="tab">Productos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-categorias" data-bs-toggle="pill" data-bs-target="#panel-categorias" type="button" role="tab">Categorías</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-lotes" data-bs-toggle="pill" data-bs-target="#panel-lotes" type="button" role="tab">Lotes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-clientes" data-bs-toggle="pill" data-bs-target="#panel-clientes" type="button" role="tab">Clientes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-estadisticas" data-bs-toggle="pill" data-bs-target="#panel-estadisticas" type="button" role="tab">Estadísticas</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- Sidebar móvil -->
+      <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="adminSidebarNavMobile" aria-labelledby="adminSidebarNavMobileLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="adminSidebarNavMobileLabel">Menú administración</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="nav flex-column nav-pills gap-2" id="adminSidebarTabsMobile" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-productos" type="button" role="tab">Productos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-categorias" type="button" role="tab">Categorías</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-lotes" type="button" role="tab">Lotes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-clientes" type="button" role="tab">Clientes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-estadisticas" type="button" role="tab">Estadísticas</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Contenido principal -->
+      <main class="admin-main-content">
+        <div class="tab-content" id="adminSidebarTabContent">
+          <!-- Panel Productos -->
+          <div class="tab-pane fade show active" id="panel-productos" role="tabpanel">
+            <h2 class="mb-4">Gestión de Productos</h2>
+            <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Agregar Producto</button>
+              <button id="logoutBtn" class="btn btn-danger ms-2">Cerrar sesión</button>
+              <select id="adminCategoryFilter" class="form-select" style="max-width: 200px;">
+                <option value="all">Todas las categorías</option>
+              </select>
+              <input type="text" id="adminIdSearchInput" class="form-control" style="max-width: 120px;" placeholder="Buscar por ID...">
+              <input type="text" id="adminSearchInput" class="form-control" style="max-width: 300px;" placeholder="Buscar producto...">
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover align-middle table-admin" id="productsTable">
+                <thead class="table-success">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Imagen</th>
+                    <th>Rating</th>
+                    <th>Caducidad</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Productos aquí -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Panel Categorías -->
+          <div class="tab-pane fade" id="panel-categorias" role="tabpanel">
+            <h2 class="mb-4">Categorías</h2>
+            <div class="alert alert-info">Panel vacío.</div>
+          </div>
+          <!-- Panel Lotes -->
+          <div class="tab-pane fade" id="panel-lotes" role="tabpanel">
+            <h2 class="mb-4">Lotes</h2>
+            <div class="alert alert-info">Panel vacío.</div>
+          </div>
+          <!-- Panel Clientes -->
+          <div class="tab-pane fade" id="panel-clientes" role="tabpanel">
+            <h2 class="mb-4">Clientes</h2>
+            <div class="alert alert-info">Panel vacío.</div>
+          </div>
+          <!-- Panel Estadísticas -->
+          <div class="tab-pane fade" id="panel-estadisticas" role="tabpanel">
+            <h2 class="mb-4">Estadísticas</h2>
+            <div class="alert alert-info">Panel vacío.</div>
+          </div>
+        </div>
+      </main>
     </div>
-    <div class="table-responsive">
-  <table class="table table-bordered table-hover align-middle table-admin" id="productsTable">
-        <thead class="table-success">
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Imagen</th>
-            <th>Rating</th>
-            <th>Caducidad</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Productos aquí -->
-        </tbody>
-      </table>
-    </div>
-  </main>
+  </div>
 
   <!-- Modal para agregar/editar producto -->
   <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
@@ -201,6 +284,28 @@
   <script src="../assets/js/dark-mode.js"></script>
   <script src="../assets/js/login.js"></script>
   <script>
+    // Sincronizar pestañas entre sidebar normal y móvil
+    document.addEventListener("DOMContentLoaded", function () {
+      const desktopTabs = document.querySelectorAll("#adminSidebarTabs .nav-link");
+      const mobileTabs = document.querySelectorAll("#adminSidebarTabsMobile .nav-link");
+      const offcanvasEl = document.getElementById("adminSidebarNavMobile");
+      let offcanvasInstance = null;
+      if (window.bootstrap && offcanvasEl) {
+        offcanvasInstance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+      }
+      mobileTabs.forEach((btn, idx) => {
+        btn.addEventListener("click", function () {
+          if (desktopTabs[idx]) desktopTabs[idx].click();
+          // Cerrar el sidebar móvil tras seleccionar
+          if (offcanvasInstance) offcanvasInstance.hide();
+        });
+      });
+      desktopTabs.forEach((btn, idx) => {
+        btn.addEventListener("click", function () {
+          mobileTabs.forEach((b, i) => b.classList.toggle("active", i === idx));
+        });
+      });
+    });
     document.addEventListener("DOMContentLoaded", function () {
       const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
       if (!user || user.role !== "admin") {
