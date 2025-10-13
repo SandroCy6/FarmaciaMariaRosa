@@ -10,6 +10,7 @@ import com.proyectouno.demo.models.Cliente;
 import com.proyectouno.demo.models.MensajeContacto;
 import com.proyectouno.demo.repository.ClienteRepository;
 import com.proyectouno.demo.repository.MensajeContactoRepository;
+import jakarta.validation.ConstraintViolationException;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -74,11 +75,20 @@ public class ContactoController {
                     "status", "success",
                     "message", "Formulario recibido y guardado correctamente."));
 
+        }  catch (ConstraintViolationException e) {
+            // Manejar errores de validación de JPA
+            String errorMessage = e.getConstraintViolations().stream()
+                    .map(violation -> violation.getMessage())
+                    .findFirst()
+                    .orElse("Error de validación desconocido");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "status", "error",
+                    "message", errorMessage));
         } catch (Exception e) {
-            // Retornar error 500 si algo falla en la DB o lógica
+            // Manejar otros errores
             return ResponseEntity.status(500).body(Map.of(
                     "status", "error",
-                    "message", "Ocurrió un error al guardar el mensaje."));
+                    "message", "Ocurrió un error al guardar el mensaje: " + e.getMessage()));
         }
     }
 }
