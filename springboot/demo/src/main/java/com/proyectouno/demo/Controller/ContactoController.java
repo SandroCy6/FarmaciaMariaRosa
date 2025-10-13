@@ -36,7 +36,9 @@ public class ContactoController {
      * @param datos Mapa con las claves: nombre, email, telefono, mensaje, dni
      * @return ResponseEntity con status y mensaje de éxito o error
      */
-    @PostMapping("/contacto")
+
+     // POST
+    @PostMapping("/contacto") // POST
     public ResponseEntity<?> recibirContacto(@RequestBody Map<String, String> datos) {
         try {
             // Extraer datos del request
