@@ -1,114 +1,88 @@
 package com.proyectouno.demo.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
- * Entidad JPA que representa a un Cliente dentro del sistema.
- * 
- * Esta clase se mapea directamente a la tabla "clientes" en la base de datos.
- * Un cliente puede estar asociado a múltiples mensajes de contacto.
+ * Entidad que representa la tabla "clientes" en la base de datos.
+ * Almacena información de los clientes que realizan reservas.
  */
 @Entity
-@Table(name = "clientes") // Especifica el nombre de la tabla en la BD
+@Table(name = "clientes")
 public class Cliente {
-    /**
-     * Identificador único del cliente (Primary Key).
-     * Se genera automáticamente mediante estrategia IDENTITY.
-     */
+
+    /** Identificador único del cliente (Primary Key). */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    /**
-     * Nombre completo del cliente.
-     * - No puede ser nulo.
-     * - Longitud máxima: 100 caracteres.
-     */
+    private Long idCliente;
+
+    /** Nombre completo del cliente. */
+    @NotNull(message = "El nombre no puede ser nulo")
+    @Size(max = 100, message = "El nombre no puede exceder los 100 caracteres")
     @Column(length = 100, nullable = false)
     private String nombre;
-    /**
-     * Documento Nacional de Identidad (DNI) del cliente.
-     * - Obligatorio.
-     * - Único (no se pueden repetir DNIs en la tabla).
-     * - Longitud máxima: 20 caracteres.
-     */
-    @Column(length = 20, unique = true, nullable = false)
-    private String dni;
-    /**
-     * Número de teléfono del cliente.
-     * - Opcional.
-     * - Longitud máxima: 15 caracteres.
-     */
-    @Column(length = 15)
-    private String telefono;
-    /**
-     * Correo electrónico del cliente.
-     * - Opcional.
-     * - Único (no se pueden repetir correos en la tabla).
-     * - Longitud máxima: 100 caracteres.
-     */
-    @Column(length = 100, unique = true)
+
+    /** Correo electrónico del cliente. */
+    @Email(message = "El email debe ser válido")
+    @Size(max = 150, message = "El email no puede exceder los 150 caracteres")
+    @Column(length = 150)
     private String email;
-    /**
-     * Relación uno a muchos con MensajeContacto.
-     * Un cliente puede tener varios mensajes asociados.
-     * 
-     * - mappedBy = "cliente": la relación se gestiona desde MensajeContacto.
-     * - cascade = ALL: las operaciones sobre el cliente se propagan a sus mensajes.
-     * - orphanRemoval = true: si un mensaje se elimina de la lista, también se
-     * elimina en BD.
-     */
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MensajeContacto> mensajesContacto = new ArrayList<>();
+
+    /** Número de DNI. */
+    @Size(max = 8, message = "Coloque un número de DNI válido")
+    @Column(length = 8)
+    private String dni;
+
+    /** Número de teléfono. */
+    @Size(max = 9, message = "El teléfono no puede exceder los 9 caracteres")
+    @Column(length = 9)
+    private String telefono;
+
+    /** MENSAJE DEL CLIENTE. */
+    @Column(columnDefinition = "TEXT")
+    private String mensaje;
+
+    /** Dirección del cliente. */
+    @Column(columnDefinition = "TEXT")
+    private String direccion;
+
+    /** Indica si tiene condición médica crónica. */
+    @Column(nullable = false)
+    private Boolean tieneCondicionCronica = false;
+
+    /** Notas médicas o especiales. */
+    @Column(columnDefinition = "TEXT")
+    private String notasEspeciales;
+
+    /** Fecha de creación del registro. */
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
+
+    /** Fecha de última actualización. */
+    @Column(name = "fecha_actualizacion")
+    private LocalDateTime fechaActualizacion;
 
     // ================== MÉTODOS GETTER Y SETTER ==================
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    /** Obtiene la lista de mensajes de contacto asociados al cliente. */
-    public List<MensajeContacto> getMensajesContacto() {
-        return mensajesContacto;
-    }
-    /** Asigna una lista de mensajes de contacto al cliente. */
-    public void setMensajesContacto(List<MensajeContacto> mensajesContacto) {
-        this.mensajesContacto = mensajesContacto;
-    }
+    public Long getIdCliente() { return idCliente; }
+    public void setIdCliente(Long idCliente) { this.idCliente = idCliente; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getDireccion() { return direccion; }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
+   
+    public Boolean getTieneCondicionCronica() { return tieneCondicionCronica; }
+    public void setTieneCondicionCronica(Boolean tieneCondicionCronica) { this.tieneCondicionCronica = tieneCondicionCronica; }
+    public String getNotasEspeciales() { return notasEspeciales; }
+    public void setNotasEspeciales(String notasEspeciales) { this.notasEspeciales = notasEspeciales; }
+    
+    public LocalDateTime getFechaCreacion() { return fechaCreacion; }
+    public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
+    public LocalDateTime getFechaActualizacion() { return fechaActualizacion; }
+    public void setFechaActualizacion(LocalDateTime fechaActualizacion) { this.fechaActualizacion = fechaActualizacion; }
 }
