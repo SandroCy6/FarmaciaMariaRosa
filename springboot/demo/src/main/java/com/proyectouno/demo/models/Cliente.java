@@ -2,6 +2,7 @@ package com.proyectouno.demo.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -30,8 +31,9 @@ public class Cliente {
     private String email;
 
     /** Número de DNI. */
-    @Size(max = 8, message = "Coloque un número de DNI válido")
-    @Column(length = 8)
+    @NotNull(message = "El DNI no puede ser nulo")
+    @Size(min = 8, max = 8, message = "El DNI debe tener exactamente 8 caracteres")
+    @Column(length = 8, nullable = false)
     private String dni;
 
     /** Número de teléfono. */
@@ -39,13 +41,13 @@ public class Cliente {
     @Column(length = 9)
     private String telefono;
 
-    /** MENSAJE DEL CLIENTE. */
-    @Column(columnDefinition = "TEXT")
-    private String mensaje;
-
     /** Dirección del cliente. */
     @Column(columnDefinition = "TEXT")
     private String direccion;
+
+    /** Fecha de nacimiento. */
+    @Column
+    private LocalDate fechaNacimiento;
 
     /** Indica si tiene condición médica crónica. */
     @Column(nullable = false)
@@ -54,6 +56,10 @@ public class Cliente {
     /** Notas médicas o especiales. */
     @Column(columnDefinition = "TEXT")
     private String notasEspeciales;
+
+    /** Acepta recibir notificaciones. */
+    @Column(nullable = false)
+    private Boolean aceptaNotificaciones = true;
 
     /** Fecha de creación del registro. */
     @Column(name = "fecha_creacion", nullable = false)
@@ -76,12 +82,14 @@ public class Cliente {
     public void setTelefono(String telefono) { this.telefono = telefono; }
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
-   
+    public LocalDate getFechaNacimiento() { return fechaNacimiento; }
+    public void setFechaNacimiento(LocalDate fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
     public Boolean getTieneCondicionCronica() { return tieneCondicionCronica; }
     public void setTieneCondicionCronica(Boolean tieneCondicionCronica) { this.tieneCondicionCronica = tieneCondicionCronica; }
     public String getNotasEspeciales() { return notasEspeciales; }
     public void setNotasEspeciales(String notasEspeciales) { this.notasEspeciales = notasEspeciales; }
-    
+    public Boolean getAceptaNotificaciones() { return aceptaNotificaciones; }
+    public void setAceptaNotificaciones(Boolean aceptaNotificaciones) { this.aceptaNotificaciones = aceptaNotificaciones; }
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
     public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
     public LocalDateTime getFechaActualizacion() { return fechaActualizacion; }

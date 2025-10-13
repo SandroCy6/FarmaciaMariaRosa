@@ -23,6 +23,19 @@ public class Categoria {
     @Column(length = 100, nullable = false, unique = true)
     private String nombre;
 
+    /** Descripción detallada de la categoría. */
+    @Column(columnDefinition = "TEXT")
+    private String descripcion;
+
+    /** URL de la imagen representativa. */
+    @Size(max = 255, message = "La URL de la imagen no puede exceder los 255 caracteres")
+    @Column(length = 255)
+    private String imagenUrl;
+
+    /** Estado activo/inactivo de la categoría. */
+    @Column(nullable = false)
+    private Boolean estado = true;
+
     /** Orden de visualización en el frontend. */
     @Column(nullable = false)
     private Integer orden = 0;
@@ -36,6 +49,12 @@ public class Categoria {
     public void setIdCategoria(Long idCategoria) { this.idCategoria = idCategoria; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getImagenUrl() { return imagenUrl; }
+    public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
+    public Boolean getEstado() { return estado; }
+    public void setEstado(Boolean estado) { this.estado = estado; }
     public Integer getOrden() { return orden; }
     public void setOrden(Integer orden) { this.orden = orden; }
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
