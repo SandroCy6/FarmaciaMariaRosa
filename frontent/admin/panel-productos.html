@@ -1,0 +1,32 @@
+<div class="tab-pane fade show active" id="panel-productos" role="tabpanel">
+  <h2 class="mb-4">Gestión de Productos</h2>
+  <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Agregar Producto</button>
+    <button id="logoutBtn" class="btn btn-danger ms-2">Cerrar sesión</button>
+    <select id="adminCategoryFilter" class="form-select" style="max-width: 200px;">
+      <option value="all">Todas las categorías</option>
+    </select>
+    <input type="text" id="adminIdSearchInput" class="form-control" style="max-width: 120px;" placeholder="Buscar por ID...">
+    <input type="text" id="adminSearchInput" class="form-control" style="max-width: 300px;" placeholder="Buscar producto...">
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle table-admin" id="productsTable">
+      <thead class="table-success">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Imagen</th>
+          <th>Caducidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Productos aquí -->
+      </tbody>
+    </table>
+  </div>
+</div>

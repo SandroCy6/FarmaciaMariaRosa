@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const isInPages = window.location.pathname.includes("/pages/");
           const isInAdmin = window.location.pathname.includes("/admin/");
           if (isInPages || isInAdmin) {
-            window.location.href = "../admin/admin.html";
+            window.location.href = "../admin/admin-productos.html";
           } else {
-            window.location.href = "./admin/admin.html";
+            window.location.href = "./admin/admin-productos.html";
           }
         } else {
           alert("¡Bienvenido, " + email + "!");
@@ -118,9 +118,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (user.role === "admin") {
           // Go to admin panel
           if (isInPages || isInAdmin) {
-            window.location.href = "../admin/admin.html";
+            window.location.href = "../admin/admin-productos.html";
           } else {
-            window.location.href = "./admin/admin.html";
+            window.location.href = "./admin/admin-productos.html";
           }
         } else {
           // Go to profile page

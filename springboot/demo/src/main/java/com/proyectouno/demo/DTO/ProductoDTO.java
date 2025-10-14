@@ -3,11 +3,14 @@ package com.proyectouno.demo.DTO;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * DTO para la entidad Producto, utilizado para transferir datos de productos.
  */
 public class ProductoDTO {
+
+    private Long idProducto;
 
     @Size(max = 50, message = "El código de barras no puede exceder los 50 caracteres")
     private String codigoBarras;
@@ -34,7 +37,7 @@ public class ProductoDTO {
 
     private String imagenPrincipal;
 
-    private String imagenesAdicionales;
+    private List<String> imagenesAdicionales;
 
     @NotNull(message = "El campo requiereReceta no puede ser nulo")
     private Boolean requiereReceta;
@@ -56,6 +59,8 @@ public class ProductoDTO {
     private Boolean estado;
 
     // Getters y Setters
+    public Long getIdProducto() { return idProducto; }
+    public void setIdProducto(Long idProducto) { this.idProducto = idProducto; }
     public String getCodigoBarras() { return codigoBarras; }
     public void setCodigoBarras(String codigoBarras) { this.codigoBarras = codigoBarras; }
     public String getNombre() { return nombre; }
@@ -72,8 +77,8 @@ public class ProductoDTO {
     public void setIdCategoria(Long idCategoria) { this.idCategoria = idCategoria; }
     public String getImagenPrincipal() { return imagenPrincipal; }
     public void setImagenPrincipal(String imagenPrincipal) { this.imagenPrincipal = imagenPrincipal; }
-    public String getImagenesAdicionales() { return imagenesAdicionales; }
-    public void setImagenesAdicionales(String imagenesAdicionales) { this.imagenesAdicionales = imagenesAdicionales; }
+    public List<String> getImagenesAdicionales() { return imagenesAdicionales; }
+    public void setImagenesAdicionales(List<String> imagenesAdicionales) { this.imagenesAdicionales = imagenesAdicionales; }
     public Boolean getRequiereReceta() { return requiereReceta; }
     public void setRequiereReceta(Boolean requiereReceta) { this.requiereReceta = requiereReceta; }
     public Boolean getEsControlado() { return esControlado; }

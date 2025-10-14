@@ -1,12 +1,14 @@
 package com.proyectouno.demo.DTO;
 
-
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * DTO para la entidad Categoria, utilizado para transferir datos de categorías.
  */
 public class CategoriaDTO {
+
+    private Long idCategoria;
 
     @NotNull(message = "El nombre no puede ser nulo")
     @Size(max = 100, message = "El nombre no puede exceder los 100 caracteres")
@@ -14,16 +16,16 @@ public class CategoriaDTO {
 
     private String descripcion;
 
-    @Size(max = 255, message = "La URL de la imagen no puede exceder los 255 caracteres")
     private String imagenUrl;
 
     @NotNull(message = "El estado no puede ser nulo")
     private Boolean estado;
 
-    @NotNull(message = "El orden no puede ser nulo")
     private Integer orden;
 
     // Getters y Setters
+    public Long getIdCategoria() { return idCategoria; }
+    public void setIdCategoria(Long idCategoria) { this.idCategoria = idCategoria; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getDescripcion() { return descripcion; }

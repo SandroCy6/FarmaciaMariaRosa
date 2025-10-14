@@ -5,112 +5,92 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-/**
- * Entidad que representa la tabla "productos" en la base de datos.
- * Almacena información detallada de los productos de la farmacia.
- */
 @Entity
 @Table(name = "productos")
 public class Producto {
 
-    /** Identificador único del producto (Primary Key). */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProducto;
 
-    /** Código de barras del producto. */
     @Size(max = 50, message = "El código de barras no puede exceder los 50 caracteres")
     @Column(length = 50, unique = true)
     private String codigoBarras;
 
-    /** Nombre comercial del producto. */
     @NotNull(message = "El nombre no puede ser nulo")
     @Size(max = 200, message = "El nombre no puede exceder los 200 caracteres")
     @Column(length = 200, nullable = false)
     private String nombre;
 
-    /** Descripción detallada del producto. */
     @Column(columnDefinition = "TEXT")
     private String descripcion;
 
-    /** Precio unitario del producto. */
     @NotNull(message = "El precio no puede ser nulo")
     @DecimalMin(value = "0.0", inclusive = true, message = "El precio debe ser mayor o igual a 0")
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal precio;
 
-    /** Cantidad actual en inventario. */
     @NotNull(message = "El stock actual no puede ser nulo")
     @Min(value = 0, message = "El stock actual debe ser mayor o igual a 0")
     @Column(nullable = false)
     private Integer stockActual;
 
-    /** Nivel mínimo de stock para alertas. */
     @Min(value = 0, message = "El stock mínimo debe ser mayor o igual a 0")
     @Column(nullable = false)
     private Integer stockMinimo = 5;
 
-    /** Categoría a la que pertenece el producto. */
     @NotNull(message = "La categoría no puede ser nula")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
 
-    /** URL de la imagen principal. */
     @Size(max = 255, message = "La URL de la imagen no puede exceder los 255 caracteres")
     @Column(length = 255)
     private String imagenPrincipal;
 
-    /** Array de URLs de imágenes adicionales. */
-    @Column(columnDefinition = "JSON")
-    private String imagenesAdicionales;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "json")
+    private List<String> imagenesAdicionales;
 
-    /** Indica si requiere receta médica. */
     @Column(nullable = false)
     private Boolean requiereReceta = false;
 
-    /** Indica si es medicamento controlado. */
     @Column(nullable = false)
     private Boolean esControlado = false;
 
-    /** Fecha de vencimiento del lote actual. */
     @Column
     private LocalDate fechaVencimiento;
 
-    /** Laboratorio fabricante. */
     @Size(max = 100, message = "El laboratorio no puede exceder los 100 caracteres")
     @Column(length = 100)
     private String laboratorio;
 
-    /** Principio activo del medicamento. */
     @Size(max = 200, message = "El principio activo no puede exceder los 200 caracteres")
     @Column(length = 200)
     private String principioActivo;
 
-    /** Concentración del principio activo. */
     @Size(max = 50, message = "La concentración no puede exceder los 50 caracteres")
     @Column(length = 50)
     private String concentracion;
 
-    /** Forma farmacéutica (tableta, jarabe, etc.). */
     @Size(max = 50, message = "La forma farmacéutica no puede exceder los 50 caracteres")
     @Column(length = 50)
     private String formaFarmaceutica;
 
-    /** Estado activo/inactivo del producto. */
     @Column(nullable = false)
     private Boolean estado = true;
 
-    /** Fecha de creación del registro. */
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
-    /** Fecha de última actualización. */
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion;
 
-    // ================== MÉTODOS GETTER Y SETTER ==================
+    // Getters y Setters
     public Long getIdProducto() { return idProducto; }
     public void setIdProducto(Long idProducto) { this.idProducto = idProducto; }
     public String getCodigoBarras() { return codigoBarras; }
@@ -129,8 +109,8 @@ public class Producto {
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
     public String getImagenPrincipal() { return imagenPrincipal; }
     public void setImagenPrincipal(String imagenPrincipal) { this.imagenPrincipal = imagenPrincipal; }
-    public String getImagenesAdicionales() { return imagenesAdicionales; }
-    public void setImagenesAdicionales(String imagenesAdicionales) { this.imagenesAdicionales = imagenesAdicionales; }
+    public List<String> getImagenesAdicionales() { return imagenesAdicionales; }
+    public void setImagenesAdicionales(List<String> imagenesAdicionales) { this.imagenesAdicionales = imagenesAdicionales; }
     public Boolean getRequiereReceta() { return requiereReceta; }
     public void setRequiereReceta(Boolean requiereReceta) { this.requiereReceta = requiereReceta; }
     public Boolean getEsControlado() { return esControlado; }
