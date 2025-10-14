@@ -1,48 +1,37 @@
 package com.proyectouno.demo.DTO;
 
+
+import jakarta.validation.constraints.*;
+
 /**
- * DTO (Data Transfer Object) para la entidad Categoria.
- * Se utiliza para transferir datos de categoría entre el frontend y el backend,
- * sin exponer directamente la entidad de la base de datos.
+ * DTO para la entidad Categoria, utilizado para transferir datos de categorías.
  */
 public class CategoriaDTO {
-    private Long id;        // ID de la categoría
-    private String nombre;  // Nombre de la categoría
+
+    @NotNull(message = "El nombre no puede ser nulo")
+    @Size(max = 100, message = "El nombre no puede exceder los 100 caracteres")
+    private String nombre;
+
+    private String descripcion;
+
+    @Size(max = 255, message = "La URL de la imagen no puede exceder los 255 caracteres")
+    private String imagenUrl;
+
+    @NotNull(message = "El estado no puede ser nulo")
+    private Boolean estado;
+
+    @NotNull(message = "El orden no puede ser nulo")
+    private Integer orden;
 
     // Getters y Setters
-    /**
-     * Obtener el ID de la categoría.
-     * 
-     * @return ID de la categoría
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Establecer el ID de la categoría.
-     * 
-     * @param id ID de la categoría
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * Obtener el nombre de la categoría.
-     * 
-     * @return Nombre de la categoría
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * Establecer el nombre de la categoría.
-     * 
-     * @param nombre Nombre de la categoría
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getImagenUrl() { return imagenUrl; }
+    public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
+    public Boolean getEstado() { return estado; }
+    public void setEstado(Boolean estado) { this.estado = estado; }
+    public Integer getOrden() { return orden; }
+    public void setOrden(Integer orden) { this.orden = orden; }
 }
