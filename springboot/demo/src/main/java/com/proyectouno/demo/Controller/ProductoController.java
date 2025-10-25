@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -29,12 +31,14 @@ public class ProductoController {
     private CategoriaRepository categoriaRepository;
 
     @GetMapping("/productos")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<ProductoDTO>> getAllProductos() {
-        List<ProductoDTO> productos = productoRepository.findAll().stream()
+        List<ProductoDTO> productos = productoRepository.findAllWithCategoria().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(productos);
     }
+
 
     @GetMapping("/productos/{id}")
     public ResponseEntity<ProductoDTO> getProductoById(@PathVariable Long id) {
@@ -80,27 +84,9 @@ public class ProductoController {
     }
 
     private ProductoDTO convertToDTO(Producto producto) {
-        ProductoDTO dto = new ProductoDTO();
-        dto.setIdProducto(producto.getIdProducto());
-        dto.setCodigoBarras(producto.getCodigoBarras());
-        dto.setNombre(producto.getNombre());
-        dto.setDescripcion(producto.getDescripcion());
-        dto.setPrecio(producto.getPrecio());
-        dto.setStockActual(producto.getStockActual());
-        dto.setStockMinimo(producto.getStockMinimo());
-        dto.setIdCategoria(producto.getCategoria().getIdCategoria());
-        dto.setImagenPrincipal(producto.getImagenPrincipal());
-        dto.setImagenesAdicionales(producto.getImagenesAdicionales());
-        dto.setRequiereReceta(producto.getRequiereReceta());
-        dto.setEsControlado(producto.getEsControlado());
-        dto.setFechaVencimiento(producto.getFechaVencimiento());
-        dto.setLaboratorio(producto.getLaboratorio());
-        dto.setPrincipioActivo(producto.getPrincipioActivo());
-        dto.setConcentracion(producto.getConcentracion());
-        dto.setFormaFarmaceutica(producto.getFormaFarmaceutica());
-        dto.setEstado(producto.getEstado());
-        return dto;
+        return new ProductoDTO(producto);
     }
+
 
     private Producto convertToEntity(ProductoDTO dto) {
         Producto producto = new Producto();

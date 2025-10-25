@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +12,22 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
-    body { background: #f7fafc; }
-    .table td, .table th { vertical-align: middle; }
-    .form-control, .form-select { margin-bottom: 0.5rem; }
+    body {
+      background: #f7fafc;
+    }
+
+    .table td,
+    .table th {
+      vertical-align: middle;
+    }
+
+    .form-control,
+    .form-select {
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
+
 <body>
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
@@ -24,9 +36,8 @@
         <img src="../assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50" class="me-2 logo-animate" />
         <span class="fw-bold">&nbsp;Farmacia María Rosa</span>
       </a>
-      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -61,11 +72,9 @@
               </path>
             </svg>
           </button>
-          <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal"
-            data-bs-target="#loginModal">
-            <svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round"
+          <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-circle-user-round-icon lucide-circle-user-round">
               <path d="M18 20a6 6 0 0 0-12 0"></path>
               <circle cx="12" cy="10" r="4"></circle>
@@ -79,35 +88,42 @@
 
   <div class="container-fluid py-4">
     <!-- Botón para mostrar/ocultar sidebar en móvil -->
-    <button class="btn btn-outline-danger d-lg-none mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebarNavMobile" aria-controls="adminSidebarNavMobile" aria-label="Menú administración">
+    <button class="btn btn-outline-danger d-lg-none mb-3" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#adminSidebarNavMobile" aria-controls="adminSidebarNavMobile" aria-label="Menú administración">
       <i class="bi bi-list"></i> Menú administración
     </button>
-    
+
     <div class="admin-sidebar-layout">
       <!-- Sidebar -->
       <nav class="sidebar me-3 d-none d-lg-block" id="adminSidebarNav">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column nav-pills gap-2" id="adminSidebarTabs" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active w-100 text-start" id="tab-productos" data-bs-toggle="pill" data-bs-target="#panel-productos" type="button" role="tab">Productos</button>
+              <button class="nav-link active w-100 text-start" id="tab-productos" data-bs-toggle="pill"
+                data-bs-target="#panel-productos" type="button" role="tab">Productos</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" id="tab-categorias" data-bs-toggle="pill" data-bs-target="#panel-categorias" type="button" role="tab">Categorías</button>
+              <button class="nav-link w-100 text-start" id="tab-categorias" data-bs-toggle="pill"
+                data-bs-target="#panel-categorias" type="button" role="tab">Categorías</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" id="tab-lotes" data-bs-toggle="pill" data-bs-target="#panel-lotes" type="button" role="tab">Lotes</button>
+              <button class="nav-link w-100 text-start" id="tab-lotes" data-bs-toggle="pill"
+                data-bs-target="#panel-lotes" type="button" role="tab">Lotes</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" id="tab-clientes" data-bs-toggle="pill" data-bs-target="#panel-clientes" type="button" role="tab">Clientes</button>
+              <button class="nav-link w-100 text-start" id="tab-clientes" data-bs-toggle="pill"
+                data-bs-target="#panel-clientes" type="button" role="tab">Clientes</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" id="tab-estadisticas" data-bs-toggle="pill" data-bs-target="#panel-estadisticas" type="button" role="tab">Estadísticas</button>
+              <button class="nav-link w-100 text-start" id="tab-estadisticas" data-bs-toggle="pill"
+                data-bs-target="#panel-estadisticas" type="button" role="tab">Estadísticas</button>
             </li>
           </ul>
         </div>
       </nav>
       <!-- Sidebar móvil -->
-      <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="adminSidebarNavMobile" aria-labelledby="adminSidebarNavMobileLabel">
+      <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="adminSidebarNavMobile"
+        aria-labelledby="adminSidebarNavMobileLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="adminSidebarNavMobileLabel">Menú administración</h5>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
@@ -115,19 +131,24 @@
         <div class="offcanvas-body">
           <ul class="nav flex-column nav-pills gap-2" id="adminSidebarTabsMobile" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-productos" type="button" role="tab">Productos</button>
+              <button class="nav-link active w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-productos"
+                type="button" role="tab">Productos</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-categorias" type="button" role="tab">Categorías</button>
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-categorias"
+                type="button" role="tab">Categorías</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-lotes" type="button" role="tab">Lotes</button>
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-lotes"
+                type="button" role="tab">Lotes</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-clientes" type="button" role="tab">Clientes</button>
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-clientes"
+                type="button" role="tab">Clientes</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-estadisticas" type="button" role="tab">Estadísticas</button>
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-estadisticas"
+                type="button" role="tab">Estadísticas</button>
             </li>
           </ul>
         </div>
@@ -142,118 +163,140 @@
           <div class="tab-pane fade" id="panel-estadisticas" role="tabpanel"></div>
         </div>
         <div class="tab-pane fade show active" id="panel-productos" role="tabpanel">
-  <h2 class="mb-4">Gestión de Productos</h2>
-  <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Agregar Producto</button>
-    <button id="logoutBtn" class="btn btn-danger ms-2">Cerrar sesión</button>
-    <select id="adminCategoryFilter" class="form-select" style="max-width: 200px;">
-      <option value="all">Todas las categorías</option>
-    </select>
-    <input type="text" id="adminIdSearchInput" class="form-control" style="max-width: 120px;" placeholder="Buscar por ID...">
-    <input type="text" id="adminSearchInput" class="form-control" style="max-width: 300px;" placeholder="Buscar producto...">
-  </div>
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover align-middle table-admin" id="productsTable">
-      <thead class="table-success">
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Categoría</th>
-          <th>Descripción</th>
-          <th>Precio</th>
-          <th>Stock</th>
-          <th>Imagen</th>
-          <th>Caducidad</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Productos aquí -->
-      </tbody>
-    </table>
-  </div>
-</div>
+          <h2 class="mb-4">Gestión de Productos</h2>
+          <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Agregar
+              Producto</button>
+            <button id="logoutBtn" class="btn btn-danger ms-2">Cerrar sesión</button>
+            <select id="adminCategoryFilter" class="form-select" style="max-width: 200px;">
+              <option value="all">Todas las categorías</option>
+            </select>
+            <input type="text" id="adminIdSearchInput" class="form-control" style="max-width: 120px;"
+              placeholder="Buscar por ID...">
+            <input type="text" id="adminSearchInput" class="form-control" style="max-width: 300px;"
+              placeholder="Buscar producto...">
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle table-admin" id="productsTable">
+              <thead class="table-success">
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th>Descripción</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Imagen</th>
+                  <th>Caducidad</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Productos aquí -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </main>
     </div>
   </div>
 
-  <!-- Modal para agregar/editar producto -->
+  <!-- Modal Editar/Agregar Producto -->
   <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <form class="modal-content" id="productForm">
-        <div class="modal-header">
-          <h5 class="modal-title" id="productModalLabel">Agregar/Editar Producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="productId">
-          <div class="mb-3">
-            <label for="productName" class="form-label">Nombre</label>
-            <input type="text" id="productName" class="form-control" placeholder="Nombre" required>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form id="productForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productModalLabel">Editar Producto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="mb-3">
-            <label for="productCategory" class="form-label">Categoría</label>
-            <select id="productCategory" class="form-select" required>
-              <option value="">Seleccione una categoría</option>
-            </select>
+
+          <div class="modal-body">
+            <input type="hidden" id="productId">
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="productName" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Categoría</label>
+                <select id="productCategory" class="form-select" required></select>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" id="productDescription" rows="2"></textarea>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Precio (S/)</label>
+                <input type="number" step="0.01" class="form-control" id="productPrice" required>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Stock</label>
+                <input type="number" class="form-control" id="productStock" required>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Fecha de Vencimiento</label>
+                <input type="date" class="form-control" id="productFechaCaducidad">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Imagen (URL)</label>
+                <input type="text" class="form-control" id="productImage">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Laboratorio</label>
+                <input type="text" class="form-control" id="productLaboratorio">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Principio Activo</label>
+                <input type="text" class="form-control" id="productPrincipioActivo">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Concentración</label>
+                <input type="text" class="form-control" id="productConcentracion">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Forma Farmacéutica</label>
+                <input type="text" class="form-control" id="productFormaFarmaceutica">
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Requiere Receta</label>
+                <select id="productRequiereReceta" class="form-select">
+                  <option value="false">No</option>
+                  <option value="true">Sí</option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Controlado</label>
+                <select id="productEsControlado" class="form-select">
+                  <option value="false">No</option>
+                  <option value="true">Sí</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="productDescription" class="form-label">Descripción</label>
-            <textarea id="productDescription" class="form-control" placeholder="Descripción" required></textarea>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           </div>
-          <div class="mb-3">
-            <label for="productPrice" class="form-label">Precio</label>
-            <input type="number" id="productPrice" class="form-control" placeholder="Precio" step="0.01" min="0" required>
-          </div>
-          <div class="mb-3">
-            <label for="productStock" class="form-label">Stock</label>
-            <input type="number" id="productStock" class="form-control" placeholder="Stock" min="0" required>
-          </div>
-          <div class="mb-3">
-            <label for="productImage" class="form-label">URL Imagen</label>
-            <input type="text" id="productImage" class="form-control" placeholder="URL Imagen" required>
-          </div>
-          <div class="mb-3">
-            <label for="productFechaCaducidad" class="form-label">Fecha de Caducidad</label>
-            <input type="date" id="productFechaCaducidad" class="form-control" placeholder="Fecha de caducidad">
-          </div>
-          <div class="mb-3">
-            <label for="productRequiereReceta" class="form-label">Requiere Receta</label>
-            <select id="productRequiereReceta" class="form-select" required>
-              <option value="true">Sí</option>
-              <option value="false">No</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="productEsControlado" class="form-label">Es Controlado</label>
-            <select id="productEsControlado" class="form-select" required>
-              <option value="true">Sí</option>
-              <option value="false">No</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="productLaboratorio" class="form-label">Laboratorio</label>
-            <input type="text" id="productLaboratorio" class="form-control" placeholder="Laboratorio">
-          </div>
-          <div class="mb-3">
-            <label for="productPrincipioActivo" class="form-label">Principio Activo</label>
-            <input type="text" id="productPrincipioActivo" class="form-control" placeholder="Principio Activo">
-          </div>
-          <div class="mb-3">
-            <label for="productConcentracion" class="form-label">Concentración</label>
-            <input type="text" id="productConcentracion" class="form-control" placeholder="Concentración">
-          </div>
-          <div class="mb-3">
-            <label for="productFormaFarmaceutica" class="form-label">Forma Farmacéutica</label>
-            <input type="text" id="productFormaFarmaceutica" class="form-control" placeholder="Forma Farmacéutica">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Guardar</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
+
 
   <!-- Login/Register Modal -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -304,7 +347,8 @@
                   <input type="password" class="form-control" id="registerPassword2" required>
                 </div>
                 <div id="registerError" class="text-danger" style="display:none;"></div>
-                <div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso! Ahora puedes iniciar sesión.</div>
+                <div id="registerSuccess" class="text-success" style="display:none;">¡Registro exitoso! Ahora puedes
+                  iniciar sesión.</div>
                 <button type="submit" class="btn btn-custom w-100 mt-2">Registrarse</button>
               </form>
             </div>
@@ -320,4 +364,5 @@
   <script src="../assets/js/admin-productos.js"></script>
   <script src="../assets/js/panel-productos.js"></script>
 </body>
+
 </html>
