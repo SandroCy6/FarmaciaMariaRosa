@@ -90,14 +90,15 @@ document.addEventListener("DOMContentLoaded", async function () {
           console.warn("⚠️ Producto no encontrado con ID:", id);
           return;
         }
-
+        console.log(producto);
         mostrarModalEdicion(producto);
       });
     });
   }
 
   // 5️⃣ Mostrar modal para editar producto
-  function mostrarModalEdicion(p) {
+  async function mostrarModalEdicion(p) {
+    await cargarCategoriasSelect(); // 👈 asegúrate de que el select tenga opciones antes
     document.getElementById("productModalLabel").textContent = "Editar Producto";
     document.getElementById("productId").value = p.idProducto || "";
     document.getElementById("productName").value = p.nombre || "";
@@ -173,6 +174,24 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.error("Error al eliminar producto:", error);
     }
   }
+
+  async function cargarCategoriasSelect() {
+    const select = document.getElementById("productCategory");
+    select.innerHTML = `<option value="">Selecciona una categoría</option>`;
+    try {
+      const response = await fetch("http://127.0.0.1:8081/api/categorias");
+      const categorias = await response.json();
+      categorias.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat.idCategoria;
+        opt.textContent = cat.nombre;
+        select.appendChild(opt);
+      });
+    } catch (error) {
+      console.error("Error cargando categorías:", error);
+    }
+  }
+
 
   // 🔄 Inicialización
   await cargarProductos();
