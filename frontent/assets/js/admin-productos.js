@@ -1,72 +1,88 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Verificar autenticación
+// assets/js/admin-productos.js
+document.addEventListener("DOMContentLoaded", async function () {
+  // 1️⃣ Verificar autenticación
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
   if (!user || user.role !== "admin") {
     window.location.href = "../index.html";
     return;
   }
 
-  // Configurar logout
-  document.getElementById("logoutBtn").onclick = function () {
+  // 2️⃣ Logout
+  document.getElementById("logoutBtn").onclick = () => {
     localStorage.removeItem("loggedInUser");
     window.location.href = "../index.html";
   };
 
-  // Sincronizar pestañas entre sidebar normal y móvil
-  const desktopTabs = document.querySelectorAll("#adminSidebarTabs .nav-link");
-  const mobileTabs = document.querySelectorAll("#adminSidebarTabsMobile .nav-link");
-  const offcanvasEl = document.getElementById("adminSidebarNavMobile");
-  let offcanvasInstance = null;
-  if (window.bootstrap && offcanvasEl) {
-    offcanvasInstance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
-  }
+  // 3️⃣ Cargar productos desde el backend
+  async function cargarProductos() {
+    try {
+      const response = await fetch("http://127.0.0.1:8081/api/productos");
+      if (!response.ok) throw new Error("Error al obtener productos");
+      const productos = await response.json();
 
-  const panels = {
-    "panel-productos": "../admin/panel-productos.html",
-    "panel-categorias": "../admin/panel-categorias.html",
-    "panel-lotes": "../admin/panel-lotes.html",
-    "panel-clientes": "../admin/panel-clientes.html",
-    "panel-estadisticas": "../admin/panel-estadisticas.html"
-  };
+      const tbody = document.querySelector("#productsTable tbody");
+      tbody.innerHTML = "";
 
-  // Cargar panel inicial
-  loadPanel("panel-productos");
+      if (!productos.length) {
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">No hay productos disponibles</td></tr>`;
+        return;
+      }
 
-  // Manejar clics en pestañas
-  desktopTabs.forEach((btn, idx) => {
-    btn.addEventListener("click", function () {
-      mobileTabs.forEach((b, i) => b.classList.toggle("active", i === idx));
-      loadPanel(btn.getAttribute("data-bs-target").substring(1));
-    });
-  });
-
-  mobileTabs.forEach((btn, idx) => {
-    btn.addEventListener("click", function () {
-      if (desktopTabs[idx]) desktopTabs[idx].click();
-      if (offcanvasInstance) offcanvasInstance.hide();
-    });
-  });
-
-  function loadPanel(panelId) {
-    const panelContainer = document.getElementById(panelId);
-    fetch(panels[panelId])
-      .then(response => {
-        if (!response.ok) throw new Error("Error al cargar el panel");
-        return response.text();
-      })
-      .then(html => {
-        panelContainer.innerHTML = html;
-        // Cargar script específico del panel si es necesario
-        if (panelId === "panel-productos") {
-          const script = document.createElement("script");
-          script.src = "../assets/js/panel-productos.js";
-          script.async = true;
-          document.body.appendChild(script);
-        }
-      })
-      .catch(error => {
-        console.error("Error cargando panel:", error);
-        panelContainer.innerHTML = `<div class="alert alert-danger">Error al cargar el panel: ${error.message}</div>`;
+      productos.forEach(p => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td>${p.idProducto}</td>
+          <td>${p.nombre}</td>
+          <td>${p.categoria?.nombre || "Sin categoría"}</td>
+          <td>${p.descripcion || ""}</td>
+          <td>S/ ${p.precio?.toFixed(2) || "0.00"}</td>
+          <td>${p.stock}</td>
+          <td><img src="${p.imagenUrl || "../assets/img/no-image.png"}" alt="img" width="60"></td>
+          <td>${p.fechaCaducidad ? new Date(p.fechaCaducidad).toLocaleDateString() : "-"}</td>
+          <td>
+            <button class="btn btn-warning btn-sm editar-btn" data-id="${p.idProducto}">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm eliminar-btn" data-id="${p.idProducto}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(fila);
       });
+
+      configurarBotones();
+    } catch (error) {
+      console.error("❌ Error cargando productos:", error);
+      const tbody = document.querySelector("#productsTable tbody");
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-danger">Error al cargar productos</td></tr>`;
+    }
   }
+
+  // 4️⃣ Configurar botones de acción
+  function configurarBotones() {
+    document.querySelectorAll(".eliminar-btn").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        const id = e.currentTarget.dataset.id;
+        if (confirm("¿Seguro que deseas eliminar este producto?")) {
+          await eliminarProducto(id);
+          cargarProductos();
+        }
+      });
+    });
+  }
+
+  async function eliminarProducto(id) {
+    try {
+      const response = await fetch(`http://127.0.0.1:8081/api/productos/${id}`, {
+        method: "DELETE"
+      });
+      if (!response.ok) throw new Error("Error al eliminar producto");
+    } catch (error) {
+      console.error("Error al eliminar producto:", error);
+    }
+  }
+
+  // 🔄 Llamar al cargar
+  await cargarProductos();
 });
