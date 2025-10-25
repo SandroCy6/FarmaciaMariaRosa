@@ -90,7 +90,9 @@ document.addEventListener("DOMContentLoaded", async function () {
           console.warn("⚠️ Producto no encontrado con ID:", id);
           return;
         }
-        console.log(producto);
+        console.log("Producto a editar:", producto);
+        console.log(producto.idProducto);
+        console.log(producto.nombre);
         mostrarModalEdicion(producto);
       });
     });
@@ -98,26 +100,33 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // 5️⃣ Mostrar modal para editar producto
   async function mostrarModalEdicion(p) {
-    await cargarCategoriasSelect(); // 👈 asegúrate de que el select tenga opciones antes
-    document.getElementById("productModalLabel").textContent = "Editar Producto";
-    document.getElementById("productId").value = p.idProducto || "";
-    document.getElementById("productName").value = p.nombre || "";
-    document.getElementById("productCategory").value = p.idCategoria || "";
-    document.getElementById("productDescription").value = p.descripcion || "";
-    document.getElementById("productPrice").value = p.precio ?? "";
-    document.getElementById("productStock").value = p.stockActual ?? "";
-    document.getElementById("productImage").value = p.imagenPrincipal || "";
-    document.getElementById("productFechaCaducidad").value = p.fechaVencimiento ? p.fechaVencimiento.split("T")[0] : "";
-    document.getElementById("productRequiereReceta").value = p.requiereReceta ? "true" : "false";
-    document.getElementById("productEsControlado").value = p.esControlado ? "true" : "false";
-    document.getElementById("productLaboratorio").value = p.laboratorio || "";
-    document.getElementById("productPrincipioActivo").value = p.principioActivo || "";
-    document.getElementById("productConcentracion").value = p.concentracion || "";
-    document.getElementById("productFormaFarmaceutica").value = p.formaFarmaceutica || "";
+    await cargarCategoriasSelect();
 
-    const modal = new bootstrap.Modal(document.getElementById("productModal"));
+    const modalElement = document.getElementById("productModal");
+    const modal = new bootstrap.Modal(modalElement);
+
+    // Esperar a que el modal se haya mostrado completamente
+    modalElement.addEventListener("shown.bs.modal", () => {
+      document.getElementById("productModalLabel").textContent = "Editar Producto";
+      document.getElementById("productId").value = p.idProducto || "";
+      document.getElementById("productName").value = p.nombre || "";
+      document.getElementById("productCategory").value = p.idCategoria || "";
+      document.getElementById("productDescription").value = p.descripcion || "";
+      document.getElementById("productPrice").value = p.precio ?? "";
+      document.getElementById("productStock").value = p.stockActual ?? "";
+      document.getElementById("productImage").value = p.imagenPrincipal || "";
+      document.getElementById("productFechaCaducidad").value = p.fechaVencimiento ? p.fechaVencimiento.split("T")[0] : "";
+      document.getElementById("productRequiereReceta").value = p.requiereReceta ? "true" : "false";
+      document.getElementById("productEsControlado").value = p.esControlado ? "true" : "false";
+      document.getElementById("productLaboratorio").value = p.laboratorio || "";
+      document.getElementById("productPrincipioActivo").value = p.principioActivo || "";
+      document.getElementById("productConcentracion").value = p.concentracion || "";
+      document.getElementById("productFormaFarmaceutica").value = p.formaFarmaceutica || "";
+    }, { once: true });
+
     modal.show();
   }
+
 
   // 6️⃣ Guardar o actualizar producto
   document.getElementById("productForm").addEventListener("submit", async function (e) {
