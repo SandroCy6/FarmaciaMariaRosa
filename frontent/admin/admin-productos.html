@@ -155,6 +155,10 @@
                 type="button" role="tab">Clientes</button>
             </li>
             <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-reservas"
+                type="button" role="tab">Reservas</button>
+            </li>
+            <li class="nav-item" role="presentation">
               <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-estadisticas"
                 type="button" role="tab">Estadísticas</button>
             </li>
@@ -164,10 +168,11 @@
       <!-- Contenido principal -->
       <main class="admin-main-content">
         <div class="tab-content" id="adminSidebarTabContent">
-          <div class="tab-pane fade show active" id="panel-productos" role="tabpanel"></div>
+          <div class="tab-pane fade" id="panel-productos" role="tabpanel"></div>
           <div class="tab-pane fade" id="panel-categorias" role="tabpanel"></div>
           <div class="tab-pane fade" id="panel-lotes" role="tabpanel"></div>
           <div class="tab-pane fade" id="panel-clientes" role="tabpanel"></div>
+          <div class="tab-pane fade" id="panel-reservas" role="tabpanel"></div>
           <div class="tab-pane fade" id="panel-estadisticas" role="tabpanel"></div>
         </div>
         <div class="tab-pane fade show active" id="panel-productos" role="tabpanel">
@@ -371,6 +376,25 @@
   <script src="../assets/js/login.js"></script>
   <script src="../assets/js/admin-productos.js"></script>
   <script src="../assets/js/panel-productos.js"></script>
+  <script>
+    // Verificar autenticación
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('loggedInUser'));
+      if (!user || user.role !== 'admin') {
+        window.location.href = '../index.html';
+        return;
+      }
+
+      // Redireccionar a la página de reservas cuando se selecciona esa pestaña
+      document.getElementById('tab-reservas').addEventListener('click', function() {
+        window.location.href = 'admin-reservas.html';
+      });
+      // También para el sidebar móvil
+      document.querySelector('#adminSidebarTabsMobile [data-bs-target="#panel-reservas"]').addEventListener('click', function() {
+        window.location.href = 'admin-reservas.html';
+      });
+    });
+  </script>
 </body>
 
 </html>

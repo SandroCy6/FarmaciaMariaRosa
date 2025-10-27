@@ -8,7 +8,8 @@ import java.math.BigDecimal;
  */
 public class DetalleReservaDTO {
 
-    @NotNull(message = "El ID de la reserva no puede ser nulo")
+    // idReserva puede ser nulo al momento de crear la reserva desde el cliente
+    // ya que la reserva aún no tiene id; el servidor asigna la relación al crearla.
     private Long idReserva;
 
     @NotNull(message = "El producto no puede ser nulo")

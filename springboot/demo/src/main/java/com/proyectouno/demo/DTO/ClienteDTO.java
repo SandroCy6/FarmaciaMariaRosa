@@ -19,7 +19,7 @@ public class ClienteDTO {
     private String email;
 
     @NotNull(message = "El DNI no puede ser nulo")
-    @Size(min = 8, max = 8, message = "El DNI debe tener exactamente 8 caracteres")
+    @Pattern(regexp = "\\d{8}", message = "El DNI debe contener exactamente 8 dígitos numéricos")
     private String dni;
 
     @Size(max = 9, message = "El teléfono no puede exceder los 9 caracteres")
