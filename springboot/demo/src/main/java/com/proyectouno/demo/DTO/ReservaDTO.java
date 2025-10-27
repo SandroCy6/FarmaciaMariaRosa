@@ -3,13 +3,15 @@ package com.proyectouno.demo.DTO;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * DTO para la entidad Reserva, utilizado para transferir datos de reservas.
  */
 public class ReservaDTO {
 
-    @NotNull(message = "El número de reserva no puede ser nulo")
+    private Long idReserva;
+
     @Size(max = 20, message = "El número de reserva no puede exceder los 20 caracteres")
     private String numeroReserva;
 
@@ -19,7 +21,6 @@ public class ReservaDTO {
     @NotNull(message = "El estado no puede ser nulo")
     private String estado;
 
-    @NotNull(message = "El total no puede ser nulo")
     @DecimalMin(value = "0.0", inclusive = true, message = "El total debe ser mayor o igual a 0")
     private BigDecimal total;
 
@@ -38,7 +39,13 @@ public class ReservaDTO {
 
     private Long idUsuarioAtencion;
 
+    @NotNull(message = "Los detalles no pueden ser nulos")
+    @Size(min = 1, message = "Debe haber al menos un producto en la reserva")
+    private List<DetalleReservaDTO> detalles;
+
     // Getters y Setters
+    public Long getIdReserva() { return idReserva; }
+    public void setIdReserva(Long idReserva) { this.idReserva = idReserva; }
     public String getNumeroReserva() { return numeroReserva; }
     public void setNumeroReserva(String numeroReserva) { this.numeroReserva = numeroReserva; }
     public Long getIdCliente() { return idCliente; }
@@ -61,4 +68,6 @@ public class ReservaDTO {
     public void setMetodoNotificacion(String metodoNotificacion) { this.metodoNotificacion = metodoNotificacion; }
     public Long getIdUsuarioAtencion() { return idUsuarioAtencion; }
     public void setIdUsuarioAtencion(Long idUsuarioAtencion) { this.idUsuarioAtencion = idUsuarioAtencion; }
+    public List<DetalleReservaDTO> getDetalles() { return detalles; }
+    public void setDetalles(List<DetalleReservaDTO> detalles) { this.detalles = detalles; }
 }

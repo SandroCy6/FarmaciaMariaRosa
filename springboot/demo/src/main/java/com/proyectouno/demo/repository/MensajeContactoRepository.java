@@ -1,7 +1,10 @@
 package com.proyectouno.demo.repository;
 
+import com.proyectouno.demo.models.Cliente;
 import com.proyectouno.demo.models.MensajeContacto;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 /**
  * Repositorio de la entidad MensajeContacto.
  *
@@ -18,4 +21,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * en caso de que se requieran consultas específicas (ej: buscar mensajes no contestados).
  */
 public interface MensajeContactoRepository extends JpaRepository<MensajeContacto, Long> {
+    /**
+     * Busca todos los mensajes de contacto asociados a un cliente específico.
+     *
+     * @param cliente El cliente cuyos mensajes se desean buscar.
+     * @return Una lista de mensajes de contacto asociados al cliente.
+     */
+    List<MensajeContacto> findByCliente(Cliente cliente);
 }
+
