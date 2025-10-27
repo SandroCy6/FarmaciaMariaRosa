@@ -1,7 +1,6 @@
 package com.proyectouno.demo.DTO;
 
 import jakarta.validation.constraints.*;
-import com.proyectouno.demo.models.Producto;
 import java.math.BigDecimal;
 
 /**
@@ -32,9 +31,6 @@ public class DetalleReservaDTO {
 
     private String notas;
 
-    // Información anidada para respuestas: producto completo
-    private Producto producto;
-
     // Getters y Setters
     public Long getIdReserva() { return idReserva; }
     public void setIdReserva(Long idReserva) { this.idReserva = idReserva; }
@@ -50,7 +46,4 @@ public class DetalleReservaDTO {
     public void setDisponible(Boolean disponible) { this.disponible = disponible; }
     public String getNotas() { return notas; }
     public void setNotas(String notas) { this.notas = notas; }
-
-    public Producto getProducto() { return producto; }
-    public void setProducto(Producto producto) { this.producto = producto; }
 }
