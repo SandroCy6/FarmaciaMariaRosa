@@ -289,6 +289,8 @@ public class ReservaController {
         dto.setIdReserva(reserva.getIdReserva());
         dto.setNumeroReserva(reserva.getNumeroReserva());
         dto.setIdCliente(reserva.getCliente().getIdCliente());
+        // Incluir cliente completo en la respuesta para facilitar la UI del admin
+        dto.setCliente(reserva.getCliente());
         dto.setEstado(reserva.getEstado().name());
         dto.setTotal(reserva.getTotal());
         dto.setFechaReserva(reserva.getFechaReserva());
@@ -308,6 +310,8 @@ public class ReservaController {
             detalleDTO.setSubtotal(detalle.getSubtotal());
             detalleDTO.setDisponible(detalle.getDisponible());
             detalleDTO.setNotas(detalle.getNotas());
+            // Incluir el producto completo en el detalle para facilitar la UI del admin
+            detalleDTO.setProducto(detalle.getProducto());
             return detalleDTO;
         }).collect(Collectors.toList()));
         return dto;

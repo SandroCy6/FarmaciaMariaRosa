@@ -65,8 +65,14 @@
 						</svg>
 					</button>
 					<button id="btnCarrito" class="btn btn-custom-nav cart-toggle">
-						<i class="fas fa-shopping-cart"></i>
-						<span class="cart-badge">0</span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-shopping-cart h-5 w-5 icon-animate" aria-hidden="true">
+							<circle cx="8" cy="21" r="1"></circle>
+							<circle cx="19" cy="21" r="1"></circle>
+							<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+							</path>
+						</svg>
 					</button>
 					<button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal"
 						data-bs-target="#loginModal">
@@ -190,6 +196,46 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Crear Cliente (usado cuando usuario logeado no tiene cliente en backend) -->
+	<div class="modal fade" id="createClienteModal" tabindex="-1" aria-labelledby="createClienteModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="createClienteModalLabel">Completa tus datos para la reserva</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+				</div>
+				<form id="createClienteForm">
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="createClienteEmail" class="form-label">Correo electrónico</label>
+							<input type="email" id="createClienteEmail" class="form-control" readonly />
+						</div>
+						<div class="mb-3">
+							<label for="createClienteNombre" class="form-label">Nombre completo</label>
+							<input type="text" id="createClienteNombre" class="form-control" required />
+						</div>
+						<div class="mb-3">
+							<label for="createClienteDni" class="form-label">DNI (8 dígitos)</label>
+							<input type="text" id="createClienteDni" class="form-control" required pattern="\\d{8}" />
+						</div>
+						<div class="mb-3">
+							<label for="createClienteTelefono" class="form-label">Teléfono</label>
+							<input type="text" id="createClienteTelefono" class="form-control" />
+						</div>
+						<div class="mb-3">
+							<label for="createClienteDireccion" class="form-label">Dirección</label>
+							<input type="text" id="createClienteDireccion" class="form-control" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="createClienteCancel" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Crear cliente y reservar</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

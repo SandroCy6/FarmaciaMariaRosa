@@ -1,6 +1,7 @@
 package com.proyectouno.demo.DTO;
 
 import jakarta.validation.constraints.*;
+import com.proyectouno.demo.models.Cliente;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,6 +44,9 @@ public class ReservaDTO {
     @Size(min = 1, message = "Debe haber al menos un producto en la reserva")
     private List<DetalleReservaDTO> detalles;
 
+    // Información anidada para respuestas: cliente completo
+    private Cliente cliente;
+
     // Getters y Setters
     public Long getIdReserva() { return idReserva; }
     public void setIdReserva(Long idReserva) { this.idReserva = idReserva; }
@@ -70,4 +74,8 @@ public class ReservaDTO {
     public void setIdUsuarioAtencion(Long idUsuarioAtencion) { this.idUsuarioAtencion = idUsuarioAtencion; }
     public List<DetalleReservaDTO> getDetalles() { return detalles; }
     public void setDetalles(List<DetalleReservaDTO> detalles) { this.detalles = detalles; }
+
+    // Cliente anidado (respuesta)
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
 }

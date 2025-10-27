@@ -6,12 +6,16 @@
     right: -400px;
     width: 400px;
     height: 100vh;
-    background-color: #fff;
+    background-color: #fff ;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     transition: right 0.3s ease-in-out;
     z-index: 1000;
     padding: 20px;
     overflow-y: auto;
+}
+.cart-toggle i.fas,
+#btnCarrito i.fas {
+    color: #ffffff !important;
 }
 
 .cart-sidebar.active {
@@ -56,6 +60,42 @@
 
 .cart-item-info {
     flex-grow: 1;
+}
+
+.cart-item img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    margin-right: 12px;
+    border-radius: 6px;
+}
+
+.details-btn {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.details-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.remove-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 6px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.remove-btn i {
+    font-size: 14px;
 }
 
 .cart-item-title {
@@ -105,13 +145,18 @@
     text-align: center;
 }
 
+.details-btn {
+    background-color: #e74348;
+    color: white;
+}
+
 .checkout-btn {
     background-color: #28a745;
     color: white;
 }
 
 .clear-cart-btn {
-    background-color: #dc3545;
+    background-color: #e74348;
     color: white;
 }
 
@@ -131,4 +176,84 @@
     padding: 2px 6px;
     font-size: 12px;
     display: none;
+}
+
+/* Backdrop that dims the page when cart is open */
+.cart-backdrop {
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+    z-index: 900; /* below the cart (1000) */
+}
+
+.cart-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Dark mode overrides */
+body.dark-mode .cart-sidebar {
+    background-color: #1F1F1F; /* dark grey */
+    color: #e5e7eb; /* light text */
+    box-shadow: -2px 0 10px rgba(0,0,0,0.6);
+}
+
+body.dark-mode .cart-item {
+    border-color: rgba(255,255,255,0.06);
+}
+
+body.dark-mode .cart-header {
+    background-color: #1F1F1F; /* darker header */
+    color: #fff;
+}
+
+body.dark-mode .cart-total,
+body.dark-mode .cart-item-price,
+body.dark-mode .cart-item-title {
+    color: #e5e7eb;
+}
+
+body.dark-mode .cart-button.checkout-btn {
+    background-color: #16a34a; /* green */
+}
+
+/* Make cart icon in navbar white when dark mode is active */
+body.dark-mode .cart-toggle i.fas,
+body.dark-mode #btnCarrito i.fas,
+body.dark-mode #btnCarrito,
+body.dark-mode .cart-toggle {
+    color: #ffffff !important;
+}
+
+/* Also ensure inline SVG icons (lucide) inherit white color in dark mode */
+body.dark-mode #btnCarrito svg,
+body.dark-mode .cart-toggle svg {
+    color: #ffffff;
+}
+
+/* Ensure badge contrast in dark mode */
+body.dark-mode .cart-badge {
+    background-color: #ef4444;
+    color: #fff;
+    display: block; /* will be toggled by JS when >0 */
+}
+
+/* Ensure details and remove buttons keep red styling in dark mode */
+body.dark-mode .details-btn {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+body.dark-mode .details-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+body.dark-mode .remove-btn {
+    background-color: #dc3545;
+    color: #fff;
 }

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - Reservas - Farmacia María Rosa</title>
+  <link rel="stylesheet" href="../assets/css/modules/footer-style.css" />
+  <link rel="stylesheet" href="../assets/css/modules/navbar-style.css" />
+  <link rel="stylesheet" href="../assets/css/body-style.css" />
+  <link rel="stylesheet" href="../assets/css/admin-style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f7fafc;
+    }
+
+    .table td,
+    .table th {
+      vertical-align: middle;
+    }
+
+    .form-control,
+    .form-select {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../assets/img/logo2.jpeg" alt="Logo Farmacia" width="50" height="50" class="me-2 logo-animate" />
+        <span class="fw-bold">&nbsp;Farmacia María Rosa</span>
+      </a>
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto d-flex align-items-center">
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="../index.html">Inicio<span class="nav-underline"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="../pages/productos.html">Productos<span class="nav-underline"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="../pages/contacto.html">Contacto<span class="nav-underline"></span></a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+          <button id="darkModeToggle" class="btn btn-custom-nav">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-moon h-5 w-5 icon-animate" aria-hidden="true">
+              <path
+                d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401">
+              </path>
+            </svg>
+          </button>
+          <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-circle-user-round-icon lucide-circle-user-round">
+              <path d="M18 20a6 6 0 0 0-12 0"></path>
+              <circle cx="12" cy="10" r="4"></circle>
+              <circle cx="12" cy="12" r="10"></circle>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid py-4">
+    <!-- Botón para mostrar/ocultar sidebar en móvil -->
+    <button class="btn btn-outline-danger d-lg-none mb-3" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#adminSidebarNavMobile" aria-controls="adminSidebarNavMobile" aria-label="Menú administración">
+      <i class="bi bi-list"></i> Menú administración
+    </button>
+
+    <div class="admin-sidebar-layout">
+      <!-- Sidebar -->
+      <nav class="sidebar me-3 d-none d-lg-block" id="adminSidebarNav">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column nav-pills gap-2" id="adminSidebarTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-productos" data-bs-toggle="pill"
+                data-bs-target="#panel-productos" type="button" role="tab">Productos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-categorias" data-bs-toggle="pill"
+                data-bs-target="#panel-categorias" type="button" role="tab">Categorías</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-lotes" data-bs-toggle="pill"
+                data-bs-target="#panel-lotes" type="button" role="tab">Lotes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-clientes" data-bs-toggle="pill"
+                data-bs-target="#panel-clientes" type="button" role="tab">Clientes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active w-100 text-start" id="tab-reservas" data-bs-toggle="pill"
+                data-bs-target="#panel-reservas" type="button" role="tab">Reservas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" id="tab-estadisticas" data-bs-toggle="pill"
+                data-bs-target="#panel-estadisticas" type="button" role="tab">Estadísticas</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Sidebar móvil -->
+      <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="adminSidebarNavMobile"
+        aria-labelledby="adminSidebarNavMobileLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="adminSidebarNavMobileLabel">Menú administración</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="nav flex-column nav-pills gap-2" id="adminSidebarTabsMobile" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-productos"
+                type="button" role="tab">Productos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-categorias"
+                type="button" role="tab">Categorías</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-lotes"
+                type="button" role="tab">Lotes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-clientes"
+                type="button" role="tab">Clientes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-reservas"
+                type="button" role="tab">Reservas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-estadisticas"
+                type="button" role="tab">Estadísticas</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contenido principal -->
+      <main class="admin-main-content">
+        <div class="tab-content" id="adminSidebarTabContent">
+          <div class="tab-pane fade" id="panel-productos" role="tabpanel"></div>
+          <div class="tab-pane fade" id="panel-categorias" role="tabpanel"></div>
+          <div class="tab-pane fade" id="panel-lotes" role="tabpanel"></div>
+          <div class="tab-pane fade" id="panel-clientes" role="tabpanel"></div>
+          <div class="tab-pane fade" id="panel-estadisticas" role="tabpanel"></div>
+          <div class="tab-pane fade show active" id="panel-reservas" role="tabpanel">
+            <h2 class="mb-4">Gestión de Reservas</h2>
+            <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+              <button id="logoutBtn" class="btn btn-danger">Cerrar sesión</button>
+              <input type="text" id="searchClienteInput" class="form-control" style="max-width: 300px;"
+                placeholder="Buscar por nombre de cliente...">
+              <select id="statusFilter" class="form-select" style="max-width: 200px;">
+                <option value="all">Todos los estados</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="completada">Completada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover align-middle table-admin" id="reservasTable">
+                <thead class="table-success">
+                  <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Total</th>
+                    <th>Productos</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Reservas aquí -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal Detalles Reserva -->
+  <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reservaModalLabel">Detalles de la Reserva</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <h6>Información del Cliente</h6>
+              <p class="mb-1" id="modalClienteNombre"></p>
+              <p class="mb-1" id="modalClienteEmail"></p>
+              <p class="mb-1" id="modalClienteTelefono"></p>
+            </div>
+            <div class="col-md-6">
+              <h6>Información de la Reserva</h6>
+              <p class="mb-1" id="modalReservaId"></p>
+              <p class="mb-1" id="modalReservaFecha"></p>
+              <p class="mb-1" id="modalReservaEstado"></p>
+            </div>
+          </div>
+          <h6>Productos</h6>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="modalProductosTable">
+                <!-- Productos de la reserva aquí -->
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th colspan="3" class="text-end">Total:</th>
+                  <td id="modalTotal"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="btnCompletarReserva">Marcar como Completada</button>
+          <button type="button" class="btn btn-danger" id="btnCancelarReserva">Cancelar Reserva</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="loginEmail" required>
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="loginPassword" required>
+            </div>
+            <div id="loginError" class="text-danger" style="display:none;">Usuario o contraseña incorrectos.</div>
+            <button type="submit" class="btn btn-custom w-100 mt-2">Ingresar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/dark-mode.js"></script>
+  <script src="../assets/js/login.js"></script>
+  <script src="../assets/js/admin-reservas.js"></script>
+  <script>
+    // Navegación del sidebar
+    document.addEventListener('DOMContentLoaded', () => {
+      // Redirecciones para cada tab
+      document.getElementById('tab-productos').addEventListener('click', () => {
+        window.location.href = 'admin-productos.html';
+      });
+      
+      document.getElementById('tab-categorias').addEventListener('click', () => {
+        window.location.href = 'admin-categorias.html';
+      });
+      
+      document.getElementById('tab-lotes').addEventListener('click', () => {
+        window.location.href = 'admin-lotes.html';
+      });
+      
+      document.getElementById('tab-clientes').addEventListener('click', () => {
+        window.location.href = 'admin-clientes.html';
+      });
+      
+      document.getElementById('tab-estadisticas').addEventListener('click', () => {
+        window.location.href = 'admin-estadisticas.html';
+      });
+
+      // También para el sidebar móvil
+      document.querySelectorAll('#adminSidebarTabsMobile .nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const target = e.target.dataset.bsTarget;
+          switch(target) {
+            case '#panel-productos':
+              window.location.href = 'admin-productos.html';
+              break;
+            case '#panel-categorias':
+              window.location.href = 'admin-categorias.html';
+              break;
+            case '#panel-lotes':
+              window.location.href = 'admin-lotes.html';
+              break;
+            case '#panel-clientes':
+              window.location.href = 'admin-clientes.html';
+              break;
+            case '#panel-estadisticas':
+              window.location.href = 'admin-estadisticas.html';
+              break;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
