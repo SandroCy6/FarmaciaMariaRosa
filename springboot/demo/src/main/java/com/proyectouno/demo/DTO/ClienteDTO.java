@@ -3,11 +3,14 @@ package com.proyectouno.demo.DTO;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * DTO para la entidad Cliente, utilizado para transferir datos del cliente entre frontend y backend.
  */
 public class ClienteDTO {
-
+    
+    @JsonProperty("idCliente")
     private Long idCliente;
 
     @NotNull(message = "El nombre no puede ser nulo")

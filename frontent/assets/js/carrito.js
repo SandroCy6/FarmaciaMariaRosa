@@ -1,9 +1,8 @@
-// === carrito.js ===
-
 class Carrito {
     constructor() {
         this.items = JSON.parse(localStorage.getItem("carrito")) || [];
         this.sidebar = null;
+        this.clienteModal = null;
         this.init();
     }
 
@@ -11,6 +10,14 @@ class Carrito {
         document.addEventListener("DOMContentLoaded", () => {
             this.sidebar = this.crearSidebarCarrito();
             document.body.appendChild(this.sidebar);
+
+            // Crear modal de cliente dinámicamente solo si no existe
+            if (!document.getElementById('createClienteModal')) {
+                this.clienteModal = this.crearClienteModal();
+                document.body.appendChild(this.clienteModal);
+            } else {
+                this.clienteModal = document.getElementById('createClienteModal');
+            }
 
             // Crear backdrop para oscurecer la página cuando el carrito esté abierto
             this.backdrop = document.createElement('div');
@@ -26,6 +33,52 @@ class Carrito {
             this.actualizarBadge();
             this.renderizarCarrito();
         });
+    }
+
+    crearClienteModal() {
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = 'createClienteModal';
+        modal.tabIndex = -1;
+        modal.setAttribute('aria-labelledby', 'createClienteModalLabel');
+        modal.setAttribute('aria-hidden', 'true');
+        modal.innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createClienteModalLabel">Completar Datos de Cliente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="createClienteForm">
+                            <div class="mb-3">
+                                <label for="createClienteEmail" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="createClienteEmail" readonly autocomplete="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="createClienteNombre" class="form-label">Nombre *</label>
+                                <input type="text" class="form-control" id="createClienteNombre" required autocomplete="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="createClienteDni" class="form-label">DNI (8 dígitos) *</label>
+                                <input type="text" class="form-control" id="createClienteDni" required autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <label for="createClienteTelefono" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="createClienteTelefono" autocomplete="tel">
+                            </div>
+                            <div class="mb-3">
+                                <label for="createClienteDireccion" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="createClienteDireccion" autocomplete="street-address">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Guardar</button>
+                            <button type="button" class="btn btn-secondary w-100 mt-2" id="createClienteCancel">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+        return modal;
     }
 
     crearSidebarCarrito() {
@@ -76,30 +129,29 @@ class Carrito {
 
             const imagen = item.imagen || item.imagenPrincipal || 'https://via.placeholder.com/80';
 
-                const itemHTML = `
-                    <div class="cart-item d-flex align-items-start" data-index="${index}">
-                        <img src="${imagen}" alt="${item.nombre}" />
-                        <div class="cart-item-info">
-                            <div class="cart-item-title">${item.nombre}</div>
-                            <div class="cart-item-price">S/ ${item.precio.toFixed(2)}</div>
-                            <div class="mt-2 d-flex align-items-center">
-                                <button class="btn btn-sm details-btn" data-index="${index}">Más detalles</button>
-                                <button class="remove-btn ms-2" data-index="${index}" title="Eliminar del carrito"><i class="bi bi-trash"></i></button>
-                            </div>
-                        </div>
-                        <div class="cart-item-quantity ms-auto">
-                            <button class="quantity-btn minus" data-index="${index}">-</button>
-                            <span>${item.cantidad}</span>
-                            <button class="quantity-btn plus" data-index="${index}">+</button>
+            const itemHTML = `
+                <div class="cart-item d-flex align-items-start" data-index="${index}">
+                    <img src="${imagen}" alt="${item.nombre}" />
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.nombre}</div>
+                        <div class="cart-item-price">S/ ${item.precio.toFixed(2)}</div>
+                        <div class="mt-2 d-flex align-items-center">
+                            <button class="btn btn-sm details-btn" data-index="${index}">Más detalles</button>
+                            <button class="remove-btn ms-2" data-index="${index}" title="Eliminar del carrito"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>
-                `;
+                    <div class="cart-item-quantity ms-auto">
+                        <button class="quantity-btn minus" data-index="${index}">-</button>
+                        <span>${item.cantidad}</span>
+                        <button class="quantity-btn plus" data-index="${index}">+</button>
+                    </div>
+                </div>
+            `;
             contenedor.insertAdjacentHTML('beforeend', itemHTML);
         });
 
         totalElement.textContent = `Total: S/ ${total.toFixed(2)}`;
 
-        // Agregar event listeners para los botones de cantidad
         contenedor.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const index = parseInt(e.target.dataset.index);
@@ -108,7 +160,6 @@ class Carrito {
             });
         });
 
-        // Detalles: abrir modal con más información
         contenedor.querySelectorAll('.details-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const index = parseInt(e.target.dataset.index);
@@ -118,7 +169,6 @@ class Carrito {
             });
         });
 
-        // Remove button in cart items
         contenedor.querySelectorAll('.remove-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const index = parseInt(e.target.dataset.index);
@@ -144,7 +194,6 @@ class Carrito {
 
     eliminarPorIndex(index) {
         if (index < 0 || index >= this.items.length) return;
-        // Confirmación antes de eliminar un producto individual
         const confirmado = window.confirm("¿Estás seguro que deseas eliminar este producto del carrito?");
         if (!confirmado) return;
 
@@ -154,8 +203,13 @@ class Carrito {
         this.actualizarBadge();
     }
 
-    // agregarProducto: si toggle === true abre/cierra el sidebar (comportamiento por defecto)
     agregarProducto(producto, toggle = true) {
+        if (producto.requiereReceta) {
+            const notas = prompt('Este producto requiere receta médica. Por favor, indique detalles:');
+            if (!notas) return;
+            producto.notas = notas;
+        }
+
         const productoExistente = this.items.find(item => item.idProducto === producto.idProducto);
 
         if (productoExistente) {
@@ -187,8 +241,7 @@ class Carrito {
     }
 
     vaciarCarrito() {
-        // Confirm before clearing (user requested exact text)
-        const confirmado = window.confirm("Esas seguro?");
+        const confirmado = window.confirm("¿Estás seguro?");
         if (!confirmado) return;
 
         this.items = [];
@@ -197,36 +250,33 @@ class Carrito {
         this.actualizarBadge();
     }
 
-    // Muestra el modal de producto (usa modal ya existente en productos.html)
-    // fromCart: si true oculta el botón 'Agregar al carrito' en el modal
     showProductModal(product, fromCart = false) {
-        // Poblar modal
         const modalEl = document.getElementById('productModal');
         if (!modalEl) return;
 
+        modalEl.setAttribute('inert', '');
+
         document.getElementById('modalImagen').src = product.imagen || product.imagenPrincipal || '';
-        document.getElementById('modalImagen').alt = product.nombre || '';
         document.getElementById('modalNombre').textContent = product.nombre || '';
         document.getElementById('modalDescripcion').textContent = product.descripcion || '';
-        document.getElementById('modalCategoria').textContent = product.categoria || '';
+        document.getElementById('modalCategoria').textContent = product.categoria || product.categoriaNombre || '';
         document.getElementById('modalStock').textContent = product.stock || product.stockActual || 0;
         document.getElementById('modalPrecio').textContent = `S/ ${Number(product.precio || 0).toFixed(2)}`;
         document.getElementById('modalRating').textContent = product.rating ? `⭐ ${product.rating}` : '';
 
-        // Ajustar comportamiento del botón "Agregar al carrito" en el modal.
-        // Mostrar el botón siempre; si viene del carrito, al agregar no se toggleará el sidebar.
         const addBtn = document.getElementById('modalAddToCart');
         if (addBtn) {
             addBtn.style.display = '';
             addBtn.onclick = () => {
-                // agregar sin togglear el sidebar para no cerrarlo cuando venimos desde el carrito
                 this.agregarProducto(product, false);
                 const mb = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
                 mb.hide();
             };
         }
+
         const bsModal = new bootstrap.Modal(modalEl);
         bsModal.show();
+        modalEl.removeAttribute('inert');
     }
 
     async realizarReserva() {
@@ -234,7 +284,6 @@ class Carrito {
             alert("Tu carrito está vacío");
             return;
         }
-        // If user is not logged in, show login modal
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
         if (!loggedInUser) {
             const modal = new bootstrap.Modal(document.getElementById('loginModal'));
@@ -242,28 +291,74 @@ class Carrito {
             return;
         }
 
-        // Helper: try to find clientId by email via API
+        const token = 'dummy-token';
+
         const findClientIdByEmail = async (email) => {
             try {
-                const res = await fetch('http://localhost:8080/api/clientes');
-                if (!res.ok) return null;
+                console.log(`Buscando cliente por email: ${email}`);
+                const res = await fetch('http://127.0.0.1:8081/api/clientes', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!res.ok) {
+                    console.error(`Error ${res.status} al buscar clientes por email`);
+                    return null;
+                }
                 const clientes = await res.json();
-                // Try common id fields
                 const found = clientes.find(c => (c.email || c.mail || '').toLowerCase() === (email || '').toLowerCase());
-                if (!found) return null;
-                return found.idCliente || found.id || found.id_cliente || null;
+                if (found) {
+                    console.log(`Cliente encontrado por email: ${found.idCliente}`);
+                }
+                return found ? (found.idCliente || found.id || found.id_cliente || null) : null;
             } catch (e) {
                 console.error('Error buscando cliente por email:', e);
                 return null;
             }
         };
 
-        // Helper: create cliente in backend using a modal (better UX)
+        const findClientIdByDni = async (dni) => {
+            try {
+                console.log(`Buscando cliente con DNI: ${dni}`);
+                const res = await fetch(`http://127.0.0.1:8081/api/clientes/dni/${dni}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!res.ok) {
+                    console.warn(`GET /api/clientes/dni/${dni} devolvió ${res.status}, intentando fallback`);
+                    const resAll = await fetch('http://127.0.0.1:8081/api/clientes', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    if (!resAll.ok) {
+                        console.error(`Error ${resAll.status} al buscar todos los clientes`);
+                        return null;
+                    }
+                    const clientes = await resAll.json();
+                    const found = clientes.find(c => (c.dni || '').toLowerCase() === dni.toLowerCase());
+                    if (found) {
+                        console.log(`Cliente encontrado por DNI en fallback: ${found.idCliente}`);
+                    }
+                    return found ? (found.idCliente || found.id || found.id_cliente || null) : null;
+                }
+                const cliente = await res.json();
+                console.log(`Cliente encontrado por DNI: ${cliente.idCliente}`);
+                return cliente.idCliente || cliente.id || cliente.id_cliente || null;
+            } catch (e) {
+                console.error('Error buscando cliente por DNI:', e);
+                return null;
+            }
+        };
+
         const createClienteIfNeeded = async (user) => {
             return new Promise((resolve) => {
-                const modalEl = document.getElementById('createClienteModal');
-                if (!modalEl) { resolve(null); return; }
-
+                const modalEl = this.clienteModal;
+                modalEl.setAttribute('inert', '');
                 const form = modalEl.querySelector('#createClienteForm');
                 const emailInput = modalEl.querySelector('#createClienteEmail');
                 const nombreInput = modalEl.querySelector('#createClienteNombre');
@@ -272,7 +367,6 @@ class Carrito {
                 const direccionInput = modalEl.querySelector('#createClienteDireccion');
                 const cancelBtn = modalEl.querySelector('#createClienteCancel');
 
-                // Prefill email
                 emailInput.value = user.email || '';
                 nombreInput.value = '';
                 dniInput.value = '';
@@ -289,6 +383,7 @@ class Carrito {
                 const onCancel = () => {
                     cleanup();
                     bsModal.hide();
+                    modalEl.removeAttribute('inert');
                     resolve(null);
                 };
 
@@ -304,48 +399,64 @@ class Carrito {
                         return;
                     }
 
+                    // Check if client exists by DNI
+                    let clientId = await findClientIdByDni(dni);
+                    if (clientId) {
+                        console.log(`Cliente encontrado con DNI ${dni}, idCliente: ${clientId}`);
+                        cleanup();
+                        bsModal.hide();
+                        modalEl.removeAttribute('inert');
+                        resolve(clientId);
+                        return;
+                    }
+
+                    // Try to create new client
                     const clienteDTO = {
                         nombre: nombre,
-                        email: emailInput.value || '',
+                        email: emailInput.value || null,
                         dni: dni,
-                        telefono: telefono,
-                        direccion: direccion,
+                        telefono: telefono || null,
+                        direccion: direccion || null,
                         fechaNacimiento: null,
                         tieneCondicionCronica: false,
-                        notasEspeciales: '',
+                        notasEspeciales: null,
                         aceptaNotificaciones: true
                     };
 
                     try {
-                        const res = await fetch('http://localhost:8080/api/clientes', {
+                        console.log('Creando nuevo cliente:', clienteDTO);
+                        const res = await fetch('http://127.0.0.1:8081/api/clientes', {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
                             body: JSON.stringify(clienteDTO)
                         });
-                        if (!res.ok) {
-                            const text = await res.text();
-                            alert('No se pudo crear el cliente: ' + text);
+                        if (!res.ok && res.status !== 200) {
+                            const errorData = await res.json();
+                            console.error('Error en POST /api/clientes:', errorData);
+                            alert('No se pudo crear el cliente: ' + (errorData.message || 'Error desconocido'));
                             cleanup();
                             bsModal.hide();
+                            modalEl.removeAttribute('inert');
                             resolve(null);
                             return;
                         }
 
                         const created = await res.json();
+                        console.log('Respuesta de POST /api/clientes:', created);
                         cleanup();
                         bsModal.hide();
+                        modalEl.removeAttribute('inert');
                         const createdId = created.idCliente || created.id || null;
-                        if (createdId) {
-                            resolve(createdId);
-                            return;
-                        }
-                        // If backend didn't return id, try to find by email
-                        const found = await findClientIdByEmail(emailInput.value);
-                        resolve(found);
+                        resolve(createdId || await findClientIdByDni(dni));
                     } catch (err) {
                         console.error('Error creando cliente:', err);
+                        alert('Error al crear el cliente: ' + err.message);
                         cleanup();
                         bsModal.hide();
+                        modalEl.removeAttribute('inert');
                         resolve(null);
                     }
                 };
@@ -353,6 +464,7 @@ class Carrito {
                 form.addEventListener('submit', onSubmit);
                 cancelBtn.addEventListener('click', onCancel);
                 bsModal.show();
+                modalEl.removeAttribute('inert');
             });
         };
 
@@ -364,13 +476,10 @@ class Carrito {
             }
 
             if (!clientId) {
-                // Try to create a cliente record (will ask user for minimal info)
                 clientId = await createClienteIfNeeded(loggedInUser);
             }
 
-            // If still no clientId, fallback to local-only success message and clear cart
             if (!clientId) {
-                // Show success message but note backend was not notified
                 const contenedor = document.getElementById('listaCarrito');
                 contenedor.innerHTML = `<div class="alert alert-success">Se realizó la reserva localmente. Si quieres que se registre en la farmacia, por favor contacta con el personal.</div>`;
                 this.items = [];
@@ -380,32 +489,38 @@ class Carrito {
                 return;
             }
 
-            // Build reservation DTO
             const reservaDTO = {
-                idCliente: clientId,
+                cliente: { idCliente: clientId },
                 estado: 'PENDIENTE',
+                metodoNotificacion: 'EMAIL',
+                fechaLimiteRetiro: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
                 detalles: this.items.map(item => ({
-                    idProducto: item.idProducto,
+                    producto: { idProducto: item.idProducto },
                     cantidad: item.cantidad,
-                    precioUnitario: item.precio,
-                    subtotal: item.precio * item.cantidad,
-                    disponible: true
+                    precioUnitario: item.precio.toFixed(2),
+                    subtotal: (item.precio * item.cantidad).toFixed(2),
+                    disponible: true,
+                    notas: item.notas || ''
                 }))
             };
 
-            const response = await fetch('http://localhost:8080/api/reservas', {
+            console.log('Enviando reserva:', reservaDTO);
+
+            const response = await fetch('http://127.0.0.1:8081/api/reservas', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify(reservaDTO)
             });
 
             if (!response.ok) {
-                const text = await response.text();
-                console.error('Error al procesar la reserva, server replied:', text);
-                throw new Error('Error al procesar la reserva');
+                const errorData = await response.json();
+                console.error('Error al procesar la reserva, server replied:', errorData);
+                throw new Error(errorData.message || 'Error al procesar la reserva');
             }
 
-            // Success: show message in the cart and clear
             const contenedor = document.getElementById('listaCarrito');
             contenedor.innerHTML = `<div class="alert alert-success">¡Tu reserva se ha realizado con éxito! Acércate a la farmacia para recogerla.</div>`;
             this.items = [];
@@ -415,10 +530,9 @@ class Carrito {
 
         } catch (error) {
             console.error('Error:', error);
-            alert('Hubo un error al procesar tu reserva. Por favor intenta de nuevo.');
+            alert('Hubo un error al procesar tu reserva: ' + error.message);
         }
     }
 }
 
-// Crear una instancia global del carrito
 const carrito = new Carrito();

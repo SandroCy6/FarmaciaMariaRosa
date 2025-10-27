@@ -16,6 +16,7 @@ public class Cliente {
     /** Identificador único del cliente (Primary Key). */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cliente")
     private Long idCliente;
 
     /** Nombre completo del cliente. */

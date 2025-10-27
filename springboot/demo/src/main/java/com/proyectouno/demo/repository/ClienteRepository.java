@@ -27,4 +27,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
      * @return Un Optional que contiene el cliente encontrado o vacío si no existe.
      */
     Optional<Cliente> findByDniAndEmail(String dni, String email);
+    Optional<Cliente> findByDni(String dni);
+    Optional<Cliente> findByEmail(String email);
+
 }
