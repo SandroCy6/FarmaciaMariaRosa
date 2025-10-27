@@ -32,7 +32,7 @@ public class Cliente {
 
     /** Número de DNI. */
     @NotNull(message = "El DNI no puede ser nulo")
-    @Size(min = 8, max = 8, message = "El DNI debe tener exactamente 8 caracteres")
+    @Pattern(regexp = "\\d{8}", message = "El DNI debe contener exactamente 8 dígitos numéricos")
     @Column(length = 8, nullable = false)
     private String dni;
 
@@ -77,7 +77,8 @@ public class Cliente {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
     public String getDni() { return dni; }
-    public void setDni(String dni) { this.dni = dni; }
+    // Normalizar / limpiar el DNI al setear para evitar espacios u otros caracteres invisibles
+    public void setDni(String dni) { this.dni = (dni == null) ? null : dni.trim(); }
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
     public String getDireccion() { return direccion; }

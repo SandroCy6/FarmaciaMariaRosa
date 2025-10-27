@@ -26,7 +26,8 @@ public class ReservaDTO {
 
     private LocalDateTime fechaReserva;
 
-    @NotNull(message = "La fecha límite de retiro no puede ser nula")
+    // La fecha límite puede omitirse en el payload de creación; el controlador
+    // asigna un valor por defecto si es null.
     private LocalDateTime fechaLimiteRetiro;
 
     private LocalDateTime fechaEntrega;

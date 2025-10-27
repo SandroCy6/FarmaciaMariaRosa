@@ -114,13 +114,20 @@ public class ReservaController {
             // Crear detalles y actualizar stock
             for (DetalleReservaDTO detalleDTO : reservaDTO.getDetalles()) {
                 Producto producto = productoRepository.findById(detalleDTO.getIdProducto()).get();
+                // Forzar cálculo de precios y disponibilidad desde el backend
+                BigDecimal precioUnitario = producto.getPrecio();
+                BigDecimal subtotal = precioUnitario.multiply(new BigDecimal(detalleDTO.getCantidad()));
+                detalleDTO.setPrecioUnitario(precioUnitario);
+                detalleDTO.setSubtotal(subtotal);
+                detalleDTO.setDisponible(true);
+
                 DetalleReserva detalle = new DetalleReserva();
                 detalle.setReserva(reserva);
                 detalle.setProducto(producto);
                 detalle.setCantidad(detalleDTO.getCantidad());
-                detalle.setPrecioUnitario(detalleDTO.getPrecioUnitario());
-                detalle.setSubtotal(detalleDTO.getSubtotal());
-                detalle.setDisponible(detalleDTO.getDisponible());
+                detalle.setPrecioUnitario(precioUnitario);
+                detalle.setSubtotal(subtotal);
+                detalle.setDisponible(true);
                 detalle.setNotas(detalleDTO.getNotas());
                 detalleReservaRepository.save(detalle);
 
@@ -222,13 +229,20 @@ public class ReservaController {
             if (reserva.getEstado() == Reserva.EstadoReserva.PENDIENTE && !reservaDTO.getDetalles().isEmpty()) {
                 for (DetalleReservaDTO detalleDTO : reservaDTO.getDetalles()) {
                     Producto producto = productoRepository.findById(detalleDTO.getIdProducto()).get();
+                    // Forzar cálculo de precio/subtotal en backend
+                    BigDecimal precioUnitario = producto.getPrecio();
+                    BigDecimal subtotal = precioUnitario.multiply(new BigDecimal(detalleDTO.getCantidad()));
+                    detalleDTO.setPrecioUnitario(precioUnitario);
+                    detalleDTO.setSubtotal(subtotal);
+                    detalleDTO.setDisponible(true);
+
                     DetalleReserva detalle = new DetalleReserva();
                     detalle.setReserva(reserva);
                     detalle.setProducto(producto);
                     detalle.setCantidad(detalleDTO.getCantidad());
-                    detalle.setPrecioUnitario(detalleDTO.getPrecioUnitario());
-                    detalle.setSubtotal(detalleDTO.getSubtotal());
-                    detalle.setDisponible(detalleDTO.getDisponible());
+                    detalle.setPrecioUnitario(precioUnitario);
+                    detalle.setSubtotal(subtotal);
+                    detalle.setDisponible(true);
                     detalle.setNotas(detalleDTO.getNotas());
                     detalleReservaRepository.save(detalle);
 
@@ -298,6 +312,14 @@ public class ReservaController {
         dto.setNotasFarmacia(reserva.getNotasFarmacia());
         dto.setMetodoNotificacion(reserva.getMetodoNotificacion() != null ? reserva.getMetodoNotificacion().name() : null);
         dto.setIdUsuarioAtencion(reserva.getUsuarioAtencion() != null ? reserva.getUsuarioAtencion().getIdUsuario() : null);
+        // Cargar cliente completo para respuestas (evita que el frontend reciba null)
+        try {
+            Cliente cliente = clienteRepository.findById(reserva.getCliente().getIdCliente()).orElse(null);
+            dto.setCliente(cliente);
+        } catch (Exception ignored) {
+            // si hay problemas con LAZY loading, dejar cliente como null
+        }
+
         List<DetalleReserva> detalles = detalleReservaRepository.findByReserva(reserva);
         dto.setDetalles(detalles.stream().map(detalle -> {
             DetalleReservaDTO detalleDTO = new DetalleReservaDTO();
@@ -308,6 +330,12 @@ public class ReservaController {
             detalleDTO.setSubtotal(detalle.getSubtotal());
             detalleDTO.setDisponible(detalle.getDisponible());
             detalleDTO.setNotas(detalle.getNotas());
+            // Incluir datos del producto para mostrar en el admin
+            try {
+                detalleDTO.setProducto(detalle.getProducto());
+            } catch (Exception ignored) {
+                // si hay problemas por LAZY loading, omitimos el objeto producto
+            }
             return detalleDTO;
         }).collect(Collectors.toList()));
         return dto;

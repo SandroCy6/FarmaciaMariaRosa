@@ -245,7 +245,7 @@ class Carrito {
         // Helper: try to find clientId by email via API
         const findClientIdByEmail = async (email) => {
             try {
-                const res = await fetch('http://localhost:8080/api/clientes');
+                const res = await fetch('http://127.0.0.1:8081/api/clientes');
                 if (!res.ok) return null;
                 const clientes = await res.json();
                 // Try common id fields
@@ -317,7 +317,7 @@ class Carrito {
                     };
 
                     try {
-                        const res = await fetch('http://localhost:8080/api/clientes', {
+                        const res = await fetch('http://127.0.0.1:8081/api/clientes', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(clienteDTO)
@@ -384,16 +384,19 @@ class Carrito {
             const reservaDTO = {
                 idCliente: clientId,
                 estado: 'PENDIENTE',
+                // Enviar fechaLimiteRetiro completa y detalles con campos necesarios.
+                fechaLimiteRetiro: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
                 detalles: this.items.map(item => ({
                     idProducto: item.idProducto,
                     cantidad: item.cantidad,
+                    // El backend recalculará precioUnitario y subtotal; incluir valores aquí para completitud
                     precioUnitario: item.precio,
                     subtotal: item.precio * item.cantidad,
                     disponible: true
                 }))
             };
 
-            const response = await fetch('http://localhost:8080/api/reservas', {
+            const response = await fetch('http://127.0.0.1:8081/api/reservas', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reservaDTO)

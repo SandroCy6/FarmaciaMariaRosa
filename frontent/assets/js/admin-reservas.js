@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funciones
     function cargarReservas() {
-        fetch('http://localhost:8080/api/reservas', {
+    fetch('http://127.0.0.1:8081/api/reservas', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function completarReserva() {
         if (!reservaActual) return;
 
-        fetch(`http://localhost:8080/api/reservas/${reservaActual.idReserva}`, {
+    fetch(`http://127.0.0.1:8081/api/reservas/${reservaActual.idReserva}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch(`http://localhost:8080/api/reservas/${reservaActual.idReserva}`, {
+    fetch(`http://127.0.0.1:8081/api/reservas/${reservaActual.idReserva}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
