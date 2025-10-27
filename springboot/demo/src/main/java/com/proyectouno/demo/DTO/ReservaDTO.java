@@ -15,8 +15,8 @@ public class ReservaDTO {
     @Size(max = 20, message = "El número de reserva no puede exceder los 20 caracteres")
     private String numeroReserva;
 
-    @NotNull(message = "El ID del cliente no puede ser nulo")
-    private Long idCliente;
+    @NotNull(message = "El cliente no puede ser nulo")
+    private ClienteDTO cliente;
 
     @NotNull(message = "El estado no puede ser nulo")
     private String estado;
@@ -48,8 +48,8 @@ public class ReservaDTO {
     public void setIdReserva(Long idReserva) { this.idReserva = idReserva; }
     public String getNumeroReserva() { return numeroReserva; }
     public void setNumeroReserva(String numeroReserva) { this.numeroReserva = numeroReserva; }
-    public Long getIdCliente() { return idCliente; }
-    public void setIdCliente(Long idCliente) { this.idCliente = idCliente; }
+    public ClienteDTO getCliente() { return cliente; }
+    public void setCliente(ClienteDTO cliente) { this.cliente = cliente; }
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
     public BigDecimal getTotal() { return total; }

@@ -58,11 +58,22 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("modalDescripcion").textContent = producto.descripcion;
         document.getElementById("modalCategoria").textContent = producto.categoria;
         document.getElementById("modalStock").textContent = producto.stock;
-        document.getElementById("modalPrecio").textContent = `S/ ${producto.precio.toFixed(2)}`;
-        document.getElementById("modalRating").textContent = `⭐ ${producto.rating}`;
+          document.getElementById("modalPrecio").textContent = `S/ ${producto.precio.toFixed(2)}`;
+          document.getElementById("modalRating").textContent = `⭐ ${producto.rating}`;
 
-        const modal = new bootstrap.Modal(document.getElementById("productModal"));
-        modal.show();
+          // Add event listener to "Agregar al carrito" button in modal
+          const addToCartBtn = document.getElementById("modalAddToCart");
+          if (addToCartBtn) {
+            addToCartBtn.onclick = () => {
+              if (carrito) {
+                carrito.agregarProducto(producto);
+              }
+              modal.hide();
+            };
+          }
+
+          const modal = new bootstrap.Modal(document.getElementById("productModal"));
+          modal.show();
       });
 
       container.appendChild(col);

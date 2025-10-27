@@ -11,8 +11,8 @@ public class DetalleReservaDTO {
     @NotNull(message = "El ID de la reserva no puede ser nulo")
     private Long idReserva;
 
-    @NotNull(message = "El ID del producto no puede ser nulo")
-    private Long idProducto;
+    @NotNull(message = "El producto no puede ser nulo")
+    private ProductoDTO producto;
 
     @NotNull(message = "La cantidad no puede ser nula")
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
@@ -34,8 +34,8 @@ public class DetalleReservaDTO {
     // Getters y Setters
     public Long getIdReserva() { return idReserva; }
     public void setIdReserva(Long idReserva) { this.idReserva = idReserva; }
-    public Long getIdProducto() { return idProducto; }
-    public void setIdProducto(Long idProducto) { this.idProducto = idProducto; }
+    public ProductoDTO getProducto() { return producto; }
+    public void setProducto(ProductoDTO producto) { this.producto = producto; }
     public Integer getCantidad() { return cantidad; }
     public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
     public BigDecimal getPrecioUnitario() { return precioUnitario; }

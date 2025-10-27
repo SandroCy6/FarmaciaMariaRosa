@@ -1,6 +1,8 @@
 package com.proyectouno.demo.Controller;
 
+import com.proyectouno.demo.DTO.ClienteDTO;
 import com.proyectouno.demo.DTO.DetalleReservaDTO;
+import com.proyectouno.demo.DTO.ProductoDTO;
 import com.proyectouno.demo.DTO.ReservaDTO;
 import com.proyectouno.demo.exceptions.ResourceNotFoundException;
 import com.proyectouno.demo.models.*;
@@ -42,9 +44,6 @@ public class ReservaController {
     @Autowired
     private DetalleReservaRepository detalleReservaRepository;
 
-    /**
-     * Listar todas las reservas con sus detalles.
-     */
     @GetMapping("/reservas")
     public ResponseEntity<List<ReservaDTO>> getAllReservas() {
         List<ReservaDTO> reservas = reservaRepository.findAll().stream()
@@ -53,9 +52,6 @@ public class ReservaController {
         return ResponseEntity.ok(reservas);
     }
 
-    /**
-     * Obtener una reserva por ID con sus detalles.
-     */
     @GetMapping("/reservas/{id}")
     public ResponseEntity<ReservaDTO> getReservaById(@PathVariable Long id) {
         Reserva reserva = reservaRepository.findById(id)
@@ -63,29 +59,24 @@ public class ReservaController {
         return ResponseEntity.ok(convertToDTO(reserva));
     }
 
-    /**
-     * Crear una nueva reserva y actualizar el stock.
-     */
     @PostMapping("/reservas")
     @Transactional
     public ResponseEntity<?> createReserva(@Valid @RequestBody ReservaDTO reservaDTO) {
         try {
             // Validar cliente
-            Cliente cliente = clienteRepository.findById(reservaDTO.getIdCliente())
-                    .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + reservaDTO.getIdCliente()));
+            Cliente cliente = clienteRepository.findById(reservaDTO.getCliente().getIdCliente())
+                    .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + reservaDTO.getCliente().getIdCliente()));
 
             // Validar stock, receta médica y calcular total
             BigDecimal total = BigDecimal.ZERO;
             for (DetalleReservaDTO detalleDTO : reservaDTO.getDetalles()) {
-                Producto producto = productoRepository.findById(detalleDTO.getIdProducto())
-                        .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + detalleDTO.getIdProducto()));
+                Producto producto = productoRepository.findById(detalleDTO.getProducto().getIdProducto())
+                        .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + detalleDTO.getProducto().getIdProducto()));
                 if (producto.getStockActual() < detalleDTO.getCantidad()) {
                     throw new IllegalStateException("Stock insuficiente para el producto: " + producto.getNombre());
                 }
-                if (producto.getRequiereReceta()) {
-                    if (detalleDTO.getNotas() == null || !detalleDTO.getNotas().contains("Receta proporcionada")) {
-                        throw new IllegalStateException("El producto " + producto.getNombre() + " requiere receta médica");
-                    }
+                if (producto.getRequiereReceta() && (detalleDTO.getNotas() == null || !detalleDTO.getNotas().contains("Receta proporcionada"))) {
+                    throw new IllegalStateException("El producto " + producto.getNombre() + " requiere receta médica");
                 }
                 BigDecimal subtotal = producto.getPrecio().multiply(new BigDecimal(detalleDTO.getCantidad()));
                 detalleDTO.setPrecioUnitario(producto.getPrecio());
@@ -103,7 +94,7 @@ public class ReservaController {
             reservaDTO.setNumeroReserva(numeroReserva);
             reservaDTO.setFechaReserva(LocalDateTime.now());
             if (reservaDTO.getFechaLimiteRetiro() == null) {
-                reservaDTO.setFechaLimiteRetiro(LocalDateTime.now().plusDays(7)); // 7 días por defecto
+                reservaDTO.setFechaLimiteRetiro(LocalDateTime.now().plusDays(7));
             }
 
             // Crear reserva
@@ -113,7 +104,7 @@ public class ReservaController {
 
             // Crear detalles y actualizar stock
             for (DetalleReservaDTO detalleDTO : reservaDTO.getDetalles()) {
-                Producto producto = productoRepository.findById(detalleDTO.getIdProducto()).get();
+                Producto producto = productoRepository.findById(detalleDTO.getProducto().getIdProducto()).get();
                 DetalleReserva detalle = new DetalleReserva();
                 detalle.setReserva(reserva);
                 detalle.setProducto(producto);
@@ -146,9 +137,6 @@ public class ReservaController {
         }
     }
 
-    /**
-     * Actualizar una reserva existente y manejar cambios de estado.
-     */
     @PutMapping("/reservas/{id}")
     @Transactional
     public ResponseEntity<?> updateReserva(@PathVariable Long id, @Valid @RequestBody ReservaDTO reservaDTO) {
@@ -157,8 +145,8 @@ public class ReservaController {
                     .orElseThrow(() -> new ResourceNotFoundException("Reserva no encontrada con ID: " + id));
 
             // Validar cliente
-            Cliente cliente = clienteRepository.findById(reservaDTO.getIdCliente())
-                    .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + reservaDTO.getIdCliente()));
+            Cliente cliente = clienteRepository.findById(reservaDTO.getCliente().getIdCliente())
+                    .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + reservaDTO.getCliente().getIdCliente()));
 
             // Validar cambio de estado
             Reserva.EstadoReserva nuevoEstado = Reserva.EstadoReserva.valueOf(reservaDTO.getEstado());
@@ -193,15 +181,13 @@ public class ReservaController {
 
                 // Validar y actualizar stock para nuevos detalles
                 for (DetalleReservaDTO detalleDTO : reservaDTO.getDetalles()) {
-                    Producto producto = productoRepository.findById(detalleDTO.getIdProducto())
-                            .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + detalleDTO.getIdProducto()));
+                    Producto producto = productoRepository.findById(detalleDTO.getProducto().getIdProducto())
+                            .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + detalleDTO.getProducto().getIdProducto()));
                     if (producto.getStockActual() < detalleDTO.getCantidad()) {
                         throw new IllegalStateException("Stock insuficiente para el producto: " + producto.getNombre());
                     }
-                    if (producto.getRequiereReceta()) {
-                        if (detalleDTO.getNotas() == null || !detalleDTO.getNotas().contains("Receta proporcionada")) {
-                            throw new IllegalStateException("El producto " + producto.getNombre() + " requiere receta médica");
-                        }
+                    if (producto.getRequiereReceta() && (detalleDTO.getNotas() == null || !detalleDTO.getNotas().contains("Receta proporcionada"))) {
+                        throw new IllegalStateException("El producto " + producto.getNombre() + " requiere receta médica");
                     }
                     BigDecimal subtotal = producto.getPrecio().multiply(new BigDecimal(detalleDTO.getCantidad()));
                     detalleDTO.setPrecioUnitario(producto.getPrecio());
@@ -221,7 +207,7 @@ public class ReservaController {
             // Guardar nuevos detalles si se proporcionaron
             if (reserva.getEstado() == Reserva.EstadoReserva.PENDIENTE && !reservaDTO.getDetalles().isEmpty()) {
                 for (DetalleReservaDTO detalleDTO : reservaDTO.getDetalles()) {
-                    Producto producto = productoRepository.findById(detalleDTO.getIdProducto()).get();
+                    Producto producto = productoRepository.findById(detalleDTO.getProducto().getIdProducto()).get();
                     DetalleReserva detalle = new DetalleReserva();
                     detalle.setReserva(reserva);
                     detalle.setProducto(producto);
@@ -255,9 +241,6 @@ public class ReservaController {
         }
     }
 
-    /**
-     * Eliminar una reserva y restaurar stock si es PENDIENTE.
-     */
     @DeleteMapping("/reservas/{id}")
     @Transactional
     public ResponseEntity<?> deleteReserva(@PathVariable Long id) {
@@ -288,7 +271,18 @@ public class ReservaController {
         ReservaDTO dto = new ReservaDTO();
         dto.setIdReserva(reserva.getIdReserva());
         dto.setNumeroReserva(reserva.getNumeroReserva());
-        dto.setIdCliente(reserva.getCliente().getIdCliente());
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setIdCliente(reserva.getCliente().getIdCliente());
+        clienteDTO.setNombre(reserva.getCliente().getNombre());
+        clienteDTO.setEmail(reserva.getCliente().getEmail());
+        clienteDTO.setDni(reserva.getCliente().getDni());
+        clienteDTO.setTelefono(reserva.getCliente().getTelefono());
+        clienteDTO.setDireccion(reserva.getCliente().getDireccion());
+        clienteDTO.setFechaNacimiento(reserva.getCliente().getFechaNacimiento());
+        clienteDTO.setTieneCondicionCronica(reserva.getCliente().getTieneCondicionCronica());
+        clienteDTO.setNotasEspeciales(reserva.getCliente().getNotasEspeciales());
+        clienteDTO.setAceptaNotificaciones(reserva.getCliente().getAceptaNotificaciones());
+        dto.setCliente(clienteDTO);
         dto.setEstado(reserva.getEstado().name());
         dto.setTotal(reserva.getTotal());
         dto.setFechaReserva(reserva.getFechaReserva());
@@ -302,7 +296,25 @@ public class ReservaController {
         dto.setDetalles(detalles.stream().map(detalle -> {
             DetalleReservaDTO detalleDTO = new DetalleReservaDTO();
             detalleDTO.setIdReserva(reserva.getIdReserva());
-            detalleDTO.setIdProducto(detalle.getProducto().getIdProducto());
+            ProductoDTO productoDTO = new ProductoDTO();
+            productoDTO.setIdProducto(detalle.getProducto().getIdProducto());
+            productoDTO.setNombre(detalle.getProducto().getNombre());
+            productoDTO.setPrecio(detalle.getProducto().getPrecio());
+            productoDTO.setStockActual(detalle.getProducto().getStockActual());
+            productoDTO.setStockMinimo(detalle.getProducto().getStockMinimo());
+            productoDTO.setIdCategoria(detalle.getProducto().getCategoria().getIdCategoria());
+            productoDTO.setCategoriaNombre(detalle.getProducto().getCategoria().getNombre());
+            productoDTO.setImagenPrincipal(detalle.getProducto().getImagenPrincipal());
+            productoDTO.setImagenesAdicionales(detalle.getProducto().getImagenesAdicionales());
+            productoDTO.setRequiereReceta(detalle.getProducto().getRequiereReceta());
+            productoDTO.setEsControlado(detalle.getProducto().getEsControlado());
+            productoDTO.setFechaVencimiento(detalle.getProducto().getFechaVencimiento());
+            productoDTO.setLaboratorio(detalle.getProducto().getLaboratorio());
+            productoDTO.setPrincipioActivo(detalle.getProducto().getPrincipioActivo());
+            productoDTO.setConcentracion(detalle.getProducto().getConcentracion());
+            productoDTO.setFormaFarmaceutica(detalle.getProducto().getFormaFarmaceutica());
+            productoDTO.setEstado(detalle.getProducto().getEstado());
+            detalleDTO.setProducto(productoDTO);
             detalleDTO.setCantidad(detalle.getCantidad());
             detalleDTO.setPrecioUnitario(detalle.getPrecioUnitario());
             detalleDTO.setSubtotal(detalle.getSubtotal());
@@ -316,8 +328,8 @@ public class ReservaController {
     private Reserva convertToEntity(ReservaDTO dto) {
         Reserva reserva = new Reserva();
         reserva.setNumeroReserva(dto.getNumeroReserva());
-        Cliente cliente = clienteRepository.findById(dto.getIdCliente())
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + dto.getIdCliente()));
+        Cliente cliente = clienteRepository.findById(dto.getCliente().getIdCliente())
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + dto.getCliente().getIdCliente()));
         reserva.setCliente(cliente);
         reserva.setEstado(Reserva.EstadoReserva.valueOf(dto.getEstado()));
         reserva.setTotal(dto.getTotal());
@@ -338,8 +350,8 @@ public class ReservaController {
     }
 
     private void updateEntityFromDTO(Reserva reserva, ReservaDTO dto) {
-        Cliente cliente = clienteRepository.findById(dto.getIdCliente())
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + dto.getIdCliente()));
+        Cliente cliente = clienteRepository.findById(dto.getCliente().getIdCliente())
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + dto.getCliente().getIdCliente()));
         reserva.setCliente(cliente);
         reserva.setNumeroReserva(dto.getNumeroReserva());
         reserva.setEstado(Reserva.EstadoReserva.valueOf(dto.getEstado()));
