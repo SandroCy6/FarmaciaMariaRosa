@@ -64,16 +64,6 @@
               </path>
             </svg>
           </button>
-          <button id="shopCar" class="btn btn-custom-nav">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-shopping-cart h-5 w-5 icon-animate" aria-hidden="true">
-              <circle cx="8" cy="21" r="1"></circle>
-              <circle cx="19" cy="21" r="1"></circle>
-              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
-              </path>
-            </svg>
-          </button>
           <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
             <svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -107,7 +97,7 @@
 
             <li class="nav-item" role="presentation">
               <button class="nav-link w-100 text-start" id="tab-categorias" data-bs-toggle="pill"
-                data-bs-target="#panel-categorias" type="button"onclick="window.location.href='admin-categorias.html'">Categorías</button>
+                data-bs-target="#panel-categorias" type="button" onclick="window.location.href='admin-categorias.html'">Categorías</button>
             </li>
 
             <li class="nav-item" role="presentation">
@@ -136,6 +126,7 @@
           </ul>
         </div>
       </nav>
+
       <!-- Sidebar móvil -->
       <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="adminSidebarNavMobile"
         aria-labelledby="adminSidebarNavMobileLabel">
@@ -145,33 +136,40 @@
         </div>
         <div class="offcanvas-body">
           <ul class="nav flex-column nav-pills gap-2" id="adminSidebarTabsMobile" role="tablist">
+            
             <li class="nav-item" role="presentation">
               <button class="nav-link active w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-productos"
-                type="button" role="tab">Productos</button>
+                type="button" onclick="window.location.href='admin-prodcutos.html'">Productos</button>
             </li>
+
             <li class="nav-item" role="presentation">
               <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-categorias"
-                type="button" role="tab">Categorías</button>
-            </li>
+                type="button" onclick="window.location.href='admin-categorias.html'" >Categorías</button>
+            </li> 
+
             <li class="nav-item" role="presentation">
               <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-lotes"
-                type="button" role="tab">Lotes</button>
+                type="button" onclick="window.location.href='admin-lotes.html'">Lotes</button>
             </li>
+
             <li class="nav-item" role="presentation">
               <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-clientes"
-                type="button" role="tab">Clientes</button>
+                type="button" onclick="window.location.href='admin-clientes.html'">Clientes</button>
             </li>
+
             <li class="nav-item" role="presentation">
               <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-reservas"
-                type="button" role="tab">Reservas</button>
+                type="button" onclick="window.location.href='admin-reservas.html'">Reservas</button>
             </li>
+
             <li class="nav-item" role="presentation">
               <button class="nav-link w-100 text-start" data-bs-toggle="pill" data-bs-target="#panel-estadisticas"
-                type="button" role="tab">Estadísticas</button>
+                type="button" onclick="window.location.href='admin-estadisticas.html'">Estadísticas</button>
             </li>
           </ul>
         </div>
       </div>
+      
       <!-- Contenido principal -->
       <main class="admin-main-content">
         <div class="tab-content" id="adminSidebarTabContent">
