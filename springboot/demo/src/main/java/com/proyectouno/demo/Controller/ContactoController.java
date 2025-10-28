@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = { "http://127.0.0.1:5500", "http://localhost:5500" }) // Permite CORS desde frontend
+@CrossOrigin(origins = { "http://127.0.0.1:5500", "http://localhost:5500" }) // Permite
+                                                                                                          // CORS desde
+                                                                                                          // frontend
 public class ContactoController {
     @Autowired
     private ClienteRepository clienteRepository; // Repositorio para manejar clientes
@@ -38,57 +40,77 @@ public class ContactoController {
      * @return ResponseEntity con status y mensaje de éxito o error
      */
 
-     // POST
-    @PostMapping("/contacto") // POST
-    public ResponseEntity<?> recibirContacto(@RequestBody Map<String, String> datos) {
+    // POST
+    // ContactoController.java — POST separado y GET fuera del POST
+    @PostMapping("/contacto")
+    public ResponseEntity<Map<String, Object>> recibirContacto(@RequestBody Map<String, String> datos) {
         try {
-            // Extraer datos del request
             String nombre = datos.get("nombre");
             String email = datos.get("email");
             String telefono = datos.get("telefono");
             String mensajeTexto = datos.get("mensaje");
             String dni = datos.get("dni");
 
-            // 1. Buscar cliente por dni y email
-            // Si no existe, crear uno nuevo y guardarlo en la DB
-            Cliente cliente = clienteRepository.findByDniAndEmail(dni, email)
-                    .orElseGet(() -> {
-                        Cliente nuevo = new Cliente();
-                        nuevo.setNombre(nombre);
-                        nuevo.setEmail(email);
-                        nuevo.setTelefono(telefono);
-                        nuevo.setDni(dni);
-                        return clienteRepository.save(nuevo); // Guardar nuevo cliente
-                    });
+            Cliente cliente = clienteRepository.findByDni(dni).orElseGet(() -> {
+                Cliente nuevo = new Cliente();
+                nuevo.setNombre(nombre);
+                nuevo.setEmail(email);
+                nuevo.setTelefono(telefono);
+                nuevo.setDni(dni);
+                return clienteRepository.save(nuevo);
+            });
 
-            // 2. Crear y guardar mensaje de contacto
+            boolean updated = false;
+            if (nombre != null && !nombre.equals(cliente.getNombre())) {
+                cliente.setNombre(nombre);
+                updated = true;
+            }
+            if (email != null && !email.equals(cliente.getEmail())) {
+                cliente.setEmail(email);
+                updated = true;
+            }
+            if (telefono != null && !telefono.equals(cliente.getTelefono())) {
+                cliente.setTelefono(telefono);
+                updated = true;
+            }
+            if (updated)
+                clienteRepository.save(cliente);
+
             MensajeContacto mensaje = new MensajeContacto();
-            mensaje.setCliente(cliente); // Asociar al cliente
+            mensaje.setCliente(cliente);
             mensaje.setMensaje(mensajeTexto);
-            mensaje.setFechaEnvio(LocalDateTime.now()); // Fecha actual
-            mensaje.setFechaRespuesta(null); // Inicialmente sin respuesta
+            mensaje.setFechaEnvio(LocalDateTime.now());
+            mensaje.setFechaRespuesta(null);
+            mensajeContactoRepository.save(mensaje);
 
-            mensajeContactoRepository.save(mensaje); // Guardar en DB
-
-            // 3. Retornar respuesta exitosa al frontend
-            return ResponseEntity.ok(Map.of(
-                    "status", "success",
-                    "message", "Formulario recibido y guardado correctamente."));
-
-        }  catch (ConstraintViolationException e) {
-            // Manejar errores de validación de JPA
+            return ResponseEntity
+                    .ok(Map.of("status", "success", "message", "Formulario recibido y guardado correctamente."));
+        } catch (ConstraintViolationException e) {
             String errorMessage = e.getConstraintViolations().stream()
-                    .map(violation -> violation.getMessage())
-                    .findFirst()
-                    .orElse("Error de validación desconocido");
-            return ResponseEntity.badRequest().body(Map.of(
-                    "status", "error",
-                    "message", errorMessage));
+                    .map(v -> v.getMessage()).findFirst().orElse("Error de validación desconocido");
+            return ResponseEntity.badRequest().body(Map.of("status", "error", "message", errorMessage));
         } catch (Exception e) {
-            // Manejar otros errores
-            return ResponseEntity.status(500).body(Map.of(
-                    "status", "error",
-                    "message", "Ocurrió un error al guardar el mensaje: " + e.getMessage()));
+            return ResponseEntity.status(500).body(
+                    Map.of("status", "error", "message", "Ocurrió un error al guardar el mensaje: " + e.getMessage()));
         }
+    }
+
+    // MÉTODO SEPARADO (fuera del POST): listado para admin
+    @GetMapping("/mensajes")
+    public ResponseEntity<?> obtenerTodosMensajes() {
+        var mensajes = mensajeContactoRepository.findAll();
+        var lista = mensajes.stream().map(m -> Map.of(
+                "id", m.getId(),
+                "mensaje", m.getMensaje(),
+                "fechaEnvio", m.getFechaEnvio(),
+                "estadoContestado", m.getEstadoContestado(),
+                "cliente", Map.of(
+                        "id", m.getCliente().getIdCliente(),
+                        "nombre", m.getCliente().getNombre(),
+                        "email", m.getCliente().getEmail(),
+                        "dni", m.getCliente().getDni(),
+                        "telefono", m.getCliente().getTelefono())))
+                .toList();
+        return ResponseEntity.ok(lista);
     }
 }

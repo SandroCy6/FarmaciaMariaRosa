@@ -20,8 +20,11 @@ public class MensajeContacto {
     /** Cliente que envió el mensaje. */
     @NotNull(message = "El cliente no puede ser nulo")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id_cliente", nullable = false)
     private Cliente cliente;
+    // Campo espejo para satisfacer NOT NULL en cliente_id
+    // @Column(name = "cliente_id", nullable = false)
+    // private Long clienteIdEspejo; // getters/setters
 
     /** Contenido del mensaje escrito por el cliente. */
     @NotNull(message = "El mensaje no puede ser nulo")
@@ -42,16 +45,59 @@ public class MensajeContacto {
     private LocalDateTime fechaRespuesta;
 
     // ================== MÉTODOS GETTER Y SETTER ==================
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Cliente getCliente() { return cliente; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
-    public String getMensaje() { return mensaje; }
-    public void setMensaje(String mensaje) { this.mensaje = mensaje; }
-    public LocalDateTime getFechaEnvio() { return fechaEnvio; }
-    public void setFechaEnvio(LocalDateTime fechaEnvio) { this.fechaEnvio = fechaEnvio; }
-    public Boolean getEstadoContestado() { return estadoContestado; }
-    public void setEstadoContestado(Boolean estadoContestado) { this.estadoContestado = estadoContestado; }
-    public LocalDateTime getFechaRespuesta() { return fechaRespuesta; }
-    public void setFechaRespuesta(LocalDateTime fechaRespuesta) { this.fechaRespuesta = fechaRespuesta; }
+    // public Long clienteIdEspejo() {
+    //     return clienteIdEspejo;
+    // }
+
+    // public void setClienteIdEspejo(Long clienteIdEspejo) {
+    //     this.clienteIdEspejo = clienteIdEspejo;
+    // }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
+    }
+
+    public void setFechaEnvio(LocalDateTime fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
+
+    public Boolean getEstadoContestado() {
+        return estadoContestado;
+    }
+
+    public void setEstadoContestado(Boolean estadoContestado) {
+        this.estadoContestado = estadoContestado;
+    }
+
+    public LocalDateTime getFechaRespuesta() {
+        return fechaRespuesta;
+    }
+
+    public void setFechaRespuesta(LocalDateTime fechaRespuesta) {
+        this.fechaRespuesta = fechaRespuesta;
+    }
 }

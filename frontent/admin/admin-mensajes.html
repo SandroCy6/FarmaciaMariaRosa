@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mensajes de Contacto - Farmacia María Rosa</title>
+    <link rel="stylesheet" href="../assets/css/modules/footer-style.css" />
+    <link rel="stylesheet" href="../assets/css/modules/navbar-style.css" />
+    <link rel="stylesheet" href="../assets/css/body-style.css" />
+    <link rel="stylesheet" href="../assets/css/admin-style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #f7fafc;
+      }
+
+      .table td,
+      .table th {
+        vertical-align: middle;
+      }
+
+      .mensaje-cell {
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      .mensaje-cell:hover {
+        white-space: normal;
+        word-wrap: break-word;
+      }
+
+      .badge-nuevo {
+        background: #28a745;
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+      }
+
+      .stats-card {
+        background: white;
+        border-radius: 18px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
+        margin-bottom: 1.5rem;
+      }
+
+      .stats-card h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #e93d42;
+        margin: 0;
+      }
+
+      .stats-card p {
+        color: #666;
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      body.dark-mode .stats-card {
+        background: #232323;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.25);
+      }
+
+      body.dark-mode .stats-card p {
+        color: #ccc;
+      }
+
+      .mensaje-completo {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
+          <img
+            src="../assets/img/logo2.jpeg"
+            alt="Logo Farmacia"
+            width="50"
+            height="50"
+            class="me-2 logo-animate"
+          />
+          <span class="fw-bold">&nbsp;Farmacia María Rosa</span>
+        </a>
+        <button
+          class="navbar-toggler custom-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto d-flex align-items-center">
+            <li class="nav-item">
+              <a class="nav-link nav-btn" href="../index.html"
+                >Inicio<span class="nav-underline"></span
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-btn" href="../pages/productos.html"
+                >Productos<span class="nav-underline"></span
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-btn" href="../pages/contacto.html"
+                >Contacto<span class="nav-underline"></span
+              ></a>
+            </li>
+           
+          </ul>
+          <div class="d-flex align-items-center gap-2">
+            <button id="darkModeToggle" class="btn btn-custom-nav">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-moon h-5 w-5 icon-animate"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+                ></path>
+              </svg>
+            </button>
+            <button id="logoutBtn" class="btn btn-danger">
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+      <!-- Botón para mostrar/ocultar sidebar en móvil -->
+      <button
+        class="btn btn-outline-danger d-lg-none mb-3"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#adminSidebarNavMobile"
+        aria-controls="adminSidebarNavMobile"
+        aria-label="Menú administración"
+      >
+        <i class="bi bi-list"></i> Menú administración
+      </button>
+
+      <div class="admin-sidebar-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar me-3 d-none d-lg-block" id="adminSidebarNav">
+          <div class="position-sticky pt-3">
+            <ul
+              class="nav flex-column nav-pills gap-2"
+              id="adminSidebarTabs"
+              role="tablist"
+            >
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link w-100 text-start"
+                  type="button"
+                  onclick="window.location.href='admin-productos.html'"
+                >
+                  Productos
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link w-100 text-start"
+                  id="tab-categorias"
+                  data-bs-toggle="pill"
+                  data-bs-target="#panel-categorias"
+                  type="button"
+                  role="tab"
+                >
+                  Categorías
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link w-100 text-start"
+                  type="button"
+                  onclick="window.location.href='admin-reservas.html'"
+                >
+                  Reservas
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active w-100 text-start"
+                  type="button"
+                >
+                  Mensajes
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Sidebar móvil -->
+        <div
+          class="offcanvas offcanvas-start d-lg-none"
+          tabindex="-1"
+          id="adminSidebarNavMobile"
+          aria-labelledby="adminSidebarNavMobileLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="adminSidebarNavMobileLabel">
+              Menú administración
+            </h5>
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul
+              class="nav flex-column nav-pills gap-2"
+              id="adminSidebarTabsMobile"
+              role="tablist"
+            >
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link w-100 text-start"
+                  type="button"
+                  onclick="window.location.href='admin-productos.html'"
+                >
+                  Productos
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link w-100 text-start"
+                  type="button"
+                  onclick="window.location.href='admin-reservas.html'"
+                >
+                  Reservas
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active w-100 text-start"
+                  type="button"
+                >
+                  Mensajes
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <main class="admin-main-content">
+          <h2 class="mb-4">Mensajes de Contacto</h2>
+
+          <!-- Estadísticas -->
+          <div class="row mb-4">
+            <div class="col-md-4">
+              <div class="stats-card">
+                <h3 id="totalMensajes">0</h3>
+                <p>Total de mensajes</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stats-card">
+                <h3 id="mensajesHoy">0</h3>
+                <p>Mensajes hoy</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stats-card">
+                <h3 id="mensajesSemana">0</h3>
+                <p>Mensajes esta semana</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtros -->
+          <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+            <input
+              type="text"
+              id="searchInput"
+              class="form-control"
+              style="max-width: 300px"
+              placeholder="Buscar por nombre, email o mensaje..."
+            />
+            <input
+              type="date"
+              id="dateFilter"
+              class="form-control"
+              style="max-width: 180px"
+            />
+            <button id="clearFiltersBtn" class="btn btn-outline-secondary">
+              <i class="bi bi-x-circle"></i> Limpiar filtros
+            </button>
+            <button id="refreshBtn" class="btn btn-outline-primary">
+              <i class="bi bi-arrow-clockwise"></i> Actualizar
+            </button>
+          </div>
+
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table
+              class="table table-bordered table-hover align-middle table-admin"
+              id="mensajesTable"
+            >
+              <thead class="table-success">
+                <tr>
+                  <th style="width: 50px">ID</th>
+                  <th style="width: 150px">Nombre</th>
+                  <th style="width: 180px">Email</th>
+                  <th style="width: 100px">DNI</th>
+                  <th style="width: 120px">Teléfono</th>
+                  <th>Mensaje</th>
+                  <th style="width: 160px">Fecha de Envío</th>
+                  <th style="width: 100px">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="8" class="text-center">
+                    <div class="spinner-border text-danger" role="status">
+                      <span class="visually-hidden">Cargando...</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Modal ver mensaje completo -->
+    <div
+      class="modal fade"
+      id="mensajeModal"
+      tabindex="-1"
+      aria-labelledby="mensajeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="mensajeModalLabel">
+              Detalle del Mensaje
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Nombre:</label>
+                <p id="modalNombre"></p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Email:</label>
+                <p id="modalEmail"></p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">DNI:</label>
+                <p id="modalDni"></p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Teléfono:</label>
+                <p id="modalTelefono"></p>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-bold">Fecha de Envío:</label>
+                <p id="modalFecha"></p>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-bold">Mensaje:</label>
+                <p id="modalMensaje" class="mensaje-completo"></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/dark-mode.js"></script>
+    <script>
+      // Verificar autenticación
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (!user || user.role !== "admin") {
+          window.location.href = "../index.html";
+          return;
+        }
+
+        // Cerrar sesión
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("loggedInUser");
+          window.location.href = "../index.html";
+        });
+
+        // Cargar mensajes
+        cargarMensajes();
+
+        // Listeners para filtros
+        document
+          .getElementById("searchInput")
+          .addEventListener("input", filtrarMensajes);
+        document
+          .getElementById("dateFilter")
+          .addEventListener("change", filtrarMensajes);
+        document
+          .getElementById("clearFiltersBtn")
+          .addEventListener("click", () => {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("dateFilter").value = "";
+            filtrarMensajes();
+          });
+        document
+          .getElementById("refreshBtn")
+          .addEventListener("click", cargarMensajes);
+      });
+
+      let mensajes = [];
+
+      async function cargarMensajes() {
+        try {
+          const tbody = document.querySelector("#mensajesTable tbody");
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center">
+                <div class="spinner-border text-danger" role="status">
+                  <span class="visually-hidden">Cargando...</span>
+                </div>
+              </td>
+            </tr>
+          `;
+
+          const response = await fetch("http://localhost:8081/api/mensajes");
+          if (!response.ok) throw new Error("Error al cargar mensajes");
+
+          mensajes = await response.json();
+          actualizarEstadisticas();
+          mostrarMensajes(mensajes);
+        } catch (error) {
+          console.error(error);
+          const tbody = document.querySelector("#mensajesTable tbody");
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center text-danger">
+                <i class="bi bi-exclamation-triangle"></i> Error al cargar los mensajes.
+              </td>
+            </tr>
+          `;
+        }
+      }
+
+      function mostrarMensajes(mensajesAMostrar) {
+        const tbody = document.querySelector("#mensajesTable tbody");
+        tbody.innerHTML = "";
+
+        if (mensajesAMostrar.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center">
+                <i class="bi bi-inbox"></i> No hay mensajes para mostrar
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        mensajesAMostrar.forEach((msg) => {
+          const tr = document.createElement("tr");
+          const fechaEnvio = new Date(msg.fechaEnvio);
+          const esNuevo =
+            Date.now() - fechaEnvio.getTime() < 24 * 60 * 60 * 1000; // Menos de 24 horas
+
+          tr.innerHTML = `
+            <td>${msg.id}</td>
+            <td>${msg.cliente?.nombre || "-"}</td>
+            <td>${msg.cliente?.email || "-"}</td>
+            <td>${msg.cliente?.dni || "-"}</td>
+            <td>${msg.cliente?.telefono || "-"}</td>
+            <td class="mensaje-cell" title="${msg.mensaje}">
+              ${msg.mensaje}
+              ${esNuevo ? '<span class="badge-nuevo ms-2">Nuevo</span>' : ""}
+            </td>
+            <td>${fechaEnvio.toLocaleString("es-PE")}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="verMensaje(${msg.id})">
+                <i class="bi bi-eye"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function actualizarEstadisticas() {
+        const total = mensajes.length;
+        const hoy = mensajes.filter(
+          (m) =>
+            new Date(m.fechaEnvio).toDateString() === new Date().toDateString()
+        ).length;
+
+        const hace7Dias = new Date();
+        hace7Dias.setDate(hace7Dias.getDate() - 7);
+        const semana = mensajes.filter(
+          (m) => new Date(m.fechaEnvio) >= hace7Dias
+        ).length;
+
+        document.getElementById("totalMensajes").textContent = total;
+        document.getElementById("mensajesHoy").textContent = hoy;
+        document.getElementById("mensajesSemana").textContent = semana;
+      }
+
+      function filtrarMensajes() {
+        const searchTerm = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const dateFilter = document.getElementById("dateFilter").value;
+
+        let mensajesFiltrados = mensajes;
+
+        if (searchTerm) {
+          mensajesFiltrados = mensajesFiltrados.filter(
+            (msg) =>
+              msg.cliente?.nombre?.toLowerCase().includes(searchTerm) ||
+              msg.cliente?.email?.toLowerCase().includes(searchTerm) ||
+              msg.mensaje.toLowerCase().includes(searchTerm)
+          );
+        }
+
+        if (dateFilter) {
+          mensajesFiltrados = mensajesFiltrados.filter((msg) => {
+            const fechaMensaje = new Date(msg.fechaEnvio)
+              .toISOString()
+              .split("T")[0];
+            return fechaMensaje === dateFilter;
+          });
+        }
+
+        mostrarMensajes(mensajesFiltrados);
+      }
+
+      function verMensaje(id) {
+        const mensaje = mensajes.find((m) => m.id === id);
+        if (!mensaje) return;
+
+        document.getElementById("modalNombre").textContent =
+          mensaje.cliente?.nombre || "-";
+        document.getElementById("modalEmail").textContent =
+          mensaje.cliente?.email || "-";
+        document.getElementById("modalDni").textContent =
+          mensaje.cliente?.dni || "-";
+        document.getElementById("modalTelefono").textContent =
+          mensaje.cliente?.telefono || "-";
+        document.getElementById("modalFecha").textContent = new Date(
+          mensaje.fechaEnvio
+        ).toLocaleString("es-PE");
+        document.getElementById("modalMensaje").textContent = mensaje.mensaje;
+
+        const modal = new bootstrap.Modal(
+          document.getElementById("mensajeModal")
+        );
+        modal.show();
+      }
+    </script>
+  </body>
+</html>
