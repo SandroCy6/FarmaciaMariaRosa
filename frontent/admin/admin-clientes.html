@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Clientes - Farmacia María Rosa</title>
+  <link rel="stylesheet" href="../assets/css/modules/footer-style.css" />
+  <link rel="stylesheet" href="../assets/css/modules/navbar-style.css" />
+  <link rel="stylesheet" href="../assets/css/body-style.css" />
+  <link rel="stylesheet" href="../assets/css/admin-style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <img src="../assets/img/logo2.jpeg" alt="Logo" width="50" height="50" class="me-2 logo-animate" />
+        <span class="fw-bold">&nbsp;Farmacia María Rosa</span>
+      </a>
+      <button class="navbar-toggler custom-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto d-flex align-items-center">
+          <li class="nav-item"><a class="nav-link nav-btn" href="../index.html">Inicio<span class="nav-underline"></span></a></li>
+          <li class="nav-item"><a class="nav-link nav-btn" href="../pages/productos.html">Productos<span class="nav-underline"></span></a></li>
+          <li class="nav-item"><a class="nav-link nav-btn" href="../pages/contacto.html">Contacto<span class="nav-underline"></span></a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+          <button id="darkModeToggle" class="btn btn-custom-nav">
+            <i class="bi bi-moon"></i>
+          </button>
+          <button id="loginBtn" class="btn btn-custom-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <i class="bi bi-person-circle fs-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <div class="container-fluid py-4">
+    <button class="btn btn-outline-danger d-lg-none mb-3" data-bs-toggle="offcanvas"
+      data-bs-target="#adminSidebarNavMobile"><i class="bi bi-list"></i> Menú administración</button>
+
+    <div class="admin-sidebar-layout">
+      <!-- SIDEBAR -->
+      <nav class="sidebar me-3 d-none d-lg-block">
+        <ul class="nav flex-column nav-pills gap-2">
+          <li><button class="nav-link" onclick="location.href='admin-productos.html'">Productos</button></li>
+          <li><button class="nav-link" onclick="location.href='admin-categorias.html'">Categorías</button></li>
+          <li><button class="nav-link" onclick="location.href='admin-lotes.html'">Lotes</button></li>
+          <li><button class="nav-link active" onclick="location.href='admin-clientes.html'">Clientes</button></li>
+          <li><button class="nav-link" onclick="location.href='admin-reservas.html'">Reservas</button></li>
+          <li><button class="nav-link" onclick="location.href='admin-estadisticas.html'">Estadísticas</button></li>
+          <li><button class="nav-link" onclick="location.href='admin-mensajes.html'">Mensajes</button></li>
+        </ul>
+      </nav>
+
+      <!-- PANEL -->
+      <main class="admin-main-content">
+        <h2 class="mb-2 d-flex align-items-center">
+          Gestión de Clientes <span id="clientsCount" class="badge bg-primary ms-3">0</span>
+        </h2>
+
+        <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+          <input type="text" id="searchClienteInput" class="form-control" style="max-width: 300px;"
+            placeholder="Buscar por nombre o DNI...">
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover align-middle table-admin" id="clientsTable">
+            <thead class="table-success">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Condición Crónica</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL VER DETALLES -->
+  <div class="modal fade" id="clienteDetallesModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">Detalles del Cliente</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="clienteDetallesBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR CLIENTE -->
+  <div class="modal fade" id="editarClienteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="editarClienteForm">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Editar Cliente</h5>
+            <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="editIdCliente">
+            <div class="mb-2"><label class="form-label">Nombre</label>
+              <input type="text" id="editNombre" class="form-control" required></div>
+            <div class="mb-2"><label class="form-label">DNI</label>
+              <input type="text" id="editDni" class="form-control" required></div>
+            <div class="mb-2"><label class="form-label">Email</label>
+              <input type="email" id="editEmail" class="form-control"></div>
+            <div class="mb-2"><label class="form-label">Teléfono</label>
+              <input type="text" id="editTelefono" class="form-control"></div>
+            <div class="mb-2"><label class="form-label">Dirección</label>
+              <input type="text" id="editDireccion" class="form-control"></div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="editCondicionCronica">
+              <label class="form-check-label">Condición crónica</label>
+            </div>
+            <div class="form-check form-switch mt-2">
+            <input class="form-check-input" type="checkbox" id="editAceptaNotificaciones">
+            <label class="form-check-label" for="editAceptaNotificaciones">Acepta notificaciones</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="submit">Guardar cambios</button>
+            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/dark-mode.js"></script>
+  <script src="../assets/js/login.js"></script>
+  <script src="../assets/js/admin-clientes.js"></script>
+</body>
+</html>
