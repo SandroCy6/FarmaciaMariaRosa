@@ -20,7 +20,7 @@ public class MensajeContacto {
     /** Cliente que envió el mensaje. */
     @NotNull(message = "El cliente no puede ser nulo")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id_cliente", nullable = false)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", nullable = false)
     private Cliente cliente;
     // Campo espejo para satisfacer NOT NULL en cliente_id
     // @Column(name = "cliente_id", nullable = false)

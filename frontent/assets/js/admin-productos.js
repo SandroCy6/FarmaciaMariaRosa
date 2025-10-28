@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
   let productos = [];
+  let isSaving = false; // Flag global para evitar doble envío
 
   // 1️⃣ Verificar autenticación
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
@@ -16,17 +17,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.location.href = "../index.html";
   };
 
-  // 3️⃣ Cargar productos desde el backend
+  // 3️⃣ Cargar productos
   async function cargarProductos() {
     try {
       const response = await fetch("http://127.0.0.1:8081/api/productos", { cache: "no-store" });
       if (!response.ok) throw new Error("Error al obtener productos");
 
-      // ✅ Guardamos los productos en la variable global
       productos = await response.json();
-
-      // Pequeña pausa para UX
-      await new Promise(res => setTimeout(res, 300));
 
       const tbody = document.querySelector("#productsTable tbody");
       tbody.innerHTML = "";
@@ -67,87 +64,86 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  // 4️⃣ Configurar botones de acción
+  // 4️⃣ Botones editar y eliminar
   function configurarBotones() {
-    // 🗑️ Eliminar producto
     document.querySelectorAll(".eliminar-btn").forEach(btn => {
-      btn.addEventListener("click", async (e) => {
+      btn.onclick = async e => {
         const id = e.currentTarget.dataset.id;
         if (confirm("¿Seguro que deseas eliminar este producto?")) {
           await eliminarProducto(id);
           await cargarProductos();
         }
-      });
+      };
     });
 
-    // ✏️ Editar producto
     document.querySelectorAll(".editar-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.onclick = async e => {
         const id = e.currentTarget.dataset.id;
         const producto = productos.find(p => p.idProducto == id);
-
-        if (!producto) {
-          console.warn("⚠️ Producto no encontrado con ID:", id);
-          return;
-        }
-        console.log("Producto a editar:", producto);
-        console.log(producto.idProducto);
-        console.log(producto.nombre);
-        mostrarModalEdicion(producto);
-      });
+        if (!producto) return;
+        await mostrarModalEdicion(producto);
+      };
     });
   }
 
-  // 5️⃣ Mostrar modal para editar producto
+  // 5️⃣ Modal agregar producto
+  document.getElementById("addProductBtn").onclick = async function () {
+    document.getElementById("productModalLabel").textContent = "Agregar Producto";
+    document.getElementById("productForm").reset();
+    document.getElementById("productId").value = "";
+    await cargarCategoriasSelect();
+    new bootstrap.Modal(document.getElementById("productModal")).show();
+  };
+
+  // 6️⃣ Modal editar producto
   async function mostrarModalEdicion(p) {
     await cargarCategoriasSelect();
 
-    const modalElement = document.getElementById("productModal");
-    const modal = new bootstrap.Modal(modalElement);
+    const form = document.getElementById("productForm");
+    form.reset();
 
-    // Esperar a que el modal se haya mostrado completamente
-    modalElement.addEventListener("shown.bs.modal", () => {
-      document.getElementById("productModalLabel").textContent = "Editar Producto";
-      document.getElementById("productId").value = p.idProducto || "";
-      document.getElementById("productName").value = p.nombre || "";
-      document.getElementById("productCategory").value = p.idCategoria || "";
-      document.getElementById("productDescription").value = p.descripcion || "";
-      document.getElementById("productPrice").value = p.precio ?? "";
-      document.getElementById("productStock").value = p.stockActual ?? "";
-      document.getElementById("productImage").value = p.imagenPrincipal || "";
-      document.getElementById("productFechaCaducidad").value = p.fechaVencimiento ? p.fechaVencimiento.split("T")[0] : "";
-      document.getElementById("productRequiereReceta").value = p.requiereReceta ? "true" : "false";
-      document.getElementById("productEsControlado").value = p.esControlado ? "true" : "false";
-      document.getElementById("productLaboratorio").value = p.laboratorio || "";
-      document.getElementById("productPrincipioActivo").value = p.principioActivo || "";
-      document.getElementById("productConcentracion").value = p.concentracion || "";
-      document.getElementById("productFormaFarmaceutica").value = p.formaFarmaceutica || "";
-    }, { once: true });
+    document.getElementById("productModalLabel").textContent = "Editar Producto";
+    document.getElementById("productId").value = p.idProducto || "";
+    document.getElementById("productName").value = p.nombre || "";
+    document.getElementById("productCategory").value = p.idCategoria || "";
+    document.getElementById("productDescription").value = p.descripcion || "";
+    document.getElementById("productPrice").value = p.precio ?? "";
+    document.getElementById("productStock").value = p.stockActual ?? "";
+    document.getElementById("productImage").value = p.imagenPrincipal || "";
+    document.getElementById("productFechaCaducidad").value = p.fechaVencimiento ? p.fechaVencimiento.split("T")[0] : "";
+    document.getElementById("productRequiereReceta").value = p.requiereReceta ? "true" : "false";
+    document.getElementById("productEsControlado").value = p.esControlado ? "true" : "false";
+    document.getElementById("productLaboratorio").value = p.laboratorio || "";
+    document.getElementById("productPrincipioActivo").value = p.principioActivo || "";
+    document.getElementById("productConcentracion").value = p.concentracion || "";
+    document.getElementById("productFormaFarmaceutica").value = p.formaFarmaceutica || "";
 
-    modal.show();
+    new bootstrap.Modal(document.getElementById("productModal")).show();
   }
 
-
-  // 6️⃣ Guardar o actualizar producto
-  document.getElementById("productForm").addEventListener("submit", async function (e) {
+  // 7️⃣ Guardar producto — Listener registrado UNA SOLA VEZ
+  const form = document.getElementById("productForm");
+  form.addEventListener("submit", async e => {
     e.preventDefault();
+    if (isSaving) return;
+    isSaving = true;
 
-    const id = document.getElementById("productId").value;
+    const id = document.getElementById("productId").value.trim();
 
     const producto = {
-      nombre: document.getElementById("productName").value,
+      nombre: document.getElementById("productName").value.trim(),
       idCategoria: parseInt(document.getElementById("productCategory").value),
-      descripcion: document.getElementById("productDescription").value,
+      descripcion: document.getElementById("productDescription").value.trim(),
       precio: parseFloat(document.getElementById("productPrice").value),
       stockActual: parseInt(document.getElementById("productStock").value),
-      imagenPrincipal: document.getElementById("productImage").value,
+      imagenPrincipal: document.getElementById("productImage").value.trim(),
       fechaVencimiento: document.getElementById("productFechaCaducidad").value || null,
       requiereReceta: document.getElementById("productRequiereReceta").value === "true",
       esControlado: document.getElementById("productEsControlado").value === "true",
-      laboratorio: document.getElementById("productLaboratorio").value,
-      principioActivo: document.getElementById("productPrincipioActivo").value,
-      concentracion: document.getElementById("productConcentracion").value,
-      formaFarmaceutica: document.getElementById("productFormaFarmaceutica").value,
+      laboratorio: document.getElementById("productLaboratorio").value.trim(),
+      principioActivo: document.getElementById("productPrincipioActivo").value.trim(),
+      concentracion: document.getElementById("productConcentracion").value.trim(),
+      formaFarmaceutica: document.getElementById("productFormaFarmaceutica").value.trim(),
       estado: true
     };
 
@@ -166,15 +162,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (!response.ok) throw new Error("Error al guardar producto");
 
       const modal = bootstrap.Modal.getInstance(document.getElementById("productModal"));
-      modal.hide();
+      if (modal) modal.hide();
+
       await cargarProductos();
     } catch (error) {
       console.error("❌ Error al guardar producto:", error);
       alert("Error al guardar el producto.");
+    } finally {
+      isSaving = false;
     }
   });
 
-  // 7️⃣ Eliminar producto
+  // 8️⃣ Eliminar producto
   async function eliminarProducto(id) {
     try {
       const response = await fetch(`http://127.0.0.1:8081/api/productos/${id}`, { method: "DELETE" });
@@ -184,6 +183,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
+  // 9️⃣ Cargar categorías
   async function cargarCategoriasSelect() {
     const select = document.getElementById("productCategory");
     select.innerHTML = `<option value="">Selecciona una categoría</option>`;
@@ -201,7 +201,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-
-  // 🔄 Inicialización
+  // 🔄 Inicializar tabla
   await cargarProductos();
+});
+
+// 🧼 Limpieza de backdrop y scroll al cerrar modal
+document.addEventListener("hidden.bs.modal", function () {
+  document.querySelectorAll(".modal-backdrop").forEach(b => b.remove());
+  document.body.classList.remove("modal-open");
+  document.body.style.overflow = "";
+  document.body.style.paddingRight = "";
 });
