@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '../index.html';
         return;
     }
-    
+
     // Token simulado para las llamadas a la API
     const token = 'dummy-token';
 
@@ -148,10 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalClienteNombre').textContent = `Cliente: ${reservaActual.cliente.nombre}`;
         document.getElementById('modalClienteEmail').textContent = `Email: ${reservaActual.cliente.email || 'No especificado'}`;
         document.getElementById('modalClienteTelefono').textContent = `Teléfono: ${reservaActual.cliente.telefono || 'No especificado'}`;
-        
+
         document.getElementById('modalReservaId').textContent = `ID Reserva: ${reservaActual.numeroReserva || reservaActual.idReserva}`;
         document.getElementById('modalReservaEstado').textContent = `Estado: ${normalizeEstado(reservaActual.estado)}`;
-        
+
         let fechaText = `Fecha: ${new Date(reservaActual.fechaReserva).toLocaleString()}`;
         if (reservaActual.fechaLimiteRetiro) {
             fechaText += `\nLímite de retiro: ${new Date(reservaActual.fechaLimiteRetiro).toLocaleString()}`;
@@ -209,42 +209,63 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!reservaActual) return;
 
         try {
+            console.log('Completando reserva:', reservaActual);
+
+            // Preparar el payload según lo que espera el backend
+            const payload = {
+                idReserva: reservaActual.idReserva,
+                numeroReserva: reservaActual.numeroReserva,
+                cliente: {
+                    idCliente: reservaActual.cliente.idCliente
+                },
+                estado: 'ENTREGADA', // Usar el string que el backend espera
+                total: reservaActual.total,
+                fechaReserva: reservaActual.fechaReserva,
+                fechaLimiteRetiro: reservaActual.fechaLimiteRetiro,
+                fechaEntrega: new Date().toISOString(), // Fecha actual para la entrega
+                notasCliente: reservaActual.notasCliente || '',
+                notasFarmacia: reservaActual.notasFarmacia || '',
+                metodoNotificacion: reservaActual.metodoNotificacion || 'EMAIL',
+                idUsuarioAtencion: null, // Este es el usuario que le dio atencion a la reserva, se puede ajustar según sea necesario
+                detalles: reservaActual.detalles.map(d => ({
+                    idReserva: reservaActual.idReserva,
+                    producto: {
+                        idProducto: d.producto.idProducto
+                    },
+                    cantidad: d.cantidad,
+                    precioUnitario: d.precioUnitario,
+                    subtotal: d.precioUnitario * d.cantidad,
+                    disponible: d.disponible !== undefined ? d.disponible : true,
+                    notas: d.notas || ''
+                }))
+            };
+
+            console.log('Payload enviado:', payload);
+
             const response = await fetch(`http://127.0.0.1:8081/api/reservas/${reservaActual.idReserva}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    cliente: { idCliente: reservaActual.cliente.idCliente },
-                    estado: 'ENTREGADA',
-                    total: reservaActual.total,
-                    fechaReserva: reservaActual.fechaReserva,
-                    fechaLimiteRetiro: reservaActual.fechaLimiteRetiro,
-                    fechaEntrega: new Date().toISOString(),
-                    notasCliente: reservaActual.notasCliente,
-                    notasFarmacia: reservaActual.notasFarmacia,
-                    metodoNotificacion: reservaActual.metodoNotificacion,
-                    idUsuarioAtencion: reservaActual.idUsuarioAtencion,
-                    detalles: reservaActual.detalles.map(d => ({
-                        idReserva: reservaActual.idReserva,
-                        producto: { idProducto: d.producto.idProducto },
-                        cantidad: d.cantidad,
-                        precioUnitario: d.precioUnitario,
-                        subtotal: d.precioUnitario * d.cantidad,
-                        disponible: d.disponible,
-                        notas: d.notas
-                    }))
-                })
+                body: JSON.stringify(payload)
             });
-            if (!response.ok) throw new Error('Error al completar la reserva');
-            await response.json();
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error del servidor:', errorData);
+                throw new Error(errorData.message || 'Error al completar la reserva');
+            }
+
+            const result = await response.json();
+            console.log('Reserva completada:', result);
+
             alert('Reserva completada exitosamente');
             cargarReservas();
             bootstrap.Modal.getInstance(document.getElementById('reservaModal')).hide();
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al completar la reserva');
+            alert('Error al completar la reserva: ' + error.message);
         }
     }
 
@@ -256,42 +277,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
+            const payload = {
+                idReserva: reservaActual.idReserva,
+                numeroReserva: reservaActual.numeroReserva,
+                cliente: {
+                    idCliente: reservaActual.cliente.idCliente
+                },
+                estado: 'CANCELADA',
+                total: reservaActual.total,
+                fechaReserva: reservaActual.fechaReserva,
+                fechaLimiteRetiro: reservaActual.fechaLimiteRetiro,
+                fechaEntrega: reservaActual.fechaEntrega,
+                notasCliente: reservaActual.notasCliente || '',
+                notasFarmacia: reservaActual.notasFarmacia || '',
+                metodoNotificacion: reservaActual.metodoNotificacion || 'EMAIL',
+                idUsuarioAtencion: null,
+                detalles: reservaActual.detalles.map(d => ({
+                    idReserva: reservaActual.idReserva,
+                    producto: {
+                        idProducto: d.producto.idProducto
+                    },
+                    cantidad: d.cantidad,
+                    precioUnitario: d.precioUnitario,
+                    subtotal: d.precioUnitario * d.cantidad,
+                    disponible: d.disponible !== undefined ? d.disponible : true,
+                    notas: d.notas || ''
+                }))
+            };
+
+            console.log('Payload para cancelar:', payload);
+
             const response = await fetch(`http://127.0.0.1:8081/api/reservas/${reservaActual.idReserva}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    cliente: { idCliente: reservaActual.cliente.idCliente },
-                    estado: 'CANCELADA',
-                    total: reservaActual.total,
-                    fechaReserva: reservaActual.fechaReserva,
-                    fechaLimiteRetiro: reservaActual.fechaLimiteRetiro,
-                    fechaEntrega: reservaActual.fechaEntrega,
-                    notasCliente: reservaActual.notasCliente,
-                    notasFarmacia: reservaActual.notasFarmacia,
-                    metodoNotificacion: reservaActual.metodoNotificacion,
-                    idUsuarioAtencion: reservaActual.idUsuarioAtencion,
-                    detalles: reservaActual.detalles.map(d => ({
-                        idReserva: reservaActual.idReserva,
-                        producto: { idProducto: d.producto.idProducto },
-                        cantidad: d.cantidad,
-                        precioUnitario: d.precioUnitario,
-                        subtotal: d.precioUnitario * d.cantidad,
-                        disponible: d.disponible,
-                        notas: d.notas
-                    }))
-                })
+                body: JSON.stringify(payload)
             });
-            if (!response.ok) throw new Error('Error al cancelar la reserva');
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error del servidor:', errorData);
+                throw new Error(errorData.message || 'Error al cancelar la reserva');
+            }
+
             await response.json();
             alert('Reserva cancelada exitosamente');
             cargarReservas();
             bootstrap.Modal.getInstance(document.getElementById('reservaModal')).hide();
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al cancelar la reserva');
+            alert('Error al cancelar la reserva: ' + error.message);
         }
     }
 });
