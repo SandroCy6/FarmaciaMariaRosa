@@ -126,7 +126,6 @@
                 >Contacto<span class="nav-underline"></span
               ></a>
             </li>
-           
           </ul>
           <div class="d-flex align-items-center gap-2">
             <button id="darkModeToggle" class="btn btn-custom-nav">
@@ -148,9 +147,7 @@
                 ></path>
               </svg>
             </button>
-            <button id="logoutBtn" class="btn btn-danger">
-              Cerrar sesión
-            </button>
+            <button id="logoutBtn" class="btn btn-danger">Cerrar sesión</button>
           </div>
         </div>
       </div>
@@ -236,10 +233,7 @@
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link active w-100 text-start"
-                  type="button"
-                >
+                <button class="nav-link active w-100 text-start" type="button">
                   Mensajes
                 </button>
               </li>
@@ -326,10 +320,7 @@
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link active w-100 text-start"
-                  type="button"
-                >
+                <button class="nav-link active w-100 text-start" type="button">
                   Mensajes
                 </button>
               </li>
@@ -482,6 +473,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/dark-mode.js"></script>
+    <script src="../assets/js/utils.js"></script>
     <script>
       // Verificar autenticación
       document.addEventListener("DOMContentLoaded", () => {
@@ -522,35 +514,13 @@
       let mensajes = [];
 
       async function cargarMensajes() {
-        try {
-          const tbody = document.querySelector("#mensajesTable tbody");
-          tbody.innerHTML = `
-            <tr>
-              <td colspan="8" class="text-center">
-                <div class="spinner-border text-danger" role="status">
-                  <span class="visually-hidden">Cargando...</span>
-                </div>
-              </td>
-            </tr>
-          `;
-
-          const response = await fetch("http://localhost:8081/api/mensajes");
-          if (!response.ok) throw new Error("Error al cargar mensajes");
-
-          mensajes = await response.json();
-          actualizarEstadisticas();
-          mostrarMensajes(mensajes);
-        } catch (error) {
-          console.error(error);
-          const tbody = document.querySelector("#mensajesTable tbody");
-          tbody.innerHTML = `
-            <tr>
-              <td colspan="8" class="text-center text-danger">
-                <i class="bi bi-exclamation-triangle"></i> Error al cargar los mensajes.
-              </td>
-            </tr>
-          `;
-        }
+        await cargarDatosGenerico({
+          url: "http://localhost:8081/api/mensajes",
+          tablaId: "mensajesTable",
+          columnas: 8,
+          callbackMostrarDatos: mostrarMensajes,
+          callbackEstadisticas: actualizarEstadisticas,
+        });
       }
 
       function mostrarMensajes(mensajesAMostrar) {
@@ -586,7 +556,9 @@
             </td>
             <td>${fechaEnvio.toLocaleString("es-PE")}</td>
             <td>
-              <button class="btn btn-sm btn-primary" onclick="verMensaje(${msg.id})">
+              <button class="btn btn-sm btn-primary" onclick="verMensaje(${
+                msg.id
+              })">
                 <i class="bi bi-eye"></i>
               </button>
             </td>

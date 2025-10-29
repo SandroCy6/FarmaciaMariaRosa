@@ -26,17 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
   btnAdd.addEventListener('click', () => abrirModalNuevo());
   categoriaForm.addEventListener('submit', guardarCategoria);
 
-  async function cargarCategorias() {
-    try {
-      const res = await fetch(`${API_BASE}/categorias`);
-      if (!res.ok) throw new Error('Error al cargar categorías');
-      categorias = await res.json();
+ async function cargarCategorias() {
+  await cargarDatosGenerico({
+    url: `${API_BASE}/categorias`,
+    tablaId: "categoriesTable",
+    columnas: 6, // el número de columnas reales en la tabla
+    callbackMostrarDatos: (data) => {
+      categorias = data;
       mostrarCategorias(categorias);
-    } catch (err) {
-      console.error(err);
-      alert('No se pudo cargar las categorías. Revisa que el backend esté corriendo.');
+    },
+    callbackEstadisticas: (data) => {
+      categoriesCount.textContent = String(data.length);
     }
-  }
+  });
+}
+
 
   function mostrarCategorias(list) {
     const tbody = categoriesTable.querySelector('tbody');
