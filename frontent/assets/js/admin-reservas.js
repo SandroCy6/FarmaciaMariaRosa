@@ -100,44 +100,62 @@ document.addEventListener("DOMContentLoaded", () => {
     tbody.innerHTML = "";
 
     if (!reservasArray || reservasArray.length === 0) {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-                <td colspan="7" class="text-center py-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
-                        <p class="h5 mt-3 mb-0 text-muted">No hay reservas disponibles</p>
-                        <p class="text-muted">Las reservas realizadas por los clientes aparecerán aquí</p>
-                    </div>
-                </td>
-            `;
-      tbody.appendChild(tr);
-      return;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td colspan="7" class="text-center py-4">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
+                    <p class="h5 mt-3 mb-0 text-muted">No hay reservas disponibles</p>
+                    <p class="text-muted">Las reservas realizadas por los clientes aparecerán aquí</p>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+        return;
     }
 
-    reservasArray.forEach((reserva) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-                <td>${reserva.numeroReserva || reserva.idReserva}</td>
-                <td>${reserva.cliente.nombre}</td>
-                <td>${new Date(reserva.fechaReserva).toLocaleString()}</td>
-                <td>
-                    <span class="badge bg-${getEstadoColor(
-                      reserva.estado
-                    )}">${normalizeEstado(reserva.estado)}</span>
-                </td>
-                <td>S/ ${reserva.total.toFixed(2)}</td>
-                <td>${reserva.detalles.length} productos</td>
-                <td>
-                    <button class="btn btn-sm btn-info" onclick="verDetalles(${
-                      reserva.idReserva
-                    })">
-                        <i class="bi bi-eye"></i> Ver
-                    </button>
-                </td>
-            `;
-      tbody.appendChild(tr);
+    // Ordenar reservas: primero por estado (pendiente > completada > cancelada), luego por fecha más reciente
+    const reservasOrdenadas = [...reservasArray].sort((a, b) => {
+        // Primero ordenar por estado
+        const ordenEstados = {
+            'pendiente': 1,
+            'completada': 2, 
+            'cancelada': 3
+        };
+        
+        const estadoA = normalizeEstado(a.estado);
+        const estadoB = normalizeEstado(b.estado);
+        
+        if (ordenEstados[estadoA] !== ordenEstados[estadoB]) {
+            return ordenEstados[estadoA] - ordenEstados[estadoB];
+        }
+        
+        // Si tienen el mismo estado, ordenar por fecha más reciente primero
+        const fechaA = new Date(a.fechaReserva);
+        const fechaB = new Date(b.fechaReserva);
+        return fechaB - fechaA; // Más reciente primero
     });
-  }
+
+    reservasOrdenadas.forEach((reserva) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${reserva.numeroReserva || reserva.idReserva}</td>
+            <td>${reserva.cliente.nombre}</td>
+            <td>${new Date(reserva.fechaReserva).toLocaleString()}</td>
+            <td>
+                <span class="badge bg-${getEstadoColor(reserva.estado)}">${normalizeEstado(reserva.estado)}</span>
+            </td>
+            <td>S/ ${reserva.total.toFixed(2)}</td>
+            <td>${reserva.detalles.length} productos</td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="verDetalles(${reserva.idReserva})">
+                    <i class="bi bi-eye"></i> Ver
+                </button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
 
   function normalizeEstado(estado) {
     switch (estado.toUpperCase()) {
@@ -239,22 +257,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const statusValue = statusFilter.value.toLowerCase();
 
     if (!reservas || reservas.length === 0) {
-      mostrarReservas([]);
-      return;
+        mostrarReservas([]);
+        return;
     }
 
     const reservasFiltradas = reservas.filter((reserva) => {
-      const matchesSearch = reserva.cliente.nombre
-        .toLowerCase()
-        .includes(searchTerm);
-      const matchesStatus =
-        statusValue === "all" ||
-        normalizeEstado(reserva.estado) === statusValue;
-      return matchesSearch && matchesStatus;
+        const matchesSearch = reserva.cliente.nombre.toLowerCase().includes(searchTerm);
+        const matchesStatus = statusValue === 'all' || normalizeEstado(reserva.estado) === statusValue;
+        return matchesSearch && matchesStatus;
     });
 
     mostrarReservas(reservasFiltradas);
-  }
+}
 
   async function completarReserva() {
     if (!reservaActual) return;
