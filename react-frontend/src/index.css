@@ -1,0 +1,284 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #ffffff;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== MODO CLARO (por defecto) ===== */
+
+/* Botones genéricos */
+.btn-custom {
+  background: linear-gradient(135deg, #EC3237, #D62F34);
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease !important;
+}
+
+.btn-custom:hover {
+  background: linear-gradient(135deg, #9a0d14, #bc1018);
+  transform: scale(1.08);
+}
+
+/* Títulos con gradiente */
+.titulo-gradiente {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #EC3237, #bc1018);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animaciones genéricas */
+.animate-fade-in {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeIn 0.6s ease forwards;
+  animation-delay: var(--animation-delay, 0s);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Badge personalizado */
+.badge.bg-primary-custom {
+  background-color: #e74348 !important;
+  color: #ffffff !important;
+}
+
+.text-muted {
+  color: #6b7280 !important;
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== MODO OSCURO ===== */
+
+body.dark-mode {
+  background-color: #1d1d1d;
+  color: #eaeaea;
+}
+
+/* Fondo general */
+body.dark-mode main,
+body.dark-mode section.py-5 {
+  background: linear-gradient(180deg, #1e1e1e, #121212) !important;
+}
+
+/* Navbar en dark mode */
+body.dark-mode .navbar {
+  background: linear-gradient(90deg, #1e1e1e, #121212) !important;
+}
+
+body.dark-mode .navbar-brand span {
+  color: #f5f5f5 !important;
+}
+
+/* Navbar activo en dark mode - NO afectar */
+body.dark-mode .navbar .nav-link.nav-btn.nav-btn-activo {
+  color: #cb234a !important;
+}
+
+
+body.dark-mode .nav-btn:hover {
+  background-color: #444 !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .nav-btn-activo {
+  background: #ffffff !important;
+  color: #1d1d1d !important;
+}
+
+/* Hero en dark mode */
+body.dark-mode .hero {
+  background: #1d1d1d !important;
+}
+
+body.dark-mode .hero h1 {
+  color: #fff;
+}
+
+body.dark-mode .hero p {
+  color: #bbb !important;
+}
+
+body.dark-mode .hero img {
+  border: 5px solid #1c1c1c !important;
+}
+
+/* Títulos con gradiente en dark mode */
+body.dark-mode .titulo-gradiente {
+  background: linear-gradient(90deg, #ff6b6b, #ff8ba6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Badges en dark mode */
+body.dark-mode .badge.bg-primary-custom {
+  background-color: #ff6b6b !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .badge.bg-light {
+  background-color: #333 !important;
+  color: #a80000 !important;
+}
+
+body.dark-mode .badge.bg-danger-subtle {
+  background: #2c0a0a !important;
+  color: #ff6b6b !important;
+}
+
+/* Cards en dark mode */
+body.dark-mode .card {
+  background: #1f1f1f;
+  color: #eaeaea;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .card p {
+  color: #aaa !important;
+}
+
+body.dark-mode .card h5 {
+  color: #e0e0e0 !important;
+}
+
+/* Texto en dark mode */
+body.dark-mode .text-muted,
+body.dark-mode .text-gray-600 {
+  color: #aaa !important;
+}
+
+body.dark-mode .text-gray-800 {
+  color: #e0e0e0 !important;
+}
+
+/* Botones en dark mode */
+body.dark-mode .btn-custom {
+  background: linear-gradient(135deg, #ff6b6b, #e74247) !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .btn-custom:hover {
+  background: linear-gradient(135deg, #ff8ba6, #d13338) !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .btn-outline-secondary {
+  border-color: #555 !important;
+  color: #ddd !important;
+}
+
+body.dark-mode .btn-outline-secondary:hover {
+  background: #333 !important;
+  color: #fff !important;
+}
+
+/* Inputs en dark mode */
+body.dark-mode #search,
+body.dark-mode input,
+body.dark-mode textarea {
+  background: #1e1e1e !important;
+  color: #f5f5f5 !important;
+  border: 1px solid #333 !important;
+}
+
+body.dark-mode #search::placeholder,
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #888 !important;
+}
+
+/* Modal en dark mode */
+body.dark-mode .modal-content {
+  background: #1f1f1f !important;
+  color: #eaeaea !important;
+  border: 1px solid #333 !important;
+}
+
+body.dark-mode .modal-header {
+  border-bottom-color: #333 !important;
+}
+
+body.dark-mode .modal-body {
+  color: #eaeaea !important;
+}
+
+body.dark-mode .form-label {
+  color: #ddd !important;
+}
+
+body.dark-mode .form-control {
+  background-color: #1e1e1e !important;
+  border-color: #333 !important;
+  color: #eaeaea !important;
+}
+
+body.dark-mode .form-control:focus {
+  background-color: #1e1e1e !important;
+  border-color: #e74348 !important;
+  color: #eaeaea !important;
+}
+
+/* Categorías en dark mode */
+body.dark-mode .categories {
+  background: #121212 !important;
+}
+
+body.dark-mode .category-card {
+  background: #1f1f1f !important;
+}
+
+
+body.dark-mode .contacto-hero h1 {
+  color: #ffffff !important;
+}
+
+body.dark-mode .contacto-hero p {
+  color: #e0e0e0 !important;
+}
+
+/* Footer en dark mode */
+body.dark-mode footer {
+  background: #121212 !important;
+  color: #aaa !important;
+  border-top: 1px solid #333 !important;
+}
+
+body.dark-mode footer p {
+  color: #aaa !important;
+}
+
+/* Scroll bar en dark mode */
+body.dark-mode::-webkit-scrollbar {
+  width: 12px;
+}
+
+body.dark-mode::-webkit-scrollbar-track {
+  background: #1d1d1d;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 6px;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}

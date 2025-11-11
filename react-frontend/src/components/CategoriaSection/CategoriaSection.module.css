@@ -1,0 +1,223 @@
+.categories {
+  background: #ffffff;
+  padding: 60px 0;
+}
+
+.categoriesTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #e74348;
+  text-align: center;
+}
+
+.categoriesDescription {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1f2937;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.categoriesGrid {
+  display: grid;
+  grid-template-areas:
+    "medicina cuidado vitaminas";
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.medicina {
+  grid-area: medicina;
+}
+
+.cuidado {
+  grid-area: cuidado;
+}
+
+.vitaminas {
+  grid-area: vitaminas;
+}
+
+.categoryCard {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.categoryCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 100%;
+}
+
+.cardBody {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.cardBodyIcon {
+  font-size: 2.5rem;
+  color: #e74348;
+  transition: transform 0.3s ease;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cardBodyIcon:hover {
+  transform: scale(1.1);
+}
+
+.categoryTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0.5rem 0;
+}
+
+.categoryDescription {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+.categoryImg {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 16px 16px 0 0;
+  border-bottom: 3px solid #e74348;
+  transition: transform 0.3s ease;
+}
+
+.categoryCard:hover .categoryImg {
+  transform: scale(1.05);
+}
+
+.btnCustomCategory {
+  background: #e74348;
+  color: #ffffff !important;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+}
+
+.btnCustomCategory:hover {
+  background: #b91c1c;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(185, 28, 28, 0.3);
+  color: #ffffff !important;
+}
+
+.animateFadeIn {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+  animation-delay: var(--animation-delay, 0s);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 991px) {
+  .categoriesGrid {
+    grid-template-areas:
+      "medicina cuidado"
+      "vitaminas vitaminas";
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .vitaminas {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .categoriesGrid {
+    grid-template-areas:
+      "medicina"
+      "cuidado"
+      "vitaminas";
+    grid-template-columns: 1fr;
+    gap: 0px;
+  }
+  .categoryCard {
+    margin-bottom: 20px;
+  }
+  .categoriesTitle {
+    font-size: 1.8rem;
+  }
+  .categoriesDescription {
+    font-size: 1rem;
+  }
+  .categoryImg {
+    height: 180px;
+  }
+  .categoryTitle {
+    font-size: 1.3rem;
+  }
+  .categoryDescription {
+    font-size: 0.9rem;
+  }
+}
+
+/* Dark mode */
+:global(body.dark-mode) .categories {
+  background: #121212;
+}
+
+:global(body.dark-mode) .categoriesTitle {
+  color: #ff6b6b;
+}
+
+:global(body.dark-mode) .categoriesDescription {
+  color: #aaa;
+}
+
+:global(body.dark-mode) .card {
+  background: #1f1f1f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+:global(body.dark-mode) .categoryTitle {
+  color: #e0e0e0;
+}
+
+:global(body.dark-mode) .categoryDescription {
+  color: #aaa;
+}
+
+:global(body.dark-mode) .btnCustomCategory {
+  background: #e74348;
+}
+
+:global(body.dark-mode) .btnCustomCategory:hover {
+  background: #ff6b6b;
+}
