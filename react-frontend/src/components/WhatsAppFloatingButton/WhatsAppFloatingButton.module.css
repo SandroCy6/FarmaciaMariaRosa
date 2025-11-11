@@ -13,14 +13,19 @@
   z-index: 1000;
   transition: all 0.3s ease !important;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .whatsappFloat:hover {
-  text-decoration: none;
-  color: #25d366;
   background-color: #fff;
+  color: #25d366;
+  box-shadow: 2px 2px 6px #999;
+  transform: scale(1.1);
 }
 
-.myFloat {
-  margin-top: 16px;
+.whatsappFloat i {
+  font-size: 28px;
 }
