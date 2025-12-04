@@ -1,0 +1,197 @@
+/* Sidebar y menú offcanvas en modo oscuro */
+body.dark-mode .sidebar,
+body.dark-mode .offcanvas-body {
+  background: #232323 !important;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.25);
+}
+body.dark-mode .sidebar .nav-link,
+body.dark-mode .offcanvas-body .nav-link {
+  color: #ffb3b3;
+}
+body.dark-mode .sidebar .nav-link.active,
+body.dark-mode .sidebar .nav-link:focus,
+body.dark-mode .offcanvas-body .nav-link.active,
+body.dark-mode .offcanvas-body .nav-link:focus {
+  background: #E93D42 !important;
+  color: #fff !important;
+}
+body.dark-mode .sidebar .nav-link:hover,
+body.dark-mode .offcanvas-body .nav-link:hover {
+  background: #3a2323;
+  color: #E93D42;
+}
+body.dark-mode .offcanvas-header {
+  border-bottom: 1px solid #333;
+  background: #232323;
+}
+/* Sidebar visual mejorado */
+.sidebar, .offcanvas-body {
+  background: #f8f9fa;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.07);
+}
+.sidebar .nav-link, .offcanvas-body .nav-link {
+  font-size: 1.1rem;
+  color: #E93D42;
+  background: none;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  font-weight: 450;
+  margin-bottom: 2px;
+}
+.sidebar .nav-link.active, .sidebar .nav-link:focus,
+.offcanvas-body .nav-link.active, .offcanvas-body .nav-link:focus {
+  background: #E93D42 !important;
+  color: #fff !important;
+}
+.sidebar .nav-link:hover, .offcanvas-body .nav-link:hover {
+  background: #ffeaea;
+  color: #E93D42;
+}
+.offcanvas-header {
+  border-bottom: 1px solid #eee;
+}
+/* Sidebar móvil desplegable */
+#adminSidebarNavMobile {
+  transition: left 0.3s, box-shadow 0.3s;
+  left: -100vw;
+}
+#adminSidebarNavMobile:not(.d-none) {
+  left: 0;
+}
+
+@media (max-width: 991.98px) {
+  .admin-sidebar-layout {
+    flex-direction: column;
+  }
+  .sidebar.d-lg-block {
+    display: none !important;
+  }
+  #adminSidebarNavMobile.d-lg-none {
+    display: block !important;
+  }
+  .admin-main-content {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+/* Sidebar de administración */
+.admin-sidebar-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.sidebar {
+  min-width: 200px;
+  max-width: 250px;
+  background: #f8f9fa;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.07);
+  padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+  height: 100%;
+  position: sticky;
+  top: 90px;
+  z-index: 10;
+}
+
+.sidebar .nav-link {
+  font-size: 1.1rem;
+  color: #E93D42;
+  background: none;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.sidebar .nav-link.active, .sidebar .nav-link:focus {
+  background: #E93D42 !important;
+  color: #fff;
+}
+.sidebar .nav-link:hover {
+  background: #ffeaea;
+  color: #E93D42;
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    position: static;
+    min-width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Ajuste para el main al lado del sidebar */
+.admin-main-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+/* admin-style.css - Estilos modernos para la tabla de administración */
+
+.table-admin {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-admin th, .table-admin thead.table-success th, .table-admin thead th {
+  background: #E93D42 !important;
+  color: #fff !important;
+  border: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.table-admin td {
+  background: #fff;
+  color: #222;
+  border: none;
+  font-size: 1rem;
+  vertical-align: middle;
+  transition: background 0.2s;
+}
+
+.table-admin tbody tr:hover {
+  background: #ffeaea;
+}
+
+.table-admin img {
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.table-admin th, .table-admin td {
+  padding: 0.85rem 0.7rem;
+}
+
+.table-admin thead th:first-child {
+  border-top-left-radius: 18px;
+}
+.table-admin thead th:last-child {
+  border-top-right-radius: 18px;
+}
+.table-admin tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 18px;
+}
+.table-admin tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 18px;
+}
+
+/* Modo oscuro */
+body.dark-mode .table-admin {
+  background: #1a1a1a;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
+}
+body.dark-mode .table-admin th {
+  background: #2b2b2b;
+  color: #fff;
+}
+body.dark-mode .table-admin td {
+  background: #232323;
+  color: #f5f5f5;
+}
+body.dark-mode .table-admin img {
+  border: 1px solid #333;
+}

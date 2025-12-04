@@ -1,0 +1,242 @@
+/* Grid de productos destacados en index.html */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .productos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card de productos destacados */
+.productos-destacado-card.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.productos-destacado-card.card:hover {
+  transform: scale(1.05);
+}
+.productos-destacado-card.card img {
+  object-fit: contain;
+  height: 180px;
+}
+.productos-destacado-card .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.productos-destacado-card .mt-auto {
+  margin-top: auto;
+}
+.main-principal {
+  padding-top: 50px;
+}
+
+.titulo-container {
+  margin-bottom: 30px;
+}
+
+.filtros {
+  width: 70%;
+}
+
+.card {
+  border-radius: 15px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  object-fit: contain;
+  height: 180px;
+}
+
+.badge-categoria {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #28a745;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Título con gradiente */
+.titulo-gradiente {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #EC3237, #bc1018);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hacer los botones de categorías más grandes */
+.btn-lg {
+  font-size: 1.1rem;
+  padding: 10px 22px;
+}
+
+/* Input de búsqueda */
+#searchInput {
+  border-radius: 30px;
+  padding: 12px 20px 12px 45px;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 500px;
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23999" viewBox="0 0 24 24"><path d="M10,2A8,8 0 0,1 18,10C18,11.85 17.35,13.55 16.24,14.89L21.31,19.95L19.9,21.36L14.83,16.3C13.5,17.41 11.85,18 10,18A8,8 0 0,1 2,10A8,8 0 0,1 10,2M10,4A6,6 0 0,0 4,10A6,6 0 0,0 10,16A6,6 0 0,0 16,10A6,6 0 0,0 10,4Z" /></svg>') no-repeat 15px center;
+  background-size: 20px;
+}
+
+#searchInput:focus {
+  border-color: #EC3237;
+  box-shadow: 0 0 8px rgba(236, 50, 55, 0.4);
+  outline: none;
+}
+
+#categoryFilter {
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 2px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+#categoryFilter:focus {
+  border-color: #ec3237;
+  box-shadow: 0 0 8px rgba(236, 50, 55, 0.4);
+}
+
+
+/* MEJORAS PARA EL RESPONSIVE */
+/* Mejoras de paginación responsive */
+#pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+#pagination .btn {
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* En móviles, ocultar texto en botones de navegación */
+@media (max-width: 576px) {
+  #pagination .btn {
+    padding: 0.375rem;
+    font-size: 0.875rem;
+  }
+
+  #pagination .btn:not(.btn-sm) {
+    min-width: auto;
+  }
+
+  /* Acortar texto en botones de navegación */
+  #pagination .btn:contains("Anterior"),
+  #pagination .btn:contains("Siguiente") {
+    display: none;
+  }
+
+  #pagination .btn:contains("««")::after {
+    content: "Primera";
+  }
+
+  #pagination .btn:contains("»»")::after {
+    content: "Última";
+  }
+}
+
+/* Estado hover para botones */
+#pagination .btn {
+  transition: all ease 0.3s;
+}
+
+#pagination .btn:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Mejorar visibilidad del estado activo */
+#pagination .btn-danger {
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.5);
+}
+
+/* Puntos suspensivos */
+#pagination .mx-2 {
+  line-height: 40px;
+}
+
+/* Grid de productos responsive */
+#products-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+/* Tablet: 2 columnas */
+@media (min-width: 768px) {
+  #products-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 3 columnas */
+@media (min-width: 992px) {
+  #products-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Ajustes para las cards en grid */
+#products-container .col-md-4 {
+  width: 100%;
+  margin-bottom: 0; /* El gap del grid ya maneja el espaciado */
+}
+
+/* Asegurar que las cards ocupen todo el espacio disponible */
+#products-container .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#products-container .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#products-container .mt-auto {
+  margin-top: auto;
+}
